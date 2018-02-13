@@ -1,0 +1,160 @@
+html {
+  position: relative;
+  min-height: 100%;
+  overflow-y: scroll; 
+}
+body {
+  margin-bottom: 60px;
+  padding-top: 70px;
+  font-family: sans-serif;
+/*background-color: gold yellowgreen cornflowerblue;+*/
+}
+/*bodybackground*/
+.bb {
+    background: linear-gradient(
+    to right, 
+    #000000 0%, 
+    #FFFFFF 25%,
+    #FFFFFF 25%,
+    #FFFFFF 75%,
+    #FFFFFF 75%, 
+    #000000 100%
+  );
+    opacity: 0.4;
+    position: absolute;
+    padding:0;
+    margin:0;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+
+.navbar-fixed-bottom {
+    min-height: 20px;
+    max-height: 20px;
+}
+.navbar-brand-bottom {
+    line-height: 20px;
+    height: 20px;
+    padding-top: 0;
+}
+
+.navbar-brand-bottom a {
+    font-size: 10px !important;
+}
+
+.navbar-fixed-bottom .navbar-nav li a {
+    line-height: 20px;
+    height: 20px;
+    padding-top: 0;
+    font-size: 10px;
+}
+
+.navbar-fixed-top {
+    background-image: url("mayer.png");
+    background-repeat: no-repeat;
+    background-size: contain   ;
+    background-position: left top;
+    
+}
+
+.navbar-fixed-bottom {
+    background-image: url("mayer.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: right top;
+
+    
+}
+
+.jumbotron {
+    position: relative;
+     font-family: sans-serif;
+    
+}
+
+.jumbotron::after {
+     content: "";
+/*   background-image: url("mayer.png");*/
+    background-repeat: no-repeat;
+    background-color: white;
+    background-size: 20%;
+    background-position: center ;
+      opacity: 0.23;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: 0;
+    }
+
+p { margin: 0;
+    padding: 0;}
+
+
+@include media-breakpoint-up(sm) {
+  .hide {
+    display: none;
+  }
+}
+
+.box {
+    margin-right: 0;
+    margin-left: 0;
+    background-color: #fff;
+    border-color: #ddd;
+    border-width: 1px;
+    border-radius: 4px 4px 0 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    position: relative;
+    padding: 45px 15px 15px;
+    margin: 0 0px 15px;
+    width: 100%;
+    border-style: solid;
+}
+
+.box::after {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #959595;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    content: "Kontaktformular";
+    box-sizing: border-box;
+}
+.boxbottom {
+    margin-top: -16px;
+    margin-right: 0;
+    margin-left: 0;
+    border-width: 1px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    padding: 9px 14px;
+    margin-bottom: 14px;
+    background-color: #f7f7f9;
+    border: 1px solid #e1e1e8;
+    box-sizing: border-box;
+    display: block;
+    position: relative;
+}
+
+@media only screen and (max-width: 800px)  {
+  .navbar-fixed-top {
+    background-image: none;
+  }
+}
+
+
+.sent {
+display: none;
+}
+
+    
