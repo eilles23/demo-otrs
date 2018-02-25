@@ -2,6 +2,9 @@
 <html lang="de">
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Facebook Link Preview -->
     <meta property="og:url"           content="http://www.0ne.world" />
@@ -18,8 +21,8 @@
 <link href="mystyle.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Bungee+Shade" rel="stylesheet"> 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="./jquery-3.3.1.min.js"></script>
+    <script src="./bootstrap-3.3.7.min.js"></script>
 </head>
 
 
@@ -38,7 +41,8 @@
         <li class="active"><a href="/">Kontakt</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="login.html"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Mein Mayer</a></li>
+        <li><a href="login.html"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Sign In</a></li>
+        <li><a href="register.html"><span aria-hidden="true"></span> Sign Up</a></li>
       </ul>
     </div><!--/.nav-collapse -->
   </div>
@@ -74,35 +78,55 @@
         <div class="row">
             <div class="jumbotron text-center">
               <p style="font-size: 2.3em;">Willkommen</p>
-                 <p>Heute ist ... </p>
+                 <p>Heute ist ...  </p>
             </div>
         </div>
 
-        <div class="row">
+<!--<div class="row">
+Click on <input type="button" name="request" id="request" value="Reuqest Webservice"/> to run your first Perl script. 
+</div>-->
 
-<div class="col-lg-12 text-right">
-              <div class="box" id="contactbox" > 
-              <form action="http://localhost/otrs/customer.pl" method="post" enctype="application/x-www-form-urlencoded" name="login"> 
-<input type="text" class="form-control" placeholder="Name">
-</br>
-<textarea class="form-control" rows="3" placeholder="Nachricht"></textarea> </form> </div>
-<div class="boxbottom" id="contactboxbottom"><button id="send" class="btn btn-primary btn-lg active">Send</button></div>
-</div>
-</br>
-<div class="box sent" id="sent">Vielen Dank für Ihre Nachricht, wir werden uns so schnell wie möglich zurückmelden! <a href="/">(Falls sie nicht automisch zurückgeleitet werden hier klicken...)</a></div>
+<div class="row">
 
-        </div>
-</div>
+    <div class="col-lg-6 col-lg-offset-3 text-right">
+      <form enctype="multipart/form-data" >
+      <div class="box" id="contactbox" > 
+        <input type="text" name="name" class="form-control" placeholder="Name">
+        </br>
+        <textarea class="form-control" rows="3" placeholder="Nachricht" name="body"></textarea>
+      </div>
+      <div class="boxbottom" id="contactboxbottom"><input type="button" id="sendd" class="btn btn-primary btn-lg active" value="submit"></input></div> </form>   
+    </div><!--  end of col  -->
+
+</br>
+
+      <div class="box sent" id="sent">Vielen Dank für Ihre Nachricht, wir werden uns so schnell wie möglich zurückmelden! <a href="/">(Falls sie nicht automisch zurückgeleitet werden hier klicken...)</a></div><!--  end sent box ! -->
+
+    </div><!-- end of row  -->
+</div><!--  END OF CONTAINER  -->
+
 <script type="text/javascript">
 $(document).ready(function () {
-    $("#send").click(function () {
-        $("#contactbox").toggle();
-        $("#contactboxbottom").toggle();
-        $("#sent").toggle();
-        setTimeout(function() {  window.location.href = "/";}, 2000);    });
+    $("#sendd").click(function () {
+        var formData = {
+            'name' : $('input[name=name]').val(),
+            'body' : $('textarea[name=body]').val(),
+        };
+
+        $.ajax({
+                type: "POST",
+                url: 'http://localhost/otrs/contact.pl',
+                data: formData,
+                success: function() {
+                            $("#contactbox").hide();
+                            $("#contactboxbottom").hide();
+                            $("#sent").show();
+                    }
+        });
+        setTimeout(function() {  window.location.href = "/";}, 2000);
+    });
+
 });
-
-
 </script>
 
 
