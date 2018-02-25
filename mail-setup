@@ -1,5 +1,0 @@
-#!/bin/bash
-
-docker exec -it mail-server /opt/bin/newdomain firma.de 
-docker exec -it mail-server /opt/bin/useradd agent@firma.de otrs
-docker exec -it mail-server /opt/bin/useradd admin@firma.de otrs
