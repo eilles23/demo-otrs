@@ -1,0 +1,14 @@
+#!/bin/bash
+
+./docker-install
+./mail-setup
+sudo docker-compose up
+./otrs-setup
+./web-setup
+#./load config: scenario 1
+
+
+
+
+
+
