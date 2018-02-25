@@ -28,6 +28,7 @@ services:
     - /tmp/.X11-unix:/tmp/.X11-unix
     - ./mailbox:/home/developer
   otrs:
+    container_name: demootrs_otrs
     image: juanluisbaptiste/otrs:latest
     ports:
     - "80:80"
