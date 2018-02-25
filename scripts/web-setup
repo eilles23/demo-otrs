@@ -1,5 +1,0 @@
-#!/bin/bash
-docker exec -it ${PWD##*/}_otrs_1 sed -i 's/index.pl//' /etc/httpd/conf/httpd.conf
-cp ../web/. ${PWD##*/}_otrs_1:/var/www/html/
-docker exec -it ${PWD##*/}_otrs_1 supervisorctl restart httpd
-
