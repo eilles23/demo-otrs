@@ -3,7 +3,6 @@ version: '2'
 services:
   mail:
     image: itslab/mailserver:latest
-    container_name: mailserver2
     hostname: firma.de
     ports:
     - "25:25"
@@ -19,13 +18,13 @@ services:
     - default
 
   mailclient:
-    image: itslab/sylpheed:alpha
-    container_name: sylpheed
+    image: itslab/sylpheed:centos
     environment:
     - DISPLAY=$DISPLAY
     - G_FILENAME_ENCODING=@locale
     volumes:
     - /tmp/.X11-unix:/tmp/.X11-unix
+    - ./mailbox:/home/developer
   otrs:
     image: juanluisbaptiste/otrs:latest
     ports:
@@ -66,7 +65,7 @@ services:
     image: juanluisbaptiste/otrs:latest
     volumes:
     - ./volumes/config:/opt/otrs/Kernel
-    - "./otrs/backup:/var/otrs/backups"
+    - "./volumes/backup:/var/otrs/backups"
     - "/etc/localtime:/etc/localtime:ro"
     command: /bin/true
 
