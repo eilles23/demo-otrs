@@ -11,14 +11,14 @@ cp -R ../console/Custom ./volumes/config/System/Console/Command/
 #ITSM
 LATEST=$(curl -s4 ftp://ftp.otrs.org/pub/otrs/itsm/bundle6/ | grep -Eo 'ITSM-[0-9].[0-9].[0-9]+' | tr "[:blank:]" "\n" | sort -V | tail -n 1)
 MYWGET="curl -o \"$LATEST.opm\" \"ftp://ftp.otrs.org/pub/otrs/itsm/bundle6/$LATEST.opm\""
-docker exec -it ido-otrs su - otrs -c "`echo $MYWGET`"
-docker exec -it ido-otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Package::Install ./ITSM-*'
+docker exec -it ${PWD##*/}_otrs_1 su - otrs -c "`echo $MYWGET`"
+docker exec -it ${PWD##*/}_otrs_1 su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Package::Install ./ITSM-*'
 
 #FAQ
 LATEST=$(curl -s4 ftp://ftp.otrs.org/pub/otrs/packages/ | grep -Eo 'FAQ-[0-9].[0-9].[0-9]+' | tr "[:blank:]" "\n" | sort -V | tail -n 1)
 MYWGET="curl -o \"$LATEST.opm\" \"ftp://ftp.otrs.org/pub/otrs/packages/$LATEST.opm\""
-docker exec -it ido-otrs su - otrs -c "`echo $MYWGET`"
-docker exec -it ido-otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Package::Install ./FAQ-*'
+docker exec -it ${PWD##*/}_otrs_1 su - otrs -c "`echo $MYWGET`"
+docker exec -it ${PWD##*/}_otrs_1 su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Package::Install ./FAQ-*'
 
 #create faqs !
 
@@ -29,14 +29,14 @@ docker exec -it ido-otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin:
 ##
 echo "creating otrs admin "
 
-docker exec -it ido-otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "admin" --first-name OTRS --last-name Admin --email-address "admin@localhost" --password "otrs"'
+docker exec -it ${PWD##*/}_otrs_1 su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "admin" --first-name OTRS --last-name Admin --email-address "admin@localhost" --password "otrs"'
 
-docker exec -it ido-otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name "admin" --user-name "admin" --permission "rw"'
-docker exec -it ido-otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name "users" --user-name "admin" --permission "rw"'
-docker exec -it ido-otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name "stats" --user-name "admin" --permission "rw"'
-docker exec -it ido-otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name "faq" --user-name "admin" --permission "rw"'
-docker exec -it ido-otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name "faq_admin" --user-name "admin" --permission "rw"'
-docker exec -it ido-otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name "faq_approval" --user-name "admin" --permission "rw"'
+docker exec -it ${PWD##*/}_otrs_1 su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name "admin" --user-name "admin" --permission "rw"'
+docker exec -it ${PWD##*/}_otrs_1 su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name "users" --user-name "admin" --permission "rw"'
+docker exec -it ${PWD##*/}_otrs_1 su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name "stats" --user-name "admin" --permission "rw"'
+docker exec -it ${PWD##*/}_otrs_1 su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name "faq" --user-name "admin" --permission "rw"'
+docker exec -it ${PWD##*/}_otrs_1 su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name "faq_admin" --user-name "admin" --permission "rw"'
+docker exec -it ${PWD##*/}_otrs_1 su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name "faq_approval" --user-name "admin" --permission "rw"'
 
 
 
