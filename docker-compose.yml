@@ -3,6 +3,7 @@ version: '2'
 services:
   mail:
     image: itslab/mailserver:latest
+    container_name: demootrs_mail
     hostname: firma.de
     ports:
     - "25:25"
@@ -18,6 +19,7 @@ services:
     - default
 
   mailclient:
+    container_name: demootrs_mailclient
     image: itslab/sylpheed:centos
     environment:
     - DISPLAY=$DISPLAY
@@ -47,6 +49,7 @@ services:
      OTRS_DB_PASSWORD: changeme
 
   mariadb:
+    container_name: demootrs_mariadb
     image: juanluisbaptiste/otrs-mariadb:latest
     expose:
     - "3306"
@@ -56,12 +59,14 @@ services:
     environment:
      MYSQL_ROOT_PASSWORD: changeme
   data:
+    container_name: demootrs_data
     image: centos/mariadb:latest
     volumes:
     - mysqldata:/var/lib/mysql
     - "/etc/localtime:/etc/localtime:ro"
     command: /bin/true
   data-otrs:
+    container_name: demootrs_data-otrs   
     image: juanluisbaptiste/otrs:latest
     volumes:
     - ./volumes/config:/opt/otrs/Kernel
