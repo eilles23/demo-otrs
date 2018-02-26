@@ -5,11 +5,11 @@
 #sudo docker-compose up
 #./mail-setup
 
-su - itsadmin -c "docker exec -it demootrs_mail /opt/bin/newdomain firma.de"
-su - itsadmin -c "docker exec -it demootrs_mail /opt/bin/newdomain priv.at" 
-su - itsadmin -c "docker exec -it demootrs_mail /opt/bin/useradd agent@firma.de otrs" 
-su - itsadmin -c "docker exec -it demootrs_mail /opt/bin/useradd support@firma.de otrs"
-su - itsadmin -c "docker exec -it demootrs_mail /opt/bin/useradd kun.de@priv.at otrs"
+su - itsadmin -c "docker exec -it demootrs_mail add-domain firma.de"
+su - itsadmin -c "docker exec -it demootrs_mail add-domain priv.at" 
+su - itsadmin -c "docker exec -it demootrs_mail add-account agent@firma.de otrs" 
+su - itsadmin -c "docker exec -it demootrs_mail add-account support@firma.de otrs"
+su - itsadmin -c "docker exec -it demootrs_mail add-account kun.de@priv.at otrs"
 #mkdir mailbox
 #mv mailbox
 #su - itsadmin -c "cp -R `pwd`/mailbox ./volumes/"
