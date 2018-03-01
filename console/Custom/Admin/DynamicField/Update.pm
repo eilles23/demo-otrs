@@ -7,38 +7,61 @@ package Kernel::System::Console::Command::Custom::Admin::DynamicField::Update;
 use strict;
 use warnings;
 use YAML qw(LoadFile);
+use Data::Dumper;
 
 use base qw(Kernel::System::Console::BaseCommand);
 
 our @ObjectDependencies = (
-    'Kernel::System::ACL::DB::ACL',
+    'Kernel::System::DynamicField',
 );
 
 sub Configure {
     my ( $Self, %Param ) = @_;
 
-    $Self->Description('Add a new ACL.');
+    $Self->Description('Add a new DynamicField.');
+    $Self->AddOption(
+        Name        => 'name',
+        Description => "Name of the DynamicField",
+        Required    => 0,
+        HasValue    => 1,
+        ValueRegex  => qr/.*/smx,
+    );
+    $Self->AddOption(
+        Name        => 'label',
+        Description => "Label",
+        Required    => 1,
+        HasValue    => 1,
+        ValueRegex  => qr/.*/smx,
+    );
+    $Self->AddOption(
+        Name        => 'type',
+        Description => "Field type",
+        Required    => 0,
+        HasValue    => 1,
+        ValueRegex  => qr/.*/smx,
+    );
+    $Self->AddOption(
+        Name        => 'object-type',
+        Description => "Object type",
+        Required    => 0,
+        HasValue    => 1,
+        ValueRegex  => qr/.*/smx,
+    );
     $Self->AddOption(
         Name        => 'file',
-        Description => "Filename of the ACL yaml file.",
+        Description => "Name of the DynamicField config yaml file",
         Required    => 1,
         HasValue    => 1,
         ValueRegex  => qr/.*/smx,
     );
     $Self->AddOption(
         Name        => 'path',
-        Description => "Path to the ACL yaml file.",
+        Description => "Path to the DynamicField config yaml file",
         Required    => 0,
         HasValue    => 1,
         ValueRegex  => qr/.*/smx,
     );
-    $Self->AddOption(
-        Name        => 'overwrite',
-        Description => "OverwriteExistingEntities (0 | 1)",
-        Required    => 0,
-        HasValue    => 1,
-        ValueRegex  => qr/.*/smx,
-    );
+
     # $Self->AddArgument(
     #     Name        => 'argument',
     #     Description => "Describe this argument.",
@@ -65,55 +88,60 @@ sub Configure {
 sub Run {
     my ( $Self, %Param ) = @_;
 
-    $Self->Print("<yellow>Updating ACL...</yellow>\n");
-    
-my $ACLObject = $Kernel::OM->Get('Kernel::System::ACL::DB::ACL');
-    my $file;
+    $Self->Print("<yellow>Adding new DynamicField...</yellow>\n");
+    my $file = $Self->GetOption('file');
+    my $type = $file =~ s/(DF_)(.+)(_.+)(\.yml)/$2/r;
+    my $name = $file =~ s/(DF_)(.+_)(.+)(\.yml)/$3/r;
+
     if (!$Self->GetOption('path'))
     { 
-        $file = join "", "/opt/otrs/Kernel/System/Console/Command/Custom/Admin/ACL/", $Self->GetOption('file'); 
+        $file = join "", "/opt/otrs/Kernel/System/Console/Command/Custom/Admin/DynamicField/yml", $Self->GetOption('file'); 
     }
     else
     {
         $file = join "/", $Self->GetOption('path'), $Self->GetOption('file');
     }
-    my $yaml;
-    {
-      local $/; #Enable 'slurp' mode
-      open my $fh, "<", $file;
-      $yaml = <$fh>;
-      close $fh;
-    }
-#   my $ACL = LoadFile($yaml);
-#   my $ConfigChange = $ACL->[0]->{'ConfigChange'};
-#   my $ConfigMatch = $ACL->[0]->{'ConfigMatch'};
+    my $DynamicFieldObject = $Kernel::OM->Get('Kernel::System::DynamicField');
+    my $yaml = loadyaml($file);
+    my $YAMLObject = $Kernel::OM->Get('Kernel::System::YAML');
+    my $ConfigHashRef = $YAMLObject->Load(
+        Data => $yaml,
+    );
+    my $List = $DynamicFieldObject->DynamicFieldList();
+    my $FieldOrder = $#$List+2;
+
     if (
-#        !$ACLObject->ACLUpdate(
-#        ID             => $Self->GetOption('ID'),
-#        Name           => $Self->GetOption('name'),           # mandatory
-#        Comment        => $Self->GetOption('comment'),            # optional
-#        Description    => $Self->GetOption('description'),        # optional
-#        StopAfterMatch => $Self->GetOption('stop-after-match'),   # optional
-#        ConfigMatch    => $ConfigMatch,  # optional
-#        ConfigChange   => $ConfigChange, # optional
-#        ValidID        => $Self->GetOption('valid'),                    # mandatory
-#        UserID         => 1,                  # mandatory
-#        )
-#        my $ret =
-         !$ACLObject->ACLImport(
-         Content                   => $yaml, # mandatory, YAML format
-         OverwriteExistingEntities => $Self->GetOption('overwrite') // 1,
-         UserID                    => 1,            # mandatory
-         )
-       )
-    {
-        $Self->PrintError("Can't update ACL.");
-        return $Self->ExitCodeError();
-    }
-#   print Dumper($ret);
-#   print $yaml;
+       !$DynamicFieldObject->DynamicFieldAdd(
+        InternalField => 0,             # optional, 0 or 1, internal fields are protected
+        Name        => $Self->GetOption('name') || $name,  # mandatory
+        Label       => $Self->GetOption('label'), # mandatory, label to show
+        FieldOrder  => $FieldOrder,             # mandatory, display order
+        FieldType   => $Self->GetOption('type') || $type,          # mandatory, selects the DF backend to use for this field
+        ObjectType  => $Self->GetOption('object-type') || 'Ticket',       # this controls which object the dynamic field links to
+                                        # allow only lowercase letters
+        Config      => $ConfigHashRef,  # it is stored on YAML format
+                                        # to individual articles, otherwise to tickets
+        Reorder     => 1,               # or 0, to trigger reorder function, default 1
+        ValidID     => 1,
+        UserID      => 1,
+        )
+      )
+        {
+            $Self->PrintError("Can't add DynamicField.");
+            return $Self->ExitCodeError();
+        }
+    #print Dumper($ret);
+    #print $yaml;
     $Self->Print("<green>Done.</green>\n");
     return $Self->ExitCodeOk();
+}
+sub loadyaml {
+    my $file = shift;
+    open my $fh, '<', $file or die "Could not open YAML config file $file/!";
+    local $/ = undef;
+    my $cont = <$fh>;
+    close $fh;
+    return $cont;
 }
 
 # sub PostRun {

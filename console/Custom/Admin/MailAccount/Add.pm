@@ -20,43 +20,43 @@ sub Configure {
     $Self->Description('Add a new PostMaster Mail Account');
     $Self->AddOption(
         Name        => 'login',
-        Description => "Email address which should be used for the new system address.",
+        Description => "login name of mail user",
         Required    => 1,
         HasValue    => 1,
         ValueRegex  => qr/.*/smx,
     );
     $Self->AddOption(
         Name        => 'password',
-        Description => "Email address which should be used for the new system address.",
+        Description => "password for mail user",
         Required    => 1,
         HasValue    => 1,
         ValueRegex  => qr/.*/smx,
     );
     $Self->AddOption(
         Name        => 'host',
-        Description => "Email address which should be used for the new system address.",
+        Description => "e.g.: mail.example.com",
         Required    => 1,
         HasValue    => 1,
         ValueRegex  => qr/.*/smx,
     );
     $Self->AddOption(
         Name        => 'type',
-        Description => "Email address which should be used for the new system address.",
+        Description => "IMAP,IMAPS,IMAPTLS,POP3,POP3S",
         Required    => 1,
         HasValue    => 1,
         ValueRegex  => qr/.*/smx,
     );
     $Self->AddOption(
         Name        => 'IMAPFolder',
-        Description => "Email address which should be used for the new system address.",
-        Required    => 1,
+        Description => "Only if you want to use any other folder than INBOX",
+        Required    => 0,
         HasValue    => 1,
         ValueRegex  => qr/.*/smx,
     );
     $Self->AddOption(
         Name        => 'valid',
         Description => "Email address which should be used for the new system address.",
-        Required    => 1,
+        Required    => 0,
         HasValue    => 1,
         ValueRegex  => qr/.*/smx,
     );
@@ -76,13 +76,6 @@ sub Configure {
     );
     $Self->AddOption(
         Name        => 'queueID',
-        Description => "Email address which should be used for the new system address.",
-        Required    => 1,
-        HasValue    => 1,
-        ValueRegex  => qr/.*/smx,
-    );
-    $Self->AddOption(
-        Name        => 'userID',
         Description => "Email address which should be used for the new system address.",
         Required    => 1,
         HasValue    => 1,
@@ -117,9 +110,9 @@ sub Run {
             Password  => $Self->GetOption('password'),
             Host  => $Self->GetOption('host'),
             Type => $Self->GetOption('type'),
-            ValidID     => $Self->GetOption('valid'),
+            ValidID     => $Self->GetOption('valid') || 1,
             QueueID     => $Self->GetOption('queueID'),
-            IMAPFolder     => $Self->GetOption('IMAPFolder'),
+            IMAPFolder     => $Self->GetOption('IMAPFolder') || 'INBOX',
             Trusted     => $Self->GetOption('trusted'),
             DispatchingBy     => $Self->GetOption('dispatchingby'),
             UserID            => 1,

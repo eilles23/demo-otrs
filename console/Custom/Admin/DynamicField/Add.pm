@@ -95,7 +95,7 @@ sub Run {
 
     if (!$Self->GetOption('path'))
     { 
-        $file = join "", "/opt/otrs/Kernel/System/Console/Command/Custom/Admin/DynamicField/myFields", $Self->GetOption('file'); 
+        $file = join "", "/opt/otrs/Kernel/System/Console/Command/Custom/Admin/DynamicField/yml", $Self->GetOption('file'); 
     }
     else
     {
