@@ -2,7 +2,7 @@
 # Copyright (C) 2018 FH Aachen
 # --
 
-package Kernel::System::Console::Command::Custom::Admin::ACL::Update;
+package Kernel::System::Console::Command::Custom::Admin::DynamicField::Update;
 
 use strict;
 use warnings;

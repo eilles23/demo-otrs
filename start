@@ -1,10 +1,10 @@
 #!/bin/bash
-#newgrp docker
+
 #cd scripts 
 #./docker-install
 #sudo docker-compose up
-#./mail-setup
 
+#./mail-setup
 sudo docker exec -it demootrs_mail add-domain firma.de
 sudo docker exec -it demootrs_mail add-domain priv.at 
 sudo docker exec -it demootrs_mail add-account agent@firma.de otrs 
@@ -15,17 +15,25 @@ sudo docker exec -it demootrs_mail add-account kun.de@priv.at otrs
 #sudo "cp -R `pwd`/mailbox ./volumes/"
 
 #./web-setup
+#add otrs to /httpd like otrs.firma.de
+sudo docker exec -it demoots_otrs su - root sed -i /127.0.0.1/a 127.0.0.1   mail.firma.de/ /etc/hosts
 sudo docker exec -it demootrs_otrs  sed -i 's/index.pl//' /etc/httpd/conf/httpd.conf
 sudo docker cp `pwd`/web/. demootrs_otrs:/var/www/html/
-sudo docker exec -it demootrs_otrs  supervisorctl restart httpd
+sudo docker cp ./console/register.pl demootrs_otrs:/opt/otrs/bin/cgi-bin/
+sudo docker cp ./console/contact.pl demootrs_otrs:/opt/otrs/bin/cgi-bin/
+sudo docker exec -it demootrs_otrs cp /etc/hosts /tmp/tmp.hosts
+sudo sed -i '$ a 127.0.0.1 firma.de' /etc/hosts
+sudo sed -i '$ a 127.0.0.1 mail.firma.de' /etc/hosts
+#sudo docker exec -it demootrs_otrs sed -i '$ a 127.0.0.1 firma.de' /tmp/tmp.hosts
+#sudo docker exec -it demootrs_otrs sed -i '$ a 127.0.0.1 mail.firma.de' /tmp/tmp.hosts
+#sudo docker exec -it demootrs_otrs cp -f /tmp/tmp.hosts /etc/hosts
 
 #./otrs-setup
-##
 #copy /Kernel/System/Console/Command/Custom
 cp -R ./console/Custom ./volumes/config/System/Console/Command/
+#./load config: scenario 1
+cp ./config/s1/Config.pm ./volumes/config/
 
-
-##
 #check mysqld config at /etc/my.cnf in demootrs_mariadb
 if sudo docker exec -it demootrs_mariadb grep -q max_allowed_packet=20M /etc/my.cnf; then
   sudo docker exec -it demootrs_mariadb mysql -u root --password="changeme" -e "SET GLOBAL max_allowed_packet=67108864;"
@@ -33,7 +41,8 @@ if sudo docker exec -it demootrs_mariadb grep -q max_allowed_packet=20M /etc/my.
   echo "set global variable 'max_allowed_packet'"
   sudo docker exec -it demootrs_mariadb mysql -u otrs --password="changeme" -e "SHOW VARIABLES LIKE 'max_allowed_packet';"
 fi
-##
+sudo docker exec -it demootrs_otrs  supervisorctl restart httpd
+
 #install additional packages
 #curl -o ftp://ftp.otrs.org/pub/otrs/itsm/bundle6/
 #ITSM
@@ -47,16 +56,20 @@ LATEST=$(curl -s4 ftp://ftp.otrs.org/pub/otrs/packages/ | grep -Eo 'FAQ-[0-9].[0
 MYWGET="curl -o \"$LATEST.opm\" \"ftp://ftp.otrs.org/pub/otrs/packages/$LATEST.opm\""
 sudo docker exec -it demootrs_otrs  su - otrs -c "`echo $MYWGET`"
 sudo docker exec -it demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Package::Install ./FAQ-*'
-
 #create faqs !
 
-#create webservices !
+#Add PostMaster-MailAccount
+sudo docker exec -it demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::MailAccount::Add --login support@firma.de --password otrs --host mail.firma.de --type IMAP --valid 1 --IMAPFolder INBOX --trusted yes --dispatchingby Queue --queueID 1 '
 
-#copy config.pm !
+#update systemaddress
+sudo docker exec -it demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::SystemAddress::Update --valid 1 --ID 1 --name "Mayer GmbH Support" --email-address support@firma.de --queue-name Raw'
+#link autoresponse 'default reply' to queue 'Raw'
+sudo docker exec -it demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID 1 --queue-name Raw'
 
-##
+
+## add users
 echo "creating otrs admin "
-sudo docker exec -it demootrs_otrs  su otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "admin" --first-name OTRS --last-name Admin --email-address "admin@localhost" --password "otrs"'
+sudo docker exec -it demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "admin" --first-name OTRS --last-name Admin --email-address "admin@localhost" --password "otrs"'
 sudo docker exec -it demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name "admin" --user-name "admin" --permission "rw"'
 sudo docker exec -it demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name "users" --user-name "admin" --permission "rw"'
 sudo docker exec -it demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name "stats" --user-name "admin" --permission "rw"'
@@ -66,8 +79,23 @@ sudo docker exec -it demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Consol
 #sudo docker exec -it demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name "faq_approval" --user-name "admin" --permission "rw"'
 
 
+#create new agent
+echo "Creating new agent: " 
+sudo -u otrs perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "Mitarbeiter Firma" --first-name Mitar --last-name Beiter --email-address agent'@firma.org' --password 'otrs'
+#Create group & connect to agent
+#sudo -u otrs perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name 'agents'
+#sudo -u otrs perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name 'agents' --user-name 'Mitarbeiter Firma' --permission 'rw'
 
-#./load config: scenario 1
+
+#create new customer
+sudo -u otrs perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerCompany::Add --name "Kunden" --customer-id "100"
+echo "Creating new customer user: "
+sudo -u otrs perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "Kunden Admin" --first-name Admin --last-name Kunde --email-address admin'@firma.de' --password 'otrs' --customer-id '100'
+#connect customer user to group
+#sudo -u otrs perl /opt/otrs/bin/otrs.Console.pl Admin::Group::CustomerLink --customer-user-login 'Mitarbeiter Firma' --group-name 'customerX' --permission 'ro,create'
+#sudo -u otrs perl /opt/otrs/bin/otrs.Console.pl Admin::Group::CustomerLink --customer-user-login 'kunde1' --group-name 'faq' --permission 'ro'
+
+
 
 
 

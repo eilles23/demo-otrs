@@ -91,7 +91,9 @@ Click on <input type="button" name="request" id="request" value="Reuqest Webserv
     <div class="col-lg-6 col-lg-offset-3 text-right">
       <form enctype="multipart/form-data" >
       <div class="box" id="contactbox" > 
-        <input type="text" name="name" class="form-control" placeholder="Name">
+        <input type="text" name="name" class="form-control" placeholder="Name/Subject/">
+        </br>
+        <input type="text" name="email" class="form-control" placeholder="E-Mail/">
         </br>
         <textarea class="form-control" rows="3" placeholder="Nachricht" name="body"></textarea>
       </div>
@@ -110,17 +112,18 @@ $(document).ready(function () {
     $("#sendd").click(function () {
         var formData = {
             'name' : $('input[name=name]').val(),
+            'email' : $('input[name=email]').val(),
             'body' : $('textarea[name=body]').val(),
         };
-
+                            $("#contactbox").hide();
+                            $("#contactboxbottom").hide();
+                            $("#sent").show();
         $.ajax({
                 type: "POST",
                 url: 'http://localhost/otrs/contact.pl',
                 data: formData,
                 success: function() {
-                            $("#contactbox").hide();
-                            $("#contactboxbottom").hide();
-                            $("#sent").show();
+
                     }
         });
         setTimeout(function() {  window.location.href = "/";}, 2000);
