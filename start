@@ -81,19 +81,26 @@ sudo docker exec -it demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Consol
 
 #create new agent
 echo "Creating new agent: " 
-sudo -u otrs perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "Mitarbeiter Firma" --first-name Mitar --last-name Beiter --email-address agent'@firma.org' --password 'otrs'
+sudo docker exec -it demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent@firma.de" --first-name Mitar --last-name Beiter --email-address "agent@firma.de" --password "otrs"'
 #Create group & connect to agent
 #sudo -u otrs perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name 'agents'
 #sudo -u otrs perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name 'agents' --user-name 'Mitarbeiter Firma' --permission 'rw'
 
 
 #create new customer
-sudo -u otrs perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerCompany::Add --name "Kunden" --customer-id "100"
-echo "Creating new customer user: "
-sudo -u otrs perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "Kunden Admin" --first-name Admin --last-name Kunde --email-address admin'@firma.de' --password 'otrs' --customer-id '100'
+echo "Creating new default customer: "
+sudo docker exec -it demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerCompany::Add --name "Kunden" --customer-id "100"'
+echo "Creating new admin customer user: "
+sudo docker exec -it demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "admin@priv.at" --first-name Admin --last-name Kunde --email-address "admin@firma.de" --password "otrs" --customer-id "100"'
 #connect customer user to group
 #sudo -u otrs perl /opt/otrs/bin/otrs.Console.pl Admin::Group::CustomerLink --customer-user-login 'Mitarbeiter Firma' --group-name 'customerX' --permission 'ro,create'
 #sudo -u otrs perl /opt/otrs/bin/otrs.Console.pl Admin::Group::CustomerLink --customer-user-login 'kunde1' --group-name 'faq' --permission 'ro'
+
+#update ticket types (1=valid 2=invalid)
+sudo docker exec -it demootrs_otrs  su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::TicketType::Update --name Incident --ID 2 --valid "2"'
+sudo docker exec -it demootrs_otrs  su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::TicketType::Update --name "Incident Major" --ID 3 --valid "2"'
+sudo docker exec -it demootrs_otrs  su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::TicketType::Update --name ChangeRequest --ID 6 --valid "2"'
+
 
 
 

@@ -69,8 +69,24 @@ $Self->{Home} = '/opt/otrs';
 
     # ---------------------------------------------------- #
     # insert your own config settings "here"               #
-    $Self->{'Secure::DisableBanner'} =  1;    
+    $Self->{'Secure::DisableBanner'} =  1;  
+    $Self->{'ShowUserTimeZoneSelectionNotification'} =  '0';
+    $Self->{'AgentSelfNotifyOnAction'} =  1;
+    $Self->{'FQDN'} =  'otrs.firma.de';
+    $Self->{'Organization'} =  'Mayer GmbH';
+    $Self->{'CheckMXRecord'} =  '0';
+    $Self->{'Frontend::Customer::CustomerPanelLogoutURL'} =  'http://localhost/login.html';
+    $Self->{'CustomerGroupSupport'} =  1;
     
+    $Self->{'Daemon::SchedulerCronTaskManager::Task'}->{'MailAccountFetch'} =  {
+      'Function' => 'Execute',
+      'MaximumParallelInstances' => '1',
+      'Module' => 'Kernel::System::Console::Command::Maint::PostMaster::MailAccountFetch',
+      'Params' => [],
+      'Schedule' => '*/1 * * * *',
+      'TaskName' => 'MailAccountFetch'
+    };
+
 $Self->{'Ticket::TicketDynamicFieldDefault'}->{'Element2'} =  {
   'Event' => 'TicketCustomerUpdate',
   'Name' => 'CreateByType',
@@ -87,46 +103,6 @@ $Self->{'Ticket::EventModulePost'}->{'TicketDynamicFieldDefault'} =  {
 };
 $Self->{'Ticket::Frontend::AgentTicketZoom'}->{'DynamicField'} =  {
   'Type' => '1'
-};
-$Self->{'CustomerFrontend::Module'}->{'CustomerTicketOverview'} =  {
-  'Description' => 'Overview of customer tickets.',
-  'NavBar' => [
-    {
-      'AccessKey' => 'm',
-      'Block' => '',
-      'Description' => 'Tickets.',
-      'Link' => 'Action=CustomerTicketOverview;Subaction=MyTickets',
-      'LinkOption' => '',
-      'Name' => 'Tickets',
-      'NavBar' => 'Ticket',
-      'Prio' => '100',
-      'Type' => 'Menu'
-    },
-    {
-      'AccessKey' => '',
-      'Block' => '',
-      'Description' => 'My Tickets.',
-      'Link' => 'Action=CustomerTicketOverview;Subaction=MyTickets',
-      'LinkOption' => '',
-      'Name' => 'My Tickets',
-      'NavBar' => 'Ticket',
-      'Prio' => '110',
-      'Type' => 'Submenu'
-    },
-    {
-      'AccessKey' => 'M',
-      'Block' => '',
-      'Description' => 'Company Tickets.',
-      'Link' => 'Action=CustomerTicketOverview;Subaction=CompanyTickets',
-      'LinkOption' => '',
-      'Name' => 'Company Tickets',
-      'NavBar' => '',
-      'Prio' => '120',
-      'Type' => 'Submenu'
-    }
-  ],
-  'NavBarName' => 'Ticket',
-  'Title' => 'Overview'
 };
 delete $Self->{'Frontend::Module'}->{'AgentTicketEscalationView'};
 $Self->{'Frontend::Module'}->{'AgentTicketWatchView'} =  {
@@ -405,75 +381,73 @@ $Self->{'AgentCustomerInformationCenter::Backend'}->{'0600-CIC-CustomerCompanyIn
 };
 delete $Self->{'Frontend::Module'}->{'AgentCustomerInformationCenterSearch'};
 delete $Self->{'Frontend::Module'}->{'AgentCustomerInformationCenter'};
-$Self->{'CustomerPanelBodyNewAccount'} =  'Hi <OTRS_USERFIRSTNAME>,
 
-You or someone impersonating you has created a new OTRS account for
-you.
-
-Full name: <OTRS_USERFIRSTNAME> <OTRS_USERLASTNAME>
-User name: <OTRS_USERLOGIN>
-Password : <OTRS_USERPASSWORD>
-
-You can log in via the following URL. We encourage you to change your password
-via the Preferences button after logging in.
-
-<OTRS_CONFIG_HttpType>://<OTRS_CONFIG_FQDN>/<OTRS_CONFIG_ScriptAlias>customer.pl';
-$Self->{'CustomerPanelBodyLostPassword'} =  'Hi <OTRS_USERFIRSTNAME>,
-
-
-New password: <OTRS_NEWPW>
-
-<OTRS_CONFIG_HttpType>://<OTRS_CONFIG_FQDN>/<OTRS_CONFIG_ScriptAlias>customer.pl';
-$Self->{'CustomerPanelBodyLostPasswordToken'} =  'Hi <OTRS_USERFIRSTNAME>,
-
-You or someone impersonating you has requested to change your OTRS
-password.
-
-If you want to do this, click on this link. You will receive another email containing the password.
-
-<OTRS_CONFIG_HttpType>://<OTRS_CONFIG_FQDN>/<OTRS_CONFIG_ScriptAlias>customer.pl?Action=CustomerLostPassword;Token=<OTRS_TOKEN>
-
-If you did not request a new password, please ignore this email.';
 delete $Self->{'PreferencesGroups'}->{'SpellDict'};
-$Self->{'CheckMXRecord'} =  '0';
 $Self->{'CustomerLogo'} =  {
   'StyleHeight' => '50px',
   'StyleTop' => '7px',
   'URL' => 'skins/Customer/itslab/logo.png'
 };
 $Self->{'CustomerHeadline'} =  'Mayer GmbH';
+$Self->{'CustomerFrontend::Navigation'}->{'CustomerTicketOverview'}->{'002-Ticket'} =  [
+  {
+    'AccessKey' => 'm',
+    'Block' => '',
+    'Description' => 'Tickets.',
+    'Group' => [],
+    'GroupRo' => [],
+    'Link' => 'Action=CustomerTicketOverview;Subaction=MyTickets',
+    'LinkOption' => '',
+    'Name' => 'Tickets',
+    'NavBar' => 'Ticket',
+    'Prio' => '100',
+    'Type' => 'Menu'
+  },
+  {
+    'AccessKey' => '',
+    'Block' => '',
+    'Description' => 'My Tickets.',
+    'Group' => [],
+    'GroupRo' => [],
+    'Link' => 'Action=CustomerTicketOverview;Subaction=MyTickets',
+    'LinkOption' => '',
+    'Name' => 'My Tickets',
+    'NavBar' => 'Ticket',
+    'Prio' => '110',
+    'Type' => 'Submenu'
+  },
+  {
+    'AccessKey' => 't',
+    'Block' => '',
+    'Description' => 'Company Tickets.',
+    'Group' => ['company'],
+    'GroupRo' => [],
+    'Link' => 'Action=CustomerTicketOverview;Subaction=CompanyTickets',
+    'LinkOption' => '',
+    'Name' => 'Company Tickets',
+    'NavBar' => 'Ticket',
+    'Prio' => '120',
+    'Type' => 'Submenu'
+  }
+];
+$Self->{'Ticket::Frontend::CustomerTicketMessage'}->{'Service'} =  '0';
+$Self->{'Ticket::Frontend::CustomerTicketMessage'}->{'SLA'} =  '0';
 delete $Self->{'NodeID'};
-$Self->{'SecureMode'} =  1;
-    # config settings taken from Kernel/Config/Defaults.pm #
-    # ---------------------------------------------------- #
-    # $Self->{SessionUseCookie} = 0;
-    # $Self->{CheckMXRecord} = 0;
 
-    # ---------------------------------------------------- #
-
-    # ---------------------------------------------------- #
-    # data inserted by installer                           #
-    # ---------------------------------------------------- #
-    # $DIBI$
-
-    # ---------------------------------------------------- #
-    # ---------------------------------------------------- #
-    #                                                      #
-    # end of your own config options!!!                    #
-    #                                                      #
     # ---------------------------------------------------- #
     # ---------------------------------------------------- #
 
     $Self->{'LogModule'} = 'Kernel::System::Log::SysLog';
     $Self->{'LogModule::LogFile'} = '/tmp/otrs.log';
     $Self->{'DefaultLanguage'} = 'en';
-    $Self->{'CheckMXRecord'} = '1';
     $Self->{'SendmailModule'} = 'Kernel::System::Email::SMTP';
     $Self->{'SendmailModule::Host'} = 'postfix';
     $Self->{'SendmailModule::Port'} = '25';
     $Self->{'SecureMode'} = 1;
+    $Self->{'SendmailModule::AuthPassword'} =  'otrs';
+    $Self->{'SendmailModule::AuthUser'} =  'support@firma.de';
     return 1;
-}
+}#END-of-own-config
 
 # ---------------------------------------------------- #
 # needed system stuff (don't edit this)                #
@@ -484,3 +458,4 @@ use base qw(Kernel::Config::Defaults);
 # -----------------------------------------------------#
 
 1;
+
