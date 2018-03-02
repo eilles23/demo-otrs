@@ -102,7 +102,11 @@ $Self->{'Ticket::EventModulePost'}->{'TicketDynamicFieldDefault'} =  {
   'Transaction' => '1'
 };
 $Self->{'Ticket::Frontend::AgentTicketZoom'}->{'DynamicField'} =  {
-  'Type' => '1'
+  'Type' => '1',
+  'username' => '1',
+  'firstname' => '1',
+  'lastname' => '1',
+  'email' => '1'
 };
 delete $Self->{'Frontend::Module'}->{'AgentTicketEscalationView'};
 $Self->{'Frontend::Module'}->{'AgentTicketWatchView'} =  {
