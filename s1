@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#cd scripts 
+#./docker-install
+#sudo docker-compose up
+
+#install additional packages
+#curl -o ftp://ftp.otrs.org/pub/otrs/itsm/bundle6/
+#ITSM
+LATEST=$(curl -s4 ftp://ftp.otrs.org/pub/otrs/itsm/bundle6/ | grep -Eo 'ITSM-[0-9].[0-9].[0-9]+' | tr "[:blank:]" "\n" | sort -V | tail -n 1)
+MYWGET="curl -o \"$LATEST.opm\" \"ftp://ftp.otrs.org/pub/otrs/itsm/bundle6/$LATEST.opm\""
+sudo docker exec -it demootrs_otrs su - otrs -c "`echo $MYWGET`"
+sudo docker exec -it demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Package::Install ./ITSM-*'
+
+
+
+
+
+
+
+
