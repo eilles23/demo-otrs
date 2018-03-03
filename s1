@@ -14,8 +14,14 @@ sudo docker exec -it demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Consol
 
 
 
+#./load config: scenario 2
+cp ./config/s2/Config.pm ./volumes/config/
 
 
-
-
+#add users
+#roles
+#groups
+#agents
+#customers
+#queues
 

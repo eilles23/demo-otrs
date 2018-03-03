@@ -6,28 +6,18 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Facebook Link Preview -->
-    <meta property="og:url"           content="http://www.0ne.world" />
-    <meta property="og:type"          content="website" />
-    <meta property="og:title"         content="0ne.world" />
-    <meta property="og:description"   content="0ne.world" />
-    <meta property="og:image"         content="0ne.world" />
-    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-
-<!-- Custom styles for this template -->
-<link href="normalize.css" rel="stylesheet">
-<link href="mystyle.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Bungee+Shade" rel="stylesheet"> 
+    <!-- Latest compiled and minified CSS and JS-->
+    <link rel="stylesheet" href="./bootstrap-3.3.7.min.css">
     <script src="./jquery-3.3.1.min.js"></script>
     <script src="./bootstrap-3.3.7.min.js"></script>
+    <!-- Custom styles for this template -->
+    <link href="mystyle.css" rel="stylesheet">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+
 </head>
 
-
-
-<!-- Fixed navbar -->
+<!-- Fixed top navbar -->
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
@@ -38,7 +28,7 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="/">Kontakt</a></li>
+        <li class="active"><a href="/">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="login.html"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Sign In</a></li>
@@ -46,27 +36,27 @@
       </ul>
     </div><!--/.nav-collapse -->
   </div>
-</nav>
+</nav><!-- end of top-nav -->
 
-    
-    <nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand navbar-brand-bottom" style="font-size: 10px;" href="#">&copy; 2018 » Mayer GmbH</a>
-        </div>
-  
-        <div id="navbar" class="navbar-collapse collapse">
-
-            <ul class="nav navbar-nav navbar-right">
-            <li><a href="./">Impressum</a></li>
-            <!--<span class="sr-only">(current)</span>-->
-          </ul>
-        </div>
+<!-- Fixed bottom navbar -->
+<nav class="navbar navbar-default navbar-fixed-bottom">
+  <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand navbar-brand-bottom" style="font-size: 10px;" href="/">&copy; 2018 » Mayer GmbH</a>
       </div>
-  </div>      
-</nav>
 
-<body >
+      <div id="navbar" class="navbar-collapse collapse">
+
+          <ul class="nav navbar-nav navbar-right">
+          <li><a id="whoami" href="#">Imprint | Disclaimer</a></li>
+          <!--<span class="sr-only">(current)</span>-->
+        </ul>
+      </div>
+    </div>
+  </div>      
+</nav><!-- end of bottom-bar -->
+
+<body>
 <div class="bb"></div>
 
 <div class="container">
@@ -77,10 +67,10 @@
         </div>
         <div class="row">
             <div class="jumbotron text-center">
-              <p style="font-size: 2.3em;">Willkommen</p>
-                 <p>Heute ist ...  </p>
+              <p style="font-size: 2.3em;">Welcome</p>
+                 <p>Today is ...  </p>
             </div>
-        </div>
+        </div><!-- end of row  -->
 
 <!--<div class="row">
 Click on <input type="button" name="request" id="request" value="Reuqest Webservice"/> to run your first Perl script. 
@@ -91,21 +81,19 @@ Click on <input type="button" name="request" id="request" value="Reuqest Webserv
     <div class="col-lg-6 col-lg-offset-3 text-right">
       <form enctype="multipart/form-data" >
       <div class="box" id="contactbox" > 
-        <input type="text" name="name" class="form-control" placeholder="Name/Subject/">
+        <input type="text" name="name" class="form-control" placeholder="Subject, Name">
         </br>
-        <input type="text" name="email" class="form-control" placeholder="E-Mail/">
+        <input type="text" name="email" class="form-control" placeholder="E-Mail">
         </br>
-        <textarea class="form-control" rows="3" placeholder="Nachricht" name="body"></textarea>
+        <textarea class="form-control" rows="3" placeholder="Message" name="body"></textarea>
       </div>
-      <div class="boxbottom" id="contactboxbottom"><input type="button" id="sendd" class="btn btn-primary btn-lg active" value="submit"></input></div> </form>   
+      <div class="boxbottom" id="contactboxbottom"><input type="button" id="sendd" class="btn btn-primary btn-lg active" value="Submit"></input></div> </form>   
     </div><!--  end of col  -->
-
 </br>
-
-      <div class="box sent" id="sent">Vielen Dank für Ihre Nachricht, wir werden uns so schnell wie möglich zurückmelden! <a href="/">(Falls sie nicht automisch zurückgeleitet werden hier klicken...)</a></div><!--  end sent box ! -->
-
+      <div class="box sent" id="sent">Thank you for contacting Mayer GmbH! <a href="/">(Click here if not redirected automatically...)</a></div><!--  end sent box ! -->
     </div><!-- end of row  -->
 </div><!--  END OF CONTAINER  -->
+<!-- end of page -->
 
 <script type="text/javascript">
 $(document).ready(function () {
@@ -126,8 +114,16 @@ $(document).ready(function () {
 
                     }
         });
-        setTimeout(function() {  window.location.href = "/";}, 2000);
+
     });
+    $("nav").off('click');
+    $("#whoami").click(function () { 
+           $("div").hide();      
+           $("body").addClass("bc"); 
+           $("body").text('').append('<center>DEMO-OTRS (c) FH Aachen <a id="main" href="/" >back...</a></center>'); 
+           $("#main").on('click', function (){ $("body").css("background-color", ""); $("div").show();  ;});
+           setTimeout(function() {  window.location.href = "/";}, 2300);
+ });
 
 });
 </script>

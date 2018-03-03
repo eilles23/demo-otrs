@@ -19,8 +19,8 @@ sudo docker exec -it demootrs_mail add-account kun.de@priv.at otrs
 sudo docker exec -it demoots_otrs su - root sed -i /127.0.0.1/a 127.0.0.1   mail.firma.de/ /etc/hosts
 sudo docker exec -it demootrs_otrs  sed -i 's/index.pl//' /etc/httpd/conf/httpd.conf
 sudo docker cp `pwd`/web/. demootrs_otrs:/var/www/html/
-sudo docker cp ./console/register.pl demootrs_otrs:/opt/otrs/bin/cgi-bin/
-sudo docker cp ./console/contact.pl demootrs_otrs:/opt/otrs/bin/cgi-bin/
+sudo docker cp ./web/register.pl demootrs_otrs:/opt/otrs/bin/cgi-bin/
+sudo docker cp ./web/contact.pl demootrs_otrs:/opt/otrs/bin/cgi-bin/
 sudo docker exec -it demootrs_otrs cp /etc/hosts /tmp/tmp.hosts
 sudo sed -i '$ a 127.0.0.1 firma.de' /etc/hosts
 sudo sed -i '$ a 127.0.0.1 mail.firma.de' /etc/hosts
@@ -47,8 +47,10 @@ sudo docker exec -it demootrs_otrs  supervisorctl restart httpd
 #curl -o ftp://ftp.otrs.org/pub/otrs/itsm/bundle6/
 #FAQ
 LATEST=$(curl -s4 ftp://ftp.otrs.org/pub/otrs/packages/ | grep -Eo 'FAQ-[0-9].[0-9].[0-9]+' | tr "[:blank:]" "\n" | sort -V | tail -n 1)
-MYWGET="curl -o \"$LATEST.opm\" \"ftp://ftp.otrs.org/pub/otrs/packages/$LATEST.opm\""
-sudo docker exec -it demootrs_otrs  su - otrs -c "`echo $MYWGET`"
+if [ ! -f /home/$USER/Downloads/$LATEST.opm ]; then
+  MYWGET="curl -o \"/home/$USER/Downloads/$LATEST.opm\" \"ftp://ftp.otrs.org/pub/otrs/packages/$LATEST.opm\""
+  sudo docker exec -it demootrs_otrs  su - otrs -c "`echo $MYWGET`"
+fi
 sudo docker exec -it demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Package::Install ./FAQ-*'
 #create faqs !
 
@@ -58,7 +60,7 @@ sudo docker exec -it demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console
 #update systemaddress
 sudo docker exec -it demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::SystemAddress::Update --valid 1 --ID 1 --name "Mayer GmbH Support" --email-address support@firma.de --queue-name Raw'
 #link autoresponse 'default reply' to queue 'Raw'
-sudo docker exec -it demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID 1 --queue-name Raw'
+sudo docker exec -it demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "1" --queue-name Raw'
 
 #add dynamicFields
 sudo docker exec -it demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name username --label Username --type Text --file /DF_Text.yml'
@@ -97,12 +99,9 @@ sudo docker exec -it demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Consol
 #sudo -u otrs perl /opt/otrs/bin/otrs.Console.pl Admin::Group::CustomerLink --customer-user-login 'kunde1' --group-name 'faq' --permission 'ro'
 
 #update ticket types (1=valid 2=invalid)
-sudo docker exec -it demootrs_otrs  su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::TicketType::Update --name Incident --ID 2 --valid "2"'
-sudo docker exec -it demootrs_otrs  su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::TicketType::Update --name "Incident Major" --ID 3 --valid "2"'
-sudo docker exec -it demootrs_otrs  su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::TicketType::Update --name ChangeRequest --ID 6 --valid "2"'
-
-
-
+sudo docker exec -it demootrs_otrs  su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::TicketType::Update --name Incident --ID "2" --valid "2"'
+sudo docker exec -it demootrs_otrs  su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::TicketType::Update --name "Incident Major" --ID "3" --valid "2"'
+sudo docker exec -it demootrs_otrs  su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::TicketType::Update --name ChangeRequest --ID "6" --valid "2"'
 
 
 
