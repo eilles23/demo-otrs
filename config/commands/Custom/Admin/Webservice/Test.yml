@@ -1,0 +1,28 @@
+---
+Debugger:
+  DebugThreshold: debug
+  TestMode: '0'
+Description: ''
+FrameworkVersion: 5.0.26
+Provider:
+  Operation:
+    Ticket::Create:
+      Description: ''
+      MappingInbound: {}
+      MappingOutbound: {}
+      Type: Ticket::TicketCreate
+  Transport:
+    Config:
+      KeepAlive: ''
+      MaxLength: '1000000000'
+      RouteOperationMapping:
+        Ticket::Create:
+          RequestMethod:
+          - POST
+          - PUT
+          Route: /Kontaktformular
+    Type: HTTP::REST
+RemoteSystem: ''
+Requester:
+  Transport:
+    Type: ''

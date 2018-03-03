@@ -1,0 +1,24 @@
+[
+  {
+    "ChangeBy": "admin",
+    "ChangeTime": "2018-01-26 11:09:41 -0500",
+    "Comment": "",
+    "ConfigChange": {
+      "PossibleNot": {
+        "Ticket": {
+          "Queue": [
+            "[RegExp]^."
+          ]
+        }
+      }
+    },
+    "ConfigMatch": "",
+    "CreateBy": "admin",
+    "CreateTime": "2018-01-26 10:51:33 -0500",
+    "Description": "",
+    "ID": 2,
+    "Name": "AAA::HideAllQueues",
+    "StopAfterMatch": 0,
+    "ValidID": 1
+  }
+]
