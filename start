@@ -18,7 +18,7 @@ sudo docker exec   demootrs_mail add-account kun.de@priv.at otrs
 #add otrs to /httpd like otrs.firma.de
 sudo docker exec   demoots_otrs su - root sed -i /127.0.0.1/a 127.0.0.1   mail.firma.de/ /etc/hosts
 sudo docker exec   demootrs_otrs  sed -i 's/index.pl//' /etc/httpd/conf/httpd.conf
-sudo docker cp ./web/. demootrs_otrs:/var/www/html/
+sudo docker cp ./web/. demootrs_otrs:/var/www/html/ && sudo docker cp ./web/fonts/. demootrs_otrs:/var/www/html/fonts
 sudo docker cp ./web/register.pl demootrs_otrs:/opt/otrs/bin/cgi-bin/
 sudo docker cp ./web/contact.pl demootrs_otrs:/opt/otrs/bin/cgi-bin/
 sudo docker exec   demootrs_otrs cp /etc/hosts /tmp/tmp.hosts
