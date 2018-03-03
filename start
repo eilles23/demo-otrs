@@ -30,7 +30,7 @@ sudo sed -i '$ a 127.0.0.1 mail.firma.de' /etc/hosts
 
 #./otrs-setup
 #copy /Kernel/System/Console/Command/Custom
-cp -R ./console/Custom ./volumes/config/System/Console/Command/
+cp -R ./config/commands/Custom ./volumes/config/System/Console/Command/
 #./load config: scenario 1
 cp ./config/s1/Config.pm ./volumes/config/
 
@@ -48,8 +48,8 @@ sudo docker exec -it demootrs_otrs  supervisorctl restart httpd
 #FAQ
 LATEST=$(curl -s4 ftp://ftp.otrs.org/pub/otrs/packages/ | grep -Eo 'FAQ-[0-9].[0-9].[0-9]+' | tr "[:blank:]" "\n" | sort -V | tail -n 1)
 if [ ! -f /home/$USER/Downloads/$LATEST.opm ]; then
-  MYWGET="curl -o \"/home/$USER/Downloads/$LATEST.opm\" \"ftp://ftp.otrs.org/pub/otrs/packages/$LATEST.opm\""
-  sudo docker exec -it demootrs_otrs  su - otrs -c "`echo $MYWGET`"
+  MYWGET="curl -o /home/$USER/Downloads/$LATEST.opm ftp://ftp.otrs.org/pub/otrs/packages/$LATEST.opm"   
+  sudo docker exec -it demootrs_otrs  su - otrs -c $MYWGET
 fi
 sudo docker exec -it demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Package::Install ./FAQ-*'
 #create faqs !
