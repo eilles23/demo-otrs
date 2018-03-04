@@ -101,7 +101,7 @@ sub Configure {
 sub Run {
     my ( $Self, %Param ) = @_;
 
-    $Self->Print("<yellow>Meaningful start message...</yellow>\n");
+    $Self->Print("<yellow>Adding new postmaster mail account...</yellow>\n");
     # add system address
     my $MailAccount  = $Kernel::OM->Get('Kernel::System::MailAccount');
     if (
