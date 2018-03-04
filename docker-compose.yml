@@ -12,7 +12,6 @@ services:
     - "993:993"
     volumes:
     - secure:/secure
-    - vmail:/vmail
     environment:
     - POSTFIX_HOSTNAME=mail.firma.de
     networks:

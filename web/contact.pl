@@ -25,6 +25,7 @@ $smtp->auth($smtpuser, $smtppassword);
 $smtp->mail('agent@firma.de');
 $smtp->to('support@firma.de');
 $smtp->data();
+$smtp->datasend("X-OTRS-Queue: Raw\n");
 $smtp->datasend("To: support\@firma.de\n");
 $smtp->datasend("From: $email\n");
 $smtp->datasend("Date: $now\n");

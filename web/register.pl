@@ -26,7 +26,7 @@ my $password = $cgi->param('password');
 
 
 my $ua = LWP::UserAgent->new;
-my $server_endpoint = "http://localhost/otrs/nph-genericinterface.pl/Webservice/Web/Kontaktformular ";
+my $server_endpoint = "http://localhost/otrs/nph-genericinterface.pl/Webservice/Web/Contact ";
 # set custom HTTP request header fields
 my $request = HTTP::Request->new(POST => $server_endpoint);
 $request->header('content-type' => 'application/json');
@@ -36,12 +36,12 @@ my $post_data = {
   Password   => "open", 
   Ticket =>
     {
-     Queue        => "Postmaster",
+     Queue        => "Registration",
      State        => "new",
      Priority     => "3 normal",
-     Title        => "$title" ,
+     Title        => "New Customer Registration request $now" ,
      Type         => "Unclassified",
-     CustomerUser => "kunde1", 
+     CustomerUser => "webservice", 
     } ,
   Article =>
     {

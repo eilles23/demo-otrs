@@ -20,6 +20,6 @@
         <folderitem type="trash" name="Trash" path="Trash" threaded="1" mtime="0" new="0" unread="0" total="0" />
         <folderitem type="outbox" name="Sent" path="Sent" threaded="1" mtime="0" new="0" unread="0" total="0" />
         <folderitem type="normal" name="Junk" path="Junk" threaded="1" mtime="0" new="0" unread="0" total="0" />
-        <folderitem type="inbox" name="INBOX" path="INBOX" threaded="1" mtime="0" new="0" unread="0" total="0" />
+        <folderitem type="inbox" name="INBOX" path="INBOX" threaded="1" mtime="1520181542" new="0" unread="1" total="1" />
     </folder>
 </folderlist>

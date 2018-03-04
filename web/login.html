@@ -1,29 +1,21 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Facebook Link Preview -->
-    <meta property="og:url"           content="http://www.0ne.world" />
-    <meta property="og:type"          content="website" />
-    <meta property="og:title"         content="0ne.world" />
-    <meta property="og:description"   content="0ne.world" />
-    <meta property="og:image"         content="0ne.world" />
-    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-<!-- Custom styles for this template -->
-<link href="normalize.css" rel="stylesheet">
-<link href="mystyle.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Latest compiled and minified CSS and JS-->
+    <link rel="stylesheet" href="./bootstrap-3.3.7.min.css">
+    <script src="./jquery-3.3.1.min.js"></script>
+    <script src="./bootstrap-3.3.7.min.js"></script>
+    <!-- Custom styles for this template -->
+    <link href="mystyle.css" rel="stylesheet">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
 </head>
-
-
-
 <!-- Fixed navbar -->
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container">
@@ -35,7 +27,7 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li><a href="/">Kontakt</a></li>
+        <li><a href="/">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="active"><a href="login.html"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Sign In</a></li>
@@ -44,18 +36,14 @@
     </div><!--/.nav-collapse -->
   </div>
 </nav>
-    
     <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container">
         <div class="navbar-header">
           <a class="navbar-brand navbar-brand-bottom" style="font-size: 10px;" href="/">&copy; 2018 » Mayer GmbH</a>
         </div>
-  
         <div id="navbar" class="navbar-collapse collapse">
-
             <ul class="nav navbar-nav navbar-right">
-
-            <li ><a href="./">Impressum</a></li>
+            <li><a id="whoami" href="#">Imprint | Disclaimer</a></li>
             <!--<span class="sr-only">(current)</span>-->
           </ul>
         </div>
@@ -65,7 +53,6 @@
 
 <body>
 <div class="container bb"></div>
-
 <div class="container">
          <div class="row">
             <div class="col-lg-12">
@@ -78,8 +65,6 @@
             </div>
         </div>
 </div>
-
-
 <div class="container">
 <div class="row-fluid">
 <div class="col-xs-4 col-xs-offset-4"
@@ -110,14 +95,21 @@
                           <!-- Button -->
                           <button class="btn btn-success">Login</button>
                       </form>                
-
                     </div>
                 </div>
               </div>
 </div><!-- End of col-12 -->
 </div><!-- End of row -->
 </div><!-- END OF CONTAINER -->
-
-
+<script type="text/javascript">
+$(document).ready(function () {
+  $("#whoami").click(function () { 
+           $("div").hide();      
+           $("body").addClass("bc"); 
+           $("body").text('').append('<center>DEMO-OTRS (c) FH Aachen <a id="main" href="/" >back...</a></center>'); 
+           $("#main").on('click', function (){ $("body").css("background-color", ""); $("div").show();  ;} );
+    });
+});
+</script>
 </body>
 </html>
