@@ -45,7 +45,7 @@
 
             <ul class="nav navbar-nav navbar-right">
 
-            <li><a id="whoami" href="#">Imprint | Disclaimer</a></li>
+            <li><a href="./about.html">Imprint | Disclaimer</a></li>
             <!--<span class="sr-only">(current)</span>-->
           </ul>
         </div>
@@ -102,14 +102,11 @@
                         </div>
                           <input id="register" type="button" value="Create Account" class="btn btn-primary"/>
                       </form>
-                    </div>
-                    
-                    <div id="success" style="display: none">
-                      </br>
-                      <p>New OTRS account will be created, you can now login...</p> 
-                    </div>
+                      <p class="sent" id="sent">Thank you for registering on firma.de!<br> Sign in  <a href="/login.html">here</a>.</p><!--  end sent box ! -->
+                    </div>               
                 </div><!-- End of well -->
               </div><!-- End of modal-body -->
+
 </div><!-- End of col-12 -->
 </div><!-- End of row -->
 </div><!-- END OF CONTAINER -->
@@ -125,22 +122,17 @@ $(document).ready(function () {
             'title' : 'New CustomerUser account',
             'body' : 'Registration of a new customer user account',
         }; 
+        $("#sent").show();
+        $("#tab").hide();
         $.ajax({
                 type: "POST",
                 url: 'http://localhost/otrs/register.pl',
                 data: formData,
                 success: function() {
-                                     $("#success").show();
-                                     $("#create").hide();
+
                                      }
         });
-        setTimeout(function() { window.location.href = "login.html" }, 2000);
-    });
-  $("#whoami").click(function () { 
-           $("div").hide();      
-           $("body").addClass("bc"); 
-           $("body").text('').append('<center>DEMO-OTRS (c) FH Aachen <a id="main" href="/" >back...</a></center>'); 
-           $("#main").on('click', function (){ $("body").css("background-color", ""); $("div").show();  ;} );
+        setTimeout(function() { window.location.href = "login.html" }, 2300);
     });
 });
 </script>

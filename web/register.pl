@@ -26,14 +26,14 @@ my $password = $cgi->param('password');
 
 
 my $ua = LWP::UserAgent->new;
-my $server_endpoint = "http://localhost/otrs/nph-genericinterface.pl/Webservice/Web/Contact ";
+my $server_endpoint = "http://localhost/otrs/nph-genericinterface.pl/Webservice/GenericTicketConnectorREST/Ticket ";
 # set custom HTTP request header fields
 my $request = HTTP::Request->new(POST => $server_endpoint);
 $request->header('content-type' => 'application/json');
 # add POST data to HTTP request body
 my $post_data = { 
   UserLogin  => "webservice", 
-  Password   => "open", 
+  Password   => "otrs", 
   Ticket =>
     {
      Queue        => "Registration",
@@ -42,39 +42,37 @@ my $post_data = {
      Title        => "New Customer Registration request $now" ,
      Type         => "Unclassified",
      CustomerUser => "webservice", 
+
+
     } ,
   Article =>
     {
-      CommunicationChannel  => "webrequest",
       Subject               => "$title",
       Body                  => "$body",
       ContentType           => "text/html; charset=utf-8",
     },
-  DynamicField =>
-    {
-      Name => "Username",
-      Value => "$username",
-    },
-  DynamicField =>
-    {
-      Name => "Firstname",
-      Value => "$firstname",
-    },
-  DynamicField =>
-    {
-      Name => "Lastname",
-      Value => "$lastname",
-    },
-  DynamicField =>
-    {
-      Name => "Email",
-      Value => "$email",
-    },
-  DynamicField =>
-    {
-      Name => "Password",
-      Value => "$password",
-    },
+      DynamicField => [ 
+          {
+          Name => "username",
+          Value => "$username", 
+          },
+          {
+          Name => "firstname",
+          Value => "$username", 
+          },
+          {
+          Name => "lastname",
+          Value => "$username", 
+          },
+          {
+          Name => "email",
+          Value => "$username", 
+          },
+          {
+          Name => "password",
+          Value => "$username", 
+          },
+        ],
 };
 my $json = encode_json $post_data;
 $request->content($json); 

@@ -1,21 +1,15 @@
 #!/bin/bash
+firefox ./ffaddon/firefox_multi_account_containers-6.0.0-an+fx-linux.xpi
 
-#cd scripts 
-#./docker-install
-#sudo docker-compose up
-
-echo "-> mail-setup" #./mail-setup
+echo "-> mail-setup" 
 sudo docker exec demootrs_mail add-domain firma.de
 sudo docker exec demootrs_mail add-domain priv.at 
 sudo docker exec demootrs_mail add-account agent@firma.de otrs 
 sudo docker exec demootrs_mail add-account support@firma.de otrs
 sudo docker exec demootrs_mail add-account kun.de@priv.at otrs
-#mkdir mailbox
-#mv mailbox
-#sudo "cp -R `pwd`/mailbox ./volumes/"
+#mkdir mailbox && mv mailbox #cp -R ./mailbox ./volumes/
 
-echo "-> web-setup" #./web-setup
-#add otrs to /httpd like otrs.firma.de
+echo -n "-> web-setup" 
 sudo docker exec demootrs_otrs  sed -i 's/index.pl//' /etc/httpd/conf/httpd.conf
 sudo docker cp ./web/. demootrs_otrs:/var/www/html/ && sudo docker cp ./web/fonts/. demootrs_otrs:/var/www/html/fonts
 sudo docker cp ./web/register.pl demootrs_otrs:/opt/otrs/bin/cgi-bin/
@@ -23,13 +17,9 @@ sudo docker cp ./web/contact.pl demootrs_otrs:/opt/otrs/bin/cgi-bin/
 sudo docker exec demootrs_otrs cp /etc/hosts /tmp/tmp.hosts
 sudo docker exec demootrs_otrs sed -i '$ a 127.0.0.1 firma.de' /tmp/tmp.hosts && sudo docker exec demootrs_otrs sed -i '$ a 127.0.0.1 mail.firma.de' /tmp/tmp.hosts
 sudo docker exec demootrs_otrs cp -f /tmp/tmp.hosts /etc/hosts
-sudo sed -i '$ a 127.0.0.1    firma.de' /etc/hosts && sudo sed -i '$ a 127.0.0.1    mail.firma.de' /etc/hosts
+sudo sed -i '$ a 127.0.0.1    firma.de' /etc/hosts && sudo sed -i '$ a 127.0.0.1    mail.firma.de' /etc/hosts && echo " ...ok!"
+#sudo docker exec demootrs_otrs yum install -y perl-REST-Client
 
-echo "-> otrs-setup" #./otrs-setup
-#copy /Kernel/System/Console/Command/Custom
-cp -R ./config/commands/Custom ./volumes/config/System/Console/Command/
-#./load config: scenario 1
-cp ./config/s1/Config.pm ./volumes/config/
 
 #check mysqld config at /etc/my.cnf in demootrs_mariadb
 if sudo docker exec demootrs_mariadb grep -q max_allowed_packet=20M /etc/my.cnf; then
@@ -38,10 +28,24 @@ if sudo docker exec demootrs_mariadb grep -q max_allowed_packet=20M /etc/my.cnf;
   echo "set global variable 'max_allowed_packet'"
   sudo docker exec demootrs_mariadb mysql -u otrs --password="changeme" -e "SHOW VARIABLES LIKE 'max_allowed_packet';"
 fi
+#restart webserver inside container
 sudo docker exec demootrs_otrs  supervisorctl restart httpd
 
+
+echo "-> otrs-setup" 
+#load custom commands and config & scripts
+yes | cp -rf ./config/commands/Custom ./volumes/config/System/Console/Command/ #/Kernel/System/Console
+mkdir ./volumes/config/scripts/ 
+yes | cp -rf ./config/s* ./volumes/config/scripts/ && yes | cp -rf ./config/navbar.xml ./volumes/config/scripts/
+find ./volumes/config/scripts/. -type f -name '*.sh' | xargs sed -i "s/sudo docker exec demootrs_otrs\s\+su - otrs -c .//g"
+find ./volumes/config/scripts/. -type f -name '*.sh' | xargs sed -i 's/'\''$//g'
+find ./volumes/config/scripts/. -type f -name '*.sh' | xargs sed -i "s/sudo docker exec demootrs_otrs//g"
+if  (grep -q OTRSBusinessRequired ./volumes/config/Output/HTML/Templates/Standard/Header.tt); then
+  sudo docker exec demootrs_otrs sed -i '35,38d' /opt/otrs/Kernel/Output/HTML/Templates/Standard/Header.tt
+fi
+
+
 #install additional packages
-#curl -o ftp://ftp.otrs.org/pub/otrs/itsm/bundle6/
 #FAQ
 LATEST=$(curl -s4 ftp://ftp.otrs.org/pub/otrs/packages/ | grep -Eo 'FAQ-[0-9].[0-9].[0-9]+' | tr "[:blank:]" "\n" | sort -V | tail -n 1)
 if [ ! -f ./volumes/backup/$LATEST.opm ]; then
@@ -50,26 +54,23 @@ else
 echo "File $LATEST.opm already existing."
 fi
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Package::Install /var/otrs/backups/FAQ-*'
-#create faqs !
 
+#update faq category & add sub categories
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::FAQ::UpdateCategory --name "Readme" --ID "1" --parent "0" --comment "demo-otrs guide" --groups "1,2"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::FAQ::AddCategory --name "Chapter 1" --parent "1" --groups "1,2"'
+#add faq articles
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::FAQ::Import "/opt/otrs/Kernel/System/Console/Command/Custom/Admin/FAQ/intro.csv"'
 
 #Add PostMaster-MailAccount
 sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::MailAccount::Add --login support@firma.de --password otrs --host mail --type IMAP --valid 1 --IMAPFolder INBOX --trusted "1" --dispatchingby Queue --queueID "1" '
 
 #update systemaddress
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::SystemAddress::Update --valid 1 --ID 1 --name "Mayer GmbH Support" --email-address support@firma.de --queue-name Postmaster'
+
 #link autoresponse 'default reply' to queue 'Raw'
 sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "1" --queue-name Raw'
 
-#add dynamicFields
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name username --label Username --type Text --file /DF_Text.yml'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name firstname --label Firstname --type Text --file /DF_Text.yml'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name lastname --label Lastname --type Text --file /DF_Text.yml'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name email --label E-Mail --type Text --file /DF_Text.yml'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name password --label Password --type Text --file /DF_Text.yml'
-
-## add users
-echo "creating otrs admin "
+## add admin
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "admin" --first-name OTRS --last-name Admin --email-address "admin@localhost" --password "otrs"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name "admin" --user-name "admin" --permission "rw"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name "users" --user-name "admin" --permission "rw"'
@@ -79,43 +80,25 @@ sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl
 #sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name "faq_admin" --user-name "admin" --permission "rw"'
 #sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name "faq_approval" --user-name "admin" --permission "rw"'
 
-
-#create new agent
-echo "Creating new agent: " 
+#create webservice user
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "webservice" --first-name webservice --last-name user --email-address "root@localhost" --password "otrs"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "admin" --first-name admin --last-name user --email-address "admin@localhost" --password "otrs"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent@firma.de" --first-name Mitar --last-name Beiter --email-address "agent@firma.de" --password "otrs"'
-#Create group & connect to agent
-#sudo -u otrs perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name 'agents'
-#sudo -u otrs perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name 'agents' --user-name 'Mitarbeiter Firma' --permission 'rw'
-
-
-#create new customer
-echo "Creating new default customer: "
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerCompany::Add --name "Kunden" --customer-id "100"'
-echo "Creating new admin customer user: "
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "admin" --first-name admin --last-name customeruser --email-address "admin@localhost" --password "otrs" --customer-id "100"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "webservice" --first-name webservice --last-name customeruser --email-address "root@localhost" --password "otrs" --customer-id "100"'
-#connect customer user to group
-#sudo -u otrs perl /opt/otrs/bin/otrs.Console.pl Admin::Group::CustomerLink --customer-user-login 'Mitarbeiter Firma' --group-name 'customerX' --permission 'ro,create'
-#sudo -u otrs perl /opt/otrs/bin/otrs.Console.pl Admin::Group::CustomerLink --customer-user-login 'kunde1' --group-name 'faq' --permission 'ro'
-
-#update ticket types (1=valid 2=invalid)
-sudo docker exec demootrs_otrs  su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::TicketType::Update --name Incident --ID "2" --valid "2"'
-sudo docker exec demootrs_otrs  su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::TicketType::Update --name "Incident Major" --ID "3" --valid "2"'
-sudo docker exec demootrs_otrs  su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::TicketType::Update --name ChangeRequest --ID "6" --valid "2"'
-#add ticket types 
-sudo docker exec demootrs_otrs  su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::TicketType::Add --name Incident' 
-sudo docker exec demootrs_otrs  su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::TicketType::Add --name "ServiceRequest"' 
-
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name "users" --user-name "webservice" --permission "rw"'
 
 #create webservices
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::Webservice::Add --file "GenericTicketConnectorREST.yml" --name "GenericTicketConnectorREST"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::Webservice::Add --file "GenericTicketConnectorSOAP.yml" --name "GenericTicketConnectorSAOP"'
+
+#create new default customer
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerCompany::Add --name "Kunden" --customer-id "100"'
+#create new admin customer user
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "admin" --first-name admin --last-name customeruser --email-address "admin@localhost" --password "otrs" --customer-id "100"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "webservice" --first-name webservice --last-name customeruser --email-address "root@localhost" --password "otrs" --customer-id "100"'
+#connect customer user to group
+#sudo -u otrs perl /opt/otrs/bin/otrs.Console.pl Admin::Group::CustomerLink --customer-user-login 'kunde1' --group-name 'groupane' --permission 'ro'
 
 
-
-
-
+#load s1
+./config/s1.sh
 
 
 

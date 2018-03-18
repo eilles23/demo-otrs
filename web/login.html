@@ -43,7 +43,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-            <li><a id="whoami" href="#">Imprint | Disclaimer</a></li>
+            <li><a href="./about.html">Imprint | Disclaimer</a></li>
             <!--<span class="sr-only">(current)</span>-->
           </ul>
         </div>
@@ -101,15 +101,5 @@
 </div><!-- End of col-12 -->
 </div><!-- End of row -->
 </div><!-- END OF CONTAINER -->
-<script type="text/javascript">
-$(document).ready(function () {
-  $("#whoami").click(function () { 
-           $("div").hide();      
-           $("body").addClass("bc"); 
-           $("body").text('').append('<center>DEMO-OTRS (c) FH Aachen <a id="main" href="/" >back...</a></center>'); 
-           $("#main").on('click', function (){ $("body").css("background-color", ""); $("div").show();  ;} );
-    });
-});
-</script>
 </body>
 </html>

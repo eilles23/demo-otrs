@@ -80,29 +80,13 @@ sub Run {
     {
         $file = join "/", $Self->GetOption('path'), $Self->GetOption('file');
     }
-my $yaml;
-{
-  local $/; #Enable 'slurp' mode
-  open my $fh, "<", $file;
-  $yaml = <$fh>;
-  close $fh;
-}
-    #my $ACL = LoadFile($yaml);
-#    my $ConfigChange = $ACL->[0]->{'ConfigChange'};
-#    my $ConfigMatch = $ACL->[0]->{'ConfigMatch'};
+    my $yaml = loadyaml($file);
+    my $YAMLObject = $Kernel::OM->Get('Kernel::System::YAML');
+    my $Content = $YAMLObject->Load(
+        Data => $yaml,
+    );
 
     if (
-#        !$ACLObject->ACLAdd(
-#        Name           => $Self->GetOption('name'),           # mandatory
-#        Comment        => $Self->GetOption('comment'),            # optional
-#        Description    => $Self->GetOption('description'),        # optional
-#        StopAfterMatch => $Self->GetOption('stop-after-match'),   # optional
-#        ConfigMatch    => $ConfigMatch,  # optional
-#        ConfigChange   => $ConfigChange, # optional
-#        ValidID        => 1,                    # mandatory
-#        UserID         => 1,                  # mandatory
-#        )
-#        my $ret = 
        !$ACLObject->ACLImport(
         Content                   => $yaml, # mandatory, YAML format
         OverwriteExistingEntities => $Self->GetOption('overwrite') // 0,            # 0 || 1
@@ -113,12 +97,41 @@ my $yaml;
             $Self->PrintError("Can't add ACL.");
             return $Self->ExitCodeError();
         }
+
+         my $Location = $Kernel::OM->Get('Kernel::Config')->Get('Home') . '/Kernel/Config/Files/ZZZACL.pm';
+         my $ACLDump = $ACLObject->ACLDump(
+            ResultType => 'FILE',
+            Location   => $Location,
+            UserID     => 1,
+        );
+        if ($ACLDump) {
+            my $Success = $ACLObject->ACLsNeedSyncReset();
+            if ($Success) {
+                    $Self->Print("<green>Done.</green>\n"); 
+                    return $Self->ExitCodeOk();
+            }
+            else {
+               $Self->PrintError("Can't sync entity ACL.");
+                return $Self->ExitCodeError();
+            }
+        }
+        else {
+            $Self->PrintError("Can't add ACL.");
+            return $Self->ExitCodeError();
+        }
     #print Dumper($ret);
     #print $yaml;
     $Self->Print("<green>Done.</green>\n");
     return $Self->ExitCodeOk();
 }
-
+sub loadyaml {
+    my $file = shift;
+    open my $fh, '<', $file or die "Could not open YAML config file $file/!";
+    local $/ = undef;
+    my $cont = <$fh>;
+    close $fh;
+    return $cont;
+}
 # sub PostRun {
 #     my ( $Self, %Param ) = @_;
 #

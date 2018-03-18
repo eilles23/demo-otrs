@@ -47,6 +47,9 @@ services:
      OTRS_ROOT_PASSWORD: changeme
      MYSQL_ROOT_PASSWORD: changeme
      OTRS_DB_PASSWORD: changeme
+     LANG: en_US.UTF-8  
+     LANGUAGE: en_US:en  
+     LC_ALL: en_US.UTF-8
 
   mariadb:
     container_name: demootrs_mariadb

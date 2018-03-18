@@ -1,8 +1,9 @@
 ---
 DateRestriction: ''
-DefaultValue: 0
+DefaultValue: '0'
 Link: ''
 LinkPreview: ''
-YearsInFuture: '5'
-YearsInPast: '5'
+YearsInFuture: '0'
+YearsInPast: '0'
 YearsPeriod: '0'
+
