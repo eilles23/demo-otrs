@@ -18,12 +18,13 @@ sudo docker exec -it demootrs_otrs curl -o /var/otrs/backups/DynamicFieldConfigI
 #install additional packages
 #curl -o ftp://ftp.otrs.org/pub/otrs/itsm/bundle6/
 #FAQ
-LATEST=$(curl -s4 ftp://ftp.otrs.org/pub/otrs/packages/ | grep -Eo 'FAQ-[0-9].[0-9].[0-9]+' | tr "[:blank:]" "\n" | sort -V | tail -n 1)
-if [ ! -f ./volumes/backup/$LATEST.opm ]; then
-  sudo docker exec -it demootrs_otrs curl -o /var/otrs/backups/$LATEST.opm ftp://ftp.otrs.org/pub/otrs/itsm/bundle6/$LATEST.opm
-else 
-echo "File $LATEST.opm already existing."
-fi
+#LATEST=$(curl -s4 ftp://ftp.otrs.org/pub/otrs/packages/ | grep -Eo 'FAQ-[0-9].[0-9].[0-9]+' | tr "[:blank:]" "\n" | sort -V | tail -n 1)
+#if [ ! -f ./volumes/backup/$LATEST.opm ]; then
+#  sudo docker exec -it demootrs_otrs curl -o /var/otrs/backups/$LATEST.opm ftp://ftp.otrs.org/pub/otrs/itsm/bundle6/$LATEST.opm
+#else 
+#echo "File $LATEST.opm already existing."
+#fi
+sudo cp ./config/FAQ-6.0.opm ./volumes/backup/
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Package::Install /var/otrs/backups/ITSM-*'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Package::Install /opt/otrs/Kernel/scripts/s6/DynamicFieldITSMConfigItem-6.0.1.opm'
 
