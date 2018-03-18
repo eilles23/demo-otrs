@@ -1,0 +1,28 @@
+---
+- ChangeBy: admin
+  ChangeTime: 2018-03-14 11:27:21
+  Comment: Medoptics Market LATAM
+  ConfigChange:
+    PossibleAdd:
+      Ticket:
+        DynamicField_Market:
+        - '124'
+        - 'LATAM'
+  ConfigMatch:
+    Properties:
+      CustomerUser:
+        UserCustomerID:
+        - '124'
+        - 'LATAM'
+      User:
+        Role:
+        - 'MedopticsLATAM'
+        - 'MedopticsAMERICA'
+        - 'MedopticsWORLDWIDE'
+  CreateBy: admin
+  CreateTime: 2018-03-14 11:27:21
+  Description: Unrelated Markets will be hidden.
+  ID: 11
+  Name: AAM Medoptics LATAM
+  StopAfterMatch: 0
+  ValidID: 1

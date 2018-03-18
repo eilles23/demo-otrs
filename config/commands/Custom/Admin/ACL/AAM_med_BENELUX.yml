@@ -1,0 +1,28 @@
+---
+- ChangeBy: admin
+  ChangeTime: 2018-03-14 11:27:21
+  Comment: Medoptics Market BENELUX
+  ConfigChange:
+    PossibleAdd:
+      Ticket:
+        DynamicField_Market:
+        - '122'
+        - 'BENELUX'
+  ConfigMatch:
+    Properties:
+      CustomerUser:
+        UserCustomerID:
+        - '122'
+        - 'BENELUX'
+      User:
+        Role:
+        - 'MedopticsBENELUX'
+        - 'MedopticsEUROPE'
+        - 'MedopticsWORLDWIDE'
+  CreateBy: admin
+  CreateTime: 2018-03-14 11:27:21
+  Description: Unrelated Markets will be hidden.
+  ID: 9
+  Name: AAM Medoptics BENELUX
+  StopAfterMatch: 0
+  ValidID: 1

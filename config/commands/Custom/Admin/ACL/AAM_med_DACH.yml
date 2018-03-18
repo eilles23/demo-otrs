@@ -1,0 +1,28 @@
+---
+- ChangeBy: admin
+  ChangeTime: 2018-03-14 11:27:21
+  Comment: Medoptics Market DACH
+  ConfigChange:
+    PossibleAdd:
+      Ticket:
+        DynamicField_Market:
+        - '121'
+        - 'DACH'
+  ConfigMatch:
+    Properties:
+      CustomerUser:
+        UserCustomerID:
+        - '121'
+        - 'DACH'
+      User:
+        Role:
+        - 'MedopticsDACH'
+        - 'MedopticsEUROPE'
+        - 'MedopticsWORLDWIDE'
+  CreateBy: admin
+  CreateTime: 2018-03-14 11:27:21
+  Description: Unrelated Markets will be hidden.
+  ID: 8
+  Name: AAM Medoptics DACH
+  StopAfterMatch: 0
+  ValidID: 1

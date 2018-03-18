@@ -1,0 +1,6 @@
+---
+QueueIDs: 
+    - '6'
+    - '7'
+NewCMD: '/bin/bash /opt/otrs/Kernel/scripts/s7.sh'
+

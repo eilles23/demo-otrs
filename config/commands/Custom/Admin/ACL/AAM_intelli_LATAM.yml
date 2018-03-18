@@ -1,0 +1,28 @@
+---
+- ChangeBy: admin
+  ChangeTime: 2018-03-14 11:27:21
+  Comment: Digicam Market LATAM
+  ConfigChange:
+    PossibleAdd:
+      Ticket:
+        DynamicField_Market:
+        - '134'
+        - 'LATAM'
+  ConfigMatch:
+    Properties:
+      CustomerUser:
+        UserCustomerID:
+        - '134'
+        - 'LATAM'
+      User:
+        Role:
+        - 'IntelliEyesLATAM'
+        - 'IntelliEyesAMERICA'
+        - 'IntelliEyesWORLDWIDE'
+  CreateBy: admin
+  CreateTime: 2018-03-14 11:27:21
+  Description: Unrelated Markets will be hidden.
+  ID: 11
+  Name: AAM IntelliEyes LATAM
+  StopAfterMatch: 0
+  ValidID: 1

@@ -1,0 +1,28 @@
+---
+- ChangeBy: admin
+  ChangeTime: 2018-03-14 11:27:21
+  Comment: Digicam Market BENELUX
+  ConfigChange:
+    PossibleAdd:
+      Ticket:
+        DynamicField_Market:
+        - '112'
+        - 'BENELUX'
+  ConfigMatch:
+    Properties:
+      CustomerUser:
+        UserCustomerID:
+        - '112'
+        - 'BENELUX'
+      User:
+        Role:
+        - 'DigicamBENELUX'
+        - 'DigicamEUROPE'
+        - 'DigicamWORLDWIDE'
+  CreateBy: admin
+  CreateTime: 2018-03-14 11:27:21
+  Description: Unrelated Markets will be hidden.
+  ID: 9
+  Name: AAM Digicam BENELUX
+  StopAfterMatch: 0
+  ValidID: 1
