@@ -1,0 +1,50 @@
+---
+- ChangeBy: '2'
+  ChangeTime: 2018-03-21 21:31:45
+  Comment: default merged notification to customer
+  CreateBy: '2'
+  CreateTime: 2018-03-21 21:17:18
+  Data:
+    AgentEnabledByDefault:
+    - Email
+    ArticleAttachmentInclude:
+    - '0'
+    Events:
+    - TicketStateUpdate
+    IsVisibleForCustomer:
+    - '1'
+    LanguageID:
+    - en
+    RecipientEmail:
+    - <OTRS_Ticket_DynamicField_FromName>
+    Recipients:
+    - Customer
+    StateID:
+    - '9'
+    TransportEmailTemplate:
+    - Default
+    Transports:
+    - Email
+    VisibleForAgent:
+    - '0'
+  ID: '18'
+  Message:
+    en:
+      Body: 'Dear &lt;OTRS_CUSTOMER_REALNAME&gt;,<br />
+
+        <br />
+
+        we want to inform you, that your ticket with the case number &lt;OTRS_TICKET_TicketNumber&gt;
+        has been merged.<br />
+
+        <br />
+
+        <br />
+
+        Kind regards,<br />
+
+        Support - Mayer GmbH'
+      ContentType: text/html
+      Subject: Ticket merged '<OTRS_TICKET_Title>'
+  Name: Ticket merged
+  ValidID: '1'

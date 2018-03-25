@@ -1,14 +1,15 @@
 #!/bin/bash
-#add: statistic, ...
-
+###add: statistic, ...
+#copy Config.pm
+sudo docker exec demootrs_otrs cp /opt/otrs/Kernel/scripts/s7/*.pm /opt/otrs/Kernel/Config.pm
+#change navbar item
 sudo docker exec demootrs_otrs sed -i 's/Step 6/Step 7/' /opt/otrs/Kernel/Config/Files/XML/DemoOTRS.xml #current step
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Maint::Config::Rebuild'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Maint::Cache::Delete'
 
-sudo docker exec demootrs_otrs cp /opt/otrs/Kernel/scripts/s7/*.pm /opt/otrs/Kernel/Config.pm
 
 #add faq article
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::FAQ::Import "/opt/otrs/Kernel/System/Console/Command/Custom/Admin/FAQ/c03s02.csv"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::FAQ::Import "/opt/otrs/Kernel/System/Console/Command/Custom/Admin/FAQ/s7.csv"'
 
 #install additional packages
 #curl -o ftp://ftp.otrs.org/pub/otrs/itsm/bundle6/

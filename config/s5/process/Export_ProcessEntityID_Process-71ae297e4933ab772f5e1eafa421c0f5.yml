@@ -1,0 +1,53 @@
+---
+Activities:
+  Activity-cb5872d1a24495c7be4e5df260a80c0b:
+    ActivityDialogs:
+    - ActivityDialog-419513a51a8176ca38e9f61f92c06cbc
+    ChangeTime: 2018-03-22 21:30:19
+    Config:
+      ActivityDialog:
+        '1': ActivityDialog-419513a51a8176ca38e9f61f92c06cbc
+    CreateTime: 2018-03-22 21:30:01
+    EntityID: Activity-cb5872d1a24495c7be4e5df260a80c0b
+    ID: '18'
+    Name: 'IntelliEyes :: Termination of a Service'
+ActivityDialogs:
+  ActivityDialog-419513a51a8176ca38e9f61f92c06cbc:
+    ChangeTime: 2018-03-22 21:30:12
+    Config:
+      DescriptionLong: ''
+      DescriptionShort: Please fill in the fields.
+      FieldOrder: []
+      Fields: {}
+      Interface:
+      - AgentInterface
+      Permission: ''
+      RequiredLock: 0
+      SubmitAdviceText: ''
+      SubmitButtonText: ''
+    CreateTime: 2018-03-22 21:30:12
+    EntityID: ActivityDialog-419513a51a8176ca38e9f61f92c06cbc
+    ID: '20'
+    Name: 'IntelliEyes :: Termination of a Service'
+Process:
+  Activities:
+  - Activity-cb5872d1a24495c7be4e5df260a80c0b
+  ChangeTime: 2018-03-22 21:30:26
+  Config:
+    Description: Terminate a service.
+    Path:
+      Activity-cb5872d1a24495c7be4e5df260a80c0b: {}
+    StartActivity: Activity-cb5872d1a24495c7be4e5df260a80c0b
+    StartActivityDialog: ActivityDialog-419513a51a8176ca38e9f61f92c06cbc
+  CreateTime: 2018-03-22 21:29:52
+  EntityID: Process-71ae297e4933ab772f5e1eafa421c0f5
+  ID: '13'
+  Layout:
+    Activity-cb5872d1a24495c7be4e5df260a80c0b:
+      left: '202'
+      top: '58.9166870117188'
+  Name: 'IntelliEyes :: Termination of a Service'
+  State: Active
+  StateEntityID: S1
+  TransitionActions: []
+  Transitions: []

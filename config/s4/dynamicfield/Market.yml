@@ -1,0 +1,13 @@
+---
+DefaultValue: ''
+Link: ''
+LinkPreview: ''
+PossibleNone: '0'
+PossibleValues: { 
+    DACH: 'DACH', 
+    BENELUX: 'Benelux', 
+    NAM: 'North America', 
+    LATAM: 'Latin America'
+    }
+TranslatableValues: '0'
+TreeView: '0'

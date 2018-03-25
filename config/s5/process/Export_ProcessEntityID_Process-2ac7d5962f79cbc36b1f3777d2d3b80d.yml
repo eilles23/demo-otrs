@@ -1,0 +1,18 @@
+---
+Process:
+  Activities: []
+  ChangeTime: 2018-03-22 21:28:30
+  Config:
+    Description: Extend the duration of a service
+    Path: {}
+    StartActivity: ''
+    StartActivityDialog: ''
+  CreateTime: 2018-03-22 21:28:06
+  EntityID: Process-2ac7d5962f79cbc36b1f3777d2d3b80d
+  ID: '12'
+  Layout: {}
+  Name: 'IntelliEyes :: Renewal of a Service'
+  State: Inactive
+  StateEntityID: S2
+  TransitionActions: []
+  Transitions: []

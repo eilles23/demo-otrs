@@ -25,7 +25,7 @@ services:
     - G_FILENAME_ENCODING=@locale
     volumes:
     - /tmp/.X11-unix:/tmp/.X11-unix
-    - ./mailbox:/home/developer
+    - ./volumes/mailbox:/home/developer
   otrs:
     container_name: demootrs_otrs
     image: juanluisbaptiste/otrs:latest
@@ -38,6 +38,8 @@ services:
     links:
     - mariadb:mariadb
     - mail:postfix
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock   
     volumes_from:
     - data-otrs
     environment:

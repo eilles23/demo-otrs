@@ -24,6 +24,13 @@ my $lastname = $cgi->param('lastname');
 my $email = $cgi->param('email'); 
 my $password = $cgi->param('password');
 
+print $cgi -> header(
+-type => 'text/plain',
+-access_control_allow_origin => '*',
+  );
+
+my $cmd ="su - otrs -c \'docker exec demootrs_mail add-account "  . $email . " otrs\'";
+exec $cmd;
 
 my $ua = LWP::UserAgent->new;
 my $server_endpoint = "http://localhost/otrs/nph-genericinterface.pl/Webservice/GenericTicketConnectorREST/Ticket ";
@@ -41,7 +48,7 @@ my $post_data = {
      Priority     => "3 normal",
      Title        => "New Customer Registration request $now" ,
      Type         => "Unclassified",
-     CustomerUser => "webservice", 
+     CustomerUser => "$email", 
 
 
     } ,
@@ -50,6 +57,8 @@ my $post_data = {
       Subject               => "$title",
       Body                  => "$body",
       ContentType           => "text/html; charset=utf-8",
+      From                  => "$email",
+      SenderType            => "customer",
     },
       DynamicField => [ 
           {
@@ -58,19 +67,19 @@ my $post_data = {
           },
           {
           Name => "firstname",
-          Value => "$username", 
+          Value => "$firstname", 
           },
           {
           Name => "lastname",
-          Value => "$username", 
+          Value => "$lastname", 
           },
           {
           Name => "email",
-          Value => "$username", 
+          Value => "$email", 
           },
           {
           Name => "password",
-          Value => "$username", 
+          Value => "$password", 
           },
         ],
 };

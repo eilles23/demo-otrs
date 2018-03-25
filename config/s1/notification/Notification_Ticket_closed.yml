@@ -1,0 +1,54 @@
+---
+- ChangeBy: '2'
+  ChangeTime: 2018-03-21 20:27:21
+  Comment: default closed notification to customer
+  CreateBy: '1'
+  CreateTime: 2018-03-21 16:23:17
+  Data:
+    AgentEnabledByDefault:
+    - Email
+    ArticleAttachmentInclude:
+    - '0'
+    Events:
+    - TicketStateUpdate
+    IsVisibleForCustomer:
+    - '1'
+    LanguageID:
+    - en
+    RecipientEmail:
+    - <OTRS_Ticket_DynamicField_FromName>
+    Recipients:
+    - Customer
+    StateID:
+    - '2'
+    - '3'
+    TransportEmailTemplate:
+    - Default
+    Transports:
+    - Email
+    VisibleForAgent:
+    - '0'
+  ID: '16'
+  Message:
+    en:
+      Body: 'Dear &lt;OTRS_CUSTOMER_REALNAME&gt;,<br />
+
+        <br />
+
+        finally your ticket with the case number &lt;OTRS_TICKET_TicketNumber&gt;
+        has been closed.<br />
+
+        <br />
+
+        If you have anymore questions and want to open the ticket again, reply to
+        this message as follow-up.<br />
+
+        <br />
+
+        Kind regards,<br />
+
+        Support - Mayer GmbH'
+      ContentType: text/html
+      Subject: Ticket closed '<OTRS_TICKET_Title>'
+  Name: Ticket closed
+  ValidID: '1'

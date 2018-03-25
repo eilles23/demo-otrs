@@ -109,9 +109,10 @@ sub Run {
     );
     my $List = $DynamicFieldObject->DynamicFieldList();
     my $FieldOrder = $#$List+2;
-
+    my $FieldConfig = $DynamicFieldObject->DynamicFieldGet( Name => $Self->GetOption('name') );
     if (
-       !$DynamicFieldObject->DynamicFieldAdd(
+       !$DynamicFieldObject->DynamicFieldUpdate(
+        ID            => $FieldConfig->{ID},
         InternalField => 0,             # optional, 0 or 1, internal fields are protected
         Name        => $Self->GetOption('name') || $name,  # mandatory
         Label       => $Self->GetOption('label'), # mandatory, label to show

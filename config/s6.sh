@@ -1,20 +1,19 @@
 #!/bin/bash
-#add: Itsm
-
-sudo docker exec demootrs_otrs su - otrs -c 'cp /opt/otrs/Kernel/scripts/navbar.xml /opt/otrs/Kernel/Config/Files/XML/DemoOTRS.xml'
-sudo docker exec demootrs_otrs sed -i 's/RUNTO/Step 7/' /opt/otrs/Kernel/Config/Files/XML/DemoOTRS.xml 
-sudo docker exec demootrs_otrs sed -i 's/TOLINK/load%20step%2007/' /opt/otrs/Kernel/Config/Files/XML/DemoOTRS.xml
-sudo docker exec demootrs_otrs sed -i 's/HEREIAM/Step 6/' /opt/otrs/Kernel/Config/Files/XML/DemoOTRS.xml #current step
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Maint::Config::Rebuild'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Maint::Cache::Delete'
-
-sudo docker exec demootrs_otrs cp /opt/otrs/Kernel/scripts/s6/*.pm /opt/otrs/Kernel/Config.pm
-
+###add: Itsm
+#copy Config.pm
+sudo docker exec demootrs_otrs cp /opt/otrs/Kernel/scripts/s6/s6.pm /opt/otrs/Kernel/Config.pm
 #add faq article
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::FAQ::Import "/opt/otrs/Kernel/System/Console/Command/Custom/Admin/FAQ/c03s01.csv"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::FAQ::Import "/opt/otrs/Kernel/System/Console/Command/Custom/Admin/FAQ/s6.csv"'
 
-sudo docker exec -it demootrs_otrs curl -o /var/otrs/backups/DynamicFieldConfigItem.opm https://opar.perl-services.de/package/download/1508
-
+#check mysqld config at /etc/my.cnf in demootrs_mariadb
+if sudo docker exec demootrs_mariadb grep -q max_allowed_packet=20M /etc/my.cnf; then
+  sudo docker exec demootrs_mariadb mysql -u root --password="changeme" -e "SET GLOBAL max_allowed_packet=67108864;"
+  echo "Warning: MariaDB does not have the required settings for OTRS loaded!"
+  echo "set global variable 'max_allowed_packet'"
+  sudo docker exec demootrs_mariadb mysql -u otrs --password="changeme" -e "SHOW VARIABLES LIKE 'max_allowed_packet';"
+fi
+#restart webserver inside container
+sudo docker exec demootrs_otrs  supervisorctl restart httpd
 #install additional packages
 #curl -o ftp://ftp.otrs.org/pub/otrs/itsm/bundle6/
 #FAQ
@@ -24,7 +23,8 @@ sudo docker exec -it demootrs_otrs curl -o /var/otrs/backups/DynamicFieldConfigI
 #else 
 #echo "File $LATEST.opm already existing."
 #fi
-sudo cp ./config/FAQ-6.0.opm ./volumes/backup/
+#sudo docker exec -it demootrs_otrs curl -o /var/otrs/backups/DynamicFieldConfigItem.opm https://opar.perl-services.de/package/download/1508
+sudo cp ./config/ITSM-*.opm ./volumes/backup/
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Package::Install /var/otrs/backups/ITSM-*'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Package::Install /opt/otrs/Kernel/scripts/s6/DynamicFieldITSMConfigItem-6.0.1.opm'
 

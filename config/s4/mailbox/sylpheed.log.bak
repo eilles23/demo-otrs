@@ -1,0 +1,40 @@
+[18:21:42] * message: creating IMAP4 connection to mail:143 ...
+[18:21:44] IMAP4< * OK [CAPABILITY IMAP4rev1 LITERAL+ SASL-IR LOGIN-REFERRALS ID ENABLE IDLE STARTTLS AUTH=PLAIN AUTH=LOGIN AUTH=CRAM-MD5] Dovecot ready.
+[18:21:44] IMAP4> 1 CAPABILITY
+[18:21:44] IMAP4< * CAPABILITY IMAP4rev1 LITERAL+ SASL-IR LOGIN-REFERRALS ID ENABLE IDLE STARTTLS AUTH=PLAIN AUTH=LOGIN AUTH=CRAM-MD5
+[18:21:44] IMAP4< 1 OK Pre-login capabilities listed, post-login capabilities have more.
+[18:21:44] IMAP4> 2 AUTHENTICATE CRAM-MD5
+[18:21:44] IMAP4< + PDA0ODkyMDA0NDc0MjE3NzIuMTUyMTc0MjkwNEBmaXJtYS5kZT4=
+[18:21:44] IMAP< [Decoded: <0489200447421772.1521742904@firma.de>]
+[18:21:44] IMAP> [Encoded: agent.dach@firma.de d223578284bdcf92302e05f5d881023e]
+[18:21:44] IMAP> YWdlbnQuZGFjaEBmaXJtYS5kZSBkMjIzNTc4Mjg0YmRjZjkyMzAyZTA1ZjVkODgxMDIzZQ==
+[18:21:46] IMAP4< 2 NO [AUTHENTICATIONFAILED] Authentication failed.
+[18:21:46] ** LibSylph-WARNING: [18:21:46] IMAP4 authentication failed.
+
+[18:21:46] ** warning: IMAP4 authentication failed.
+[18:21:46] IMAP4> 3 LOGOUT
+[18:21:46] IMAP4< * BYE Logging out
+[18:21:46] IMAP4< 3 OK Logout completed.
+[18:21:46] ** LibSylph-WARNING: [18:21:46] Could not establish IMAP connection.
+
+[18:21:46] ** warning: Could not establish IMAP connection.
+[18:22:56] * message: creating IMAP4 connection to mail:143 ...
+[18:23:00] IMAP4< * OK [CAPABILITY IMAP4rev1 LITERAL+ SASL-IR LOGIN-REFERRALS ID ENABLE IDLE STARTTLS AUTH=PLAIN AUTH=LOGIN AUTH=CRAM-MD5] Dovecot ready.
+[18:23:00] IMAP4> 1 CAPABILITY
+[18:23:00] IMAP4< * CAPABILITY IMAP4rev1 LITERAL+ SASL-IR LOGIN-REFERRALS ID ENABLE IDLE STARTTLS AUTH=PLAIN AUTH=LOGIN AUTH=CRAM-MD5
+[18:23:00] IMAP4< 1 OK Pre-login capabilities listed, post-login capabilities have more.
+[18:23:00] IMAP4> 2 AUTHENTICATE CRAM-MD5
+[18:23:00] IMAP4< + PDM1NDM0MTg2OTExMzUxMjAuMTUyMTc0Mjk4MEBmaXJtYS5kZT4=
+[18:23:00] IMAP< [Decoded: <3543418691135120.1521742980@firma.de>]
+[18:23:00] IMAP> [Encoded: agent.benelux@firma.de f24b42552453668cc3c29b98dae94d2f]
+[18:23:00] IMAP> YWdlbnQuYmVuZWx1eEBmaXJtYS5kZSBmMjRiNDI1NTI0NTM2NjhjYzNjMjliOThkYWU5NGQyZg==
+[18:23:02] IMAP4< 2 NO [AUTHENTICATIONFAILED] Authentication failed.
+[18:23:02] ** LibSylph-WARNING: [18:23:02] IMAP4 authentication failed.
+
+[18:23:02] ** warning: IMAP4 authentication failed.
+[18:23:02] IMAP4> 3 LOGOUT
+[18:23:02] IMAP4< * BYE Logging out
+[18:23:02] IMAP4< 3 OK Logout completed.
+[18:23:02] ** LibSylph-WARNING: [18:23:02] Could not establish IMAP connection.
+
+[18:23:02] ** warning: Could not establish IMAP connection.

@@ -1,0 +1,63 @@
+---
+Activities:
+  Activity-01a97a7f98a7265f0a3e89469620ba0b:
+    ActivityDialogs:
+    - ActivityDialog-a87f3bc852d6bc9c35f80b999af4e223
+    ChangeTime: 2018-03-22 21:22:04
+    Config:
+      ActivityDialog:
+        '1': ActivityDialog-a87f3bc852d6bc9c35f80b999af4e223
+    CreateTime: 2018-03-22 21:21:28
+    EntityID: Activity-01a97a7f98a7265f0a3e89469620ba0b
+    ID: '15'
+    Name: 'Medoptics :: Purchase Order'
+ActivityDialogs:
+  ActivityDialog-a87f3bc852d6bc9c35f80b999af4e223:
+    ChangeTime: 2018-03-22 21:21:57
+    Config:
+      DescriptionLong: ''
+      DescriptionShort: Please fill in the purchase order from.
+      FieldOrder:
+      - Article
+      Fields:
+        Article:
+          Config:
+            CommunicationChannel: Internal
+            IsVisibleForCustomer: '0'
+            TimeUnits: '0'
+          DefaultValue: ''
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '1'
+      Interface:
+      - AgentInterface
+      Permission: ''
+      RequiredLock: 0
+      SubmitAdviceText: ''
+      SubmitButtonText: ''
+    CreateTime: 2018-03-22 21:21:57
+    EntityID: ActivityDialog-a87f3bc852d6bc9c35f80b999af4e223
+    ID: '17'
+    Name: 'Medoptics :: Purchase Order'
+Process:
+  Activities:
+  - Activity-01a97a7f98a7265f0a3e89469620ba0b
+  ChangeTime: 2018-03-22 21:23:06
+  Config:
+    Description: Request
+    Path:
+      Activity-01a97a7f98a7265f0a3e89469620ba0b: {}
+    StartActivity: Activity-01a97a7f98a7265f0a3e89469620ba0b
+    StartActivityDialog: ActivityDialog-a87f3bc852d6bc9c35f80b999af4e223
+  CreateTime: 2018-03-22 21:21:12
+  EntityID: Process-0a713cc388c4410806049e4c87975add
+  ID: '9'
+  Layout:
+    Activity-01a97a7f98a7265f0a3e89469620ba0b:
+      left: '205'
+      top: '72.9166870117188'
+  Name: 'Medoptics :: Purchase Order'
+  State: Active
+  StateEntityID: S1
+  TransitionActions: []
+  Transitions: []

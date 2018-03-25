@@ -108,13 +108,71 @@ sub Load {
       'NavBarName' => 'Admin',
       'Title' => 'GenericAgent'
     };
-
+    $Self->{'Ticket::Frontend::AccountTime'} = '0';
     delete $Self->{'Ticket::Frontend::TimeUnits'};
+    $Self->{'OTRSEscalationEvents::DecayTime'} =  '1';
     delete $Self->{'Frontend::NavigationModule'}->{'AdminOTRSBusiness'};
     delete $Self->{'Frontend::Module'}->{'AgentOTRSBusiness'};
     delete $Self->{'Loader::Module::AgentOTRSBusiness'}->{'001-Framework'};
     delete $Self->{'Frontend::NotifyModule'}->{'1100-OTRSBusiness'};
     delete $Self->{'CustomerFrontend::NotifyModule'}->{'1-OTRSBusiness'};
+delete $Self->{'Ticket::Frontend::MenuModule'}->{'999-TeaserAttachmentView'};
+$Self->{'PreferencesGroups'}->{'CreateNextMask'} =  {
+  'Active' => '1',
+  'Data' => {
+    '0' => 'Create Ticket',
+    'AgentTicketZoom' => 'Ticket Zoom'
+  },
+  'DataSelected' => 'AgentTicketZoom',
+  'Desc' => 'Configure which screen should be shown after a new ticket has been created.',
+  'Key' => '',
+  'Label' => 'Screen after new ticket',
+  'Module' => 'Kernel::Output::HTML::Preferences::Generic',
+  'PrefKey' => 'UserCreateNextMask',
+  'PreferenceGroup' => 'Miscellaneous',
+  'Prio' => '3000'
+};
+$Self->{'PreferencesGroups'}->{'RefreshTime'} =  {
+  'Active' => '0',
+  'Data' => {
+    '0' => 'off',
+    '10' => '10 minutes',
+    '15' => '15 minutes',
+    '2' => ' 2 minutes',
+    '5' => ' 5 minutes',
+    '7' => ' 7 minutes'
+  },
+  'DataSelected' => '0',
+  'Desc' => 'If enabled, the different overviews (Dashboard, LockedView, QueueView) will automatically refresh after the specified time.',
+  'Key' => '',
+  'Label' => 'Overview Refresh Time',
+  'Module' => 'Kernel::Output::HTML::Preferences::Generic',
+  'PrefKey' => 'UserRefreshTime',
+  'PreferenceGroup' => 'Miscellaneous',
+  'Prio' => '2000'
+};
+$Self->{'CustomerPreferencesGroups'}->{'RefreshTime'} =  {
+  'Active' => '0',
+  'Data' => {
+    '0' => 'off',
+    '10' => '10 minutes',
+    '15' => '15 minutes',
+    '2' => ' 2 minutes',
+    '5' => ' 5 minutes',
+    '7' => ' 7 minutes'
+  },
+  'DataSelected' => 'off',
+  'Desc' => 'Select after which period ticket overviews should refresh automatically.',
+  'Key' => 'Refresh interval',
+  'Label' => 'Ticket overview',
+  'Module' => 'Kernel::Output::HTML::Preferences::Generic',
+  'PrefKey' => 'UserRefreshTime',
+  'PreferenceGroup' => 'UserProfile',
+  'Prio' => '4000'
+};
+
+$Self->{'Ticket::Responsible'} =  1;
+$Self->{'Ticket::ResponsibleAutoSet'} =  '0';
 
 $Self->{'Ticket::Frontend::AgentTicketEmail'}->{'DynamicField'} =  {
     'Market' => '2',
@@ -511,8 +569,47 @@ $Self->{'DashboardBackend'}->{'0000-ProductNotify'} =  {
   'Module' => 'Kernel::Output::HTML::Dashboard::ProductNotify',
   'Title' => 'Product News'
 };
-delete $Self->{'Frontend::Module'}->{'AgentStatistics'};
-delete $Self->{'PreferencesGroups'}->{'SpellDict'};
+$Self->{'Frontend::Module'}->{'AgentStatistics'} =  {
+  'Description' => '',
+  'Group' => [
+    'admin'
+  ],
+  'GroupRo' => [
+    'stats'
+  ],
+  'NavBarName' => 'Reports',
+  'Title' => 'Statistics'
+};
+$Self->{'Frontend::Navigation'}->{'AgentDemoOTRS'}->{'002-DemoOTRS'} =  [
+  {
+    'AccessKey' => 'Currently at Step 5',
+    'Block' => 'ItemArea',
+    'Description' => 'Currently at Step 5',
+    'Group' => [
+      'users'
+    ],
+    'GroupRo' => [],
+    'Link' => '',
+    'LinkOption' => '',
+    'Name' => 'Demo OTRS',
+    'NavBar' => 'DemoOTRS',
+    'Prio' => '8700',
+    'Type' => 'Menu'
+  },
+  {
+    'AccessKey' => '',
+    'Block' => '',
+    'Description' => 'Run an automated job to load the next configuration',
+    'Group' => [],
+    'GroupRo' => [],
+    'Link' => 'Action=AdminGenericAgent;Subaction=Run;Profile=load%20step%2006;ChallengeToken=dYCUb0fj2OlNskvdnZM30B7uD2TIYLXa;',
+    'LinkOption' => '',
+    'Name' => 'Load Step 6',
+    'NavBar' => 'DemoOTRS',
+    'Prio' => '900',
+    'Type' => ''
+  }
+];delete $Self->{'PreferencesGroups'}->{'SpellDict'};
 
 
 

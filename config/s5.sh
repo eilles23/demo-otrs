@@ -1,17 +1,9 @@
 #!/bin/bash
-#add: queues, groups, escalation
-
-sudo docker exec demootrs_otrs su - otrs -c 'cp /opt/otrs/Kernel/scripts/navbar.xml /opt/otrs/Kernel/Config/Files/XML/DemoOTRS.xml'
-sudo docker exec demootrs_otrs sed -i 's/RUNTO/Step 6/' /opt/otrs/Kernel/Config/Files/XML/DemoOTRS.xml 
-sudo docker exec demootrs_otrs sed -i 's/TOLINK/load%20step%2006/' /opt/otrs/Kernel/Config/Files/XML/DemoOTRS.xml
-sudo docker exec demootrs_otrs sed -i 's/HEREIAM/Step 5/' /opt/otrs/Kernel/Config/Files/XML/DemoOTRS.xml #current step
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Maint::Config::Rebuild'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Maint::Cache::Delete'
-
-sudo docker exec demootrs_otrs cp /opt/otrs/Kernel/scripts/s5/*.pm /opt/otrs/Kernel/Config.pm
-
+###add: queues, groups, escalation
+#copy Config.pm
+sudo docker exec demootrs_otrs cp /opt/otrs/Kernel/scripts/s5/s5.pm /opt/otrs/Kernel/Config.pm
 #add faq article
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::FAQ::Import "/opt/otrs/Kernel/System/Console/Command/Custom/Admin/FAQ/c02s02.csv"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::FAQ::Import "/opt/otrs/Kernel/System/Console/Command/Custom/Admin/FAQ/s5.csv"'
 
 #add groups     digicam
 #add sub group  digicam::DACH
@@ -38,24 +30,30 @@ sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "digicam::DACH"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "digicam::BENELUX"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "digicam::EUROPE"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "digicamAMERICA"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "digicamWOLRDWIDE"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "digicam::LATAM"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "digicam::NAM"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "digicam::AMERICA"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "digicam::WORLDWIDE"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "digicam::2ndLvl"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "digicam::3rdLvl"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "medoptics"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "medoptics::DACH"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "medoptics::BENELUX"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "medoptics::LATAM"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "medoptics::NAM"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "medoptics::EUROPE"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "medoptics::AMERICA"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "medoptics::WOLRDWIDE"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "medoptics::WORLDWIDE"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "medoptics::2ndLvl"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "medoptics::3rdLvl"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "intelliEyes"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "intelliEyes::DACH"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "intelliEyes::BENELUX"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "intelliEyes::LATAM"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "intelliEyes::NAM"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "intelliEyes::EUROPE"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "intelliEyes::AMERICA"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "intelliEyes::WOLRDWIDE"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "intelliEyes::WORLDWIDE"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "intelliEyes::2ndLvl"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "intelliEyes::3rdLvl"'
 
@@ -161,133 +159,139 @@ sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl
 
 #update queues
 sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Queue::Update --ID "6" --name "Digicam" --group "digicam" --system-address-name "support.digicam@firma.de"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Queue::Add --ID "7" --name "Digicam::DACH" --group "digicam::DACH" --system-address-name "support.digicam@firma.de"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Queue::Add --ID "8" --name "Digicam::BENELUX" --group "digicam::BENELUX" --system-address-name "support.digicam@firma.de"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Queue::Add --ID "9" --name "Digicam::LATAM" --group "digicam::LATAM" --system-address-name "support.digicam@firma.de"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Queue::Update --ID "7" --name "Digicam DACH" --group "digicam::DACH" --system-address-name "support.digicam@firma.de"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Queue::Update --ID "8" --name "Digicam BENELUX" --group "digicam::BENELUX" --system-address-name "support.digicam@firma.de"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Queue::Update --ID "9" --name "Digicam LATAM" --group "digicam::LATAM" --system-address-name "support.digicam@firma.de"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Queue::Update --ID "10" --name "Digicam NAM" --group "digicam::NAM" --system-address-name "support.digicam@firma.de"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Queue::Update --ID "11" --name "Digicam EUROPE" --group "digicam::EUROPE" --system-address-name "support.digicam@firma.de"'
 
 #add queues
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "Digicam::NAM" --group "digicam::NAM" --system-address-name "support.digicam@firma.de"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "Digicam::EUROPE" --group "digicam::EUROPE" --system-address-name "support.digicam@firma.de"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "Digicam::AMERICA" --group "digicam::AMERICA" --system-address-name "support.digicam@firma.de"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "Digicam::WORLDWIDE" --group "digicam::WORLDWIDE" --system-address-name "support.digicam@firma.de"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "Digicam AMERICA" --group "digicam::AMERICA" --system-address-name "support.digicam@firma.de"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "Digicam WORLDWIDE" --group "digicam::WORLDWIDE" --system-address-name "support.digicam@firma.de"'
 
 sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "Medoptics" --group "medoptics" --system-address-name "support.medoptics@firma.de"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "Medoptics::DACH" --group "medoptics::DACH" --system-address-name "support.medoptics@firma.de"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "Medoptics::BENELUX" --group "medoptics::BENELUX" --system-address-name "support.medoptics@firma.de"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "Medoptics::LATAM" --group "medoptics::LATAM" --system-address-name "support.medoptics@firma.de"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "Medoptics::NAM" --group "medoptics::NAM" --system-address-name "support.medoptics@firma.de"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "Medoptics::EUROPE" --group "medoptics::EUROPE" --system-address-name "support.medoptics@firma.de"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "Medoptics::AMERICA" --group "medoptics::AMERICA" --system-address-name "support.medoptics@firma.de"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "Medoptics::WORLDWIDE" --group "medoptics::WORLDWIDE" --system-address-name "support.medoptics@firma.de"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "Medoptics DACH" --group "medoptics::DACH" --system-address-name "support.medoptics@firma.de"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "Medoptics BENELUX" --group "medoptics::BENELUX" --system-address-name "support.medoptics@firma.de"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "Medoptics LATAM" --group "medoptics::LATAM" --system-address-name "support.medoptics@firma.de"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "Medoptics NAM" --group "medoptics::NAM" --system-address-name "support.medoptics@firma.de"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "Medoptics EUROPE" --group "medoptics::EUROPE" --system-address-name "support.medoptics@firma.de"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "Medoptics AMERICA" --group "medoptics::AMERICA" --system-address-name "support.medoptics@firma.de"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "Medoptics WORLDWIDE" --group "medoptics::WORLDWIDE" --system-address-name "support.medoptics@firma.de"'
 
 sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "IntelliEyes" --group "intelliEyes" --system-address-name "support.intellieyes@firma.de"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "IntelliEyes::DACH" --group "intelliEyes::DACH" --system-address-name "support.intellieyes@firma.de"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "IntelliEyes::BENELUX" --group "intelliEyes::BENELUX" --system-address-name "support.intellieyes@firma.de"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "IntelliEyes::LATAM" --group "intelliEyes::LATAM" --system-address-name "support.intellieyes@firma.de"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "IntelliEyes::NAM" --group "intelliEyes::NAM" --system-address-name "support.intellieyes@firma.de"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "IntelliEyes::EUROPE" --group "intelliEyes::EUROPE" --system-address-name "support.intellieyes@firma.de"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "IntelliEyes::AMERICA" --group "intelliEyes::AMERICA" --system-address-name "support.intellieyes@firma.de"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "IntelliEyes::WORLDWIDE" --group "intelliEyes::WORLDWIDE" --system-address-name "support.intellieyes@firma.de"'
-
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "IntelliEyes DACH" --group "intelliEyes::DACH" --system-address-name "support.intellieyes@firma.de"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "IntelliEyes BENELUX" --group "intelliEyes::BENELUX" --system-address-name "support.intellieyes@firma.de"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "IntelliEyes LATAM" --group "intelliEyes::LATAM" --system-address-name "support.intellieyes@firma.de"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "IntelliEyes NAM" --group "intelliEyes::NAM" --system-address-name "support.intellieyes@firma.de"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "IntelliEyes EUROPE" --group "intelliEyes::EUROPE" --system-address-name "support.intellieyes@firma.de"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "IntelliEyes AMERICA" --group "intelliEyes::AMERICA" --system-address-name "support.intellieyes@firma.de"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "IntelliEyes WORLDWIDE" --group "intelliEyes::WORLDWIDE" --system-address-name "support.intellieyes@firma.de"'
 
 
 #add mail accounts
-sudo docker exec demootrs_mail add-account agent.digicamDACH@firma.de otrs 
-sudo docker exec demootrs_mail add-account agent.digicamBENELUX@firma.de otrs 
-sudo docker exec demootrs_mail add-account agent.digicamLATAM@firma.de otrs 
-sudo docker exec demootrs_mail add-account agent.digicamNAM@firma.de otrs 
-sudo docker exec demootrs_mail add-account agent.digicamEUROPE@firma.de otrs 
-sudo docker exec demootrs_mail add-account agent.digicamAMERICA@firma.de otrs 
-sudo docker exec demootrs_mail add-account agent.digicamWORLDWIDE@firma.de otrs 
+#add mail accounts
+sudo docker exec demootrs_mail add-account agent-dach@digicam.firma.de otrs 
+sudo docker exec demootrs_mail add-account agent-benelux@digicam.firma.de otrs 
+sudo docker exec demootrs_mail add-account agent-latam@digicam.firma.de otrs 
+sudo docker exec demootrs_mail add-account agent-nam@digicam.firma.de otrs 
+sudo docker exec demootrs_mail add-account agent-europe@digicam.firma.de otrs 
+sudo docker exec demootrs_mail add-account agent-america@digicam.firma.de otrs 
+sudo docker exec demootrs_mail add-account agent-worldwide@digicam.firma.de otrs 
 
-sudo docker exec demootrs_mail add-account kunde.digi@privat.de otrs 
-sudo docker exec demootrs_mail add-account digi.dritt@unternehmen.de otrs 
-sudo docker exec demootrs_mail add-account client.digi@prive.be otrs 
-sudo docker exec demootrs_mail add-account digi.troisieme@enterprise.be otrs 
-sudo docker exec demootrs_mail add-account customer.digi@private.com otrs 
-sudo docker exec demootrs_mail add-account digi.thirdparty@company.com otrs 
-sudo docker exec demootrs_mail add-account cliente.digi@privada.br otrs 
-sudo docker exec demootrs_mail add-account digi.terceiro@companhia.br otrs 
+sudo docker exec demootrs_mail add-account digi-kunde@privat.de otrs 
+sudo docker exec demootrs_mail add-account digi-dritt@unternehmen.de otrs 
+sudo docker exec demootrs_mail add-account digi-client@prive.be otrs 
+sudo docker exec demootrs_mail add-account digi-troisieme@enterprise.be otrs 
+sudo docker exec demootrs_mail add-account digi-customer@private.com otrs 
+sudo docker exec demootrs_mail add-account digi-thirdparty@company.com otrs 
+sudo docker exec demootrs_mail add-account digi-cliente@privada.br otrs 
+sudo docker exec demootrs_mail add-account digi-terceiro@companhia.br otrs 
 
-sudo docker exec demootrs_mail add-account agent.intelliEyesDACH@firma.de otrs 
-sudo docker exec demootrs_mail add-account agent.intelliEyesBENELUX@firma.de otrs 
-sudo docker exec demootrs_mail add-account agent.intelliEyesLATAM@firma.de otrs 
-sudo docker exec demootrs_mail add-account agent.intelliEyesNAM@firma.de otrs 
-sudo docker exec demootrs_mail add-account agent.intelliEyesEUROPE@firma.de otrs 
-sudo docker exec demootrs_mail add-account agent.intelliEyesAMERICA@firma.de otrs 
-sudo docker exec demootrs_mail add-account agent.intelliEyesWORLDWIDE@firma.de otrs 
+sudo docker exec demootrs_mail add-account agent-dach@intellieyes.firma.de otrs 
+sudo docker exec demootrs_mail add-account agent-benelux@intellieyes.firma.de otrs 
+sudo docker exec demootrs_mail add-account agent-latam@intellieyes.firma.de otrs 
+sudo docker exec demootrs_mail add-account agent-nam@intellieyes.firma.de otrs 
+sudo docker exec demootrs_mail add-account agent-europe@intellieyes.firma.de otrs 
+sudo docker exec demootrs_mail add-account agent-america@intellieyes.firma.de otrs 
+sudo docker exec demootrs_mail add-account agent-worldwide@intellieyes.firma.de otrs 
 
-sudo docker exec demootrs_mail add-account kunde.intelli@privat.de otrs 
-sudo docker exec demootrs_mail add-account intelli.dritt@unternehmen.de otrs 
-sudo docker exec demootrs_mail add-account client.intelli@prive.be otrs 
-sudo docker exec demootrs_mail add-account intelli.troisieme@enterprise.be otrs 
-sudo docker exec demootrs_mail add-account customer.intelli@private.com otrs 
-sudo docker exec demootrs_mail add-account intelli.thirdparty@company.com otrs 
-sudo docker exec demootrs_mail add-account cliente.intelli@privada.br otrs 
-sudo docker exec demootrs_mail add-account intelli.terceiro@companhia.br otrs 
+sudo docker exec demootrs_mail add-account intelli-kunde@privat.de otrs 
+sudo docker exec demootrs_mail add-account intelli-dritt@unternehmen.de otrs 
+sudo docker exec demootrs_mail add-account intelli-client@prive.be otrs 
+sudo docker exec demootrs_mail add-account intelli-troisieme@enterprise.be otrs 
+sudo docker exec demootrs_mail add-account intelli-customer@private.com otrs 
+sudo docker exec demootrs_mail add-account intelli-thirdparty@company.com otrs 
+sudo docker exec demootrs_mail add-account intelli-cliente@privada.br otrs 
+sudo docker exec demootrs_mail add-account intelli-terceiro@companhia.br otrs 
 
-sudo docker exec demootrs_mail add-account agent.medopticsDACH@firma.de otrs 
-sudo docker exec demootrs_mail add-account agent.medopticsBENELUX@firma.de otrs 
-sudo docker exec demootrs_mail add-account agent.medopticsLATAM@firma.de otrs 
-sudo docker exec demootrs_mail add-account agent.medopticsNAM@firma.de otrs 
-sudo docker exec demootrs_mail add-account agent.medopticsEUROPE@firma.de otrs 
-sudo docker exec demootrs_mail add-account agent.medopticsAMERICA@firma.de otrs 
-sudo docker exec demootrs_mail add-account agent.medopticsWORLDWIDE@firma.de otrs 
+sudo docker exec demootrs_mail add-account agent-dach@medoptics.firma.de otrs 
+sudo docker exec demootrs_mail add-account agent-benelux@medoptics.firma.de otrs 
+sudo docker exec demootrs_mail add-account agent-latam@medoptics.firma.de otrs 
+sudo docker exec demootrs_mail add-account agent-nam@medoptics.firma.de otrs 
+sudo docker exec demootrs_mail add-account agent-europe@medoptics.firma.de otrs 
+sudo docker exec demootrs_mail add-account agent-america@medoptics.firma.de otrs 
+sudo docker exec demootrs_mail add-account agent-worldwide@medoptics.firma.de otrs 
 
-sudo docker exec demootrs_mail add-account kunde.med@privat.de otrs 
-sudo docker exec demootrs_mail add-account med.dritt@unternehmen.de otrs 
-sudo docker exec demootrs_mail add-account client.med@prive.be otrs 
-sudo docker exec demootrs_mail add-account med.troisieme@enterprise.be otrs 
-sudo docker exec demootrs_mail add-account customer.med@private.com otrs 
-sudo docker exec demootrs_mail add-account med.thirdparty@company.com otrs 
-sudo docker exec demootrs_mail add-account cliente.med@privada.br otrs 
-sudo docker exec demootrs_mail add-account med.terceiro@companhia.br otrs 
+sudo docker exec demootrs_mail add-account med-kunde@privat.de otrs 
+sudo docker exec demootrs_mail add-account med-dritt@unternehmen.de otrs 
+sudo docker exec demootrs_mail add-account med-client@prive.be otrs 
+sudo docker exec demootrs_mail add-account med-troisieme@enterprise.be otrs 
+sudo docker exec demootrs_mail add-account med-customer@private.com otrs 
+sudo docker exec demootrs_mail add-account med-thirdparty@company.com otrs 
+sudo docker exec demootrs_mail add-account med-cliente@privada.br otrs 
+sudo docker exec demootrs_mail add-account med-terceiro@companhia.br otrs 
+
+sudo rm -R ./volumes/mailbox/.sylpheed-2.0/
+sudo cp -Rfa ./config/s5/mailbox ./volumes/mailbox/.sylpheed-2.0
+sudo docker-compose restart mailclient
 
 #add agents 
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent.medopticsDACH@firma.de" --first-name Medoptics --last-name DACH --email-address "agent.medopticsDACH@firma.de" --password "otrs"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent.medopticsBENELUX@firma.de" --first-name Medoptics --last-name BENELUX --email-address "agent.medopticsBENELUX@firma.de" --password "otrs"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent.medopticsLATAM@firma.de" --first-name Medoptics --last-name LATAM --email-address "agent.medopticsLATAM@firma.de" --password "otrs"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent.medopticsNAM@firma.de" --first-name Medoptics --last-name NAM --email-address "agent.medopticsNAM@firma.de" --password "otrs"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent.medopticsEUROPE@firma.de" --first-name Medoptics --last-name EUROPE --email-address "agent.medopticsEUROPE@firma.de" --password "otrs"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent.medopticsAMERICA@firma.de" --first-name Medoptics --last-name AMERICA --email-address "agent.medopticsAMERICA@firma.de" --password "otrs"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent.medopticsWORLDWIDE@firma.de" --first-name Medoptics --last-name WORLDWIDE --email-address "agent.medopticsWORLDWIDE@firma.de" --password "otrs"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent.intelliEyesDACH@firma.de" --first-name intelliEyes --last-name DACH --email-address "agent.intelliEyesDACH@firma.de" --password "otrs"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent.intelliEyesBENELUC@firma.de" --first-name intelliEyes --last-name BENELUX --email-address "agent.intelliEyesBENELUX@firma.de" --password "otrs"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent.intelliEyesLATAM@firma.de" --first-name intelliEyes --last-name LATAM --email-address "agent.intelliEyesLATAM@firma.de" --password "otrs"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent.intelliEyesNAM@firma.de" --first-name intelliEyes --last-name NAM --email-address "agent.intelliEyesNAM@firma.de" --password "otrs"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent.intelliEyesEUROPE@firma.de" --first-name intelliEyes --last-name EUROPE --email-address "agent.intelliEyesEUROPE@firma.de" --password "otrs"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent.intelliEyesAMERICA@firma.de" --first-name intelliEyes --last-name AMERICA --email-address "agent.intelliEyesAMERICA@firma.de" --password "otrs"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent.intelliEyesWORLDWIDE@firma.de" --first-name intelliEyes --last-name WORLDWIDE --email-address "agent.intelliEyesWORLDWIDE@firma.de" --password "otrs"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent.digicamDACH@firma.de" --first-name digicam --last-name DACH --email-address "agent.digicamDACH@firma.de" --password "otrs"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent.digicamBENELUX@firma.de" --first-name digicam --last-name BENELUX --email-address "agent.digicamBENELUX@firma.de" --password "otrs"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent.digicamLATAM@firma.de" --first-name digicam --last-name LATAM --email-address "agent.digicamLATAM@firma.de" --password "otrs"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent.digicamNAM@firma.de" --first-name digicam --last-name NAM --email-address "agent.digicamNAM@firma.de" --password "otrs"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent.digicamEUROPE@firma.de" --first-name digicam --last-name EUROPE --email-address "agent.digicamEUROPE@firma.de" --password "otrs"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent.digicamAMERICA@firma.de" --first-name digicam --last-name AMERICA --email-address "agent.digicamAMERICA@firma.de" --password "otrs"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent.digicamWORLDWIDE@firma.de" --first-name digicam --last-name WORLDWIDE --email-address "agent.digicamWORLDWIDE@firma.de" --password "otrs"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent-dach@medoptics.firma.de" --first-name Medoptics --last-name DACH --email-address "agent-dach@medoptics.firma.de" --password "otrs"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent-benelux@medoptics.firma.de" --first-name Medoptics --last-name BENELUX --email-address "agent-benelux@medoptics.firma.de" --password "otrs"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent-latam@medoptics.firma.de" --first-name Medoptics --last-name LATAM --email-address "agent-latam@medoptics.firma.de" --password "otrs"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent-nam@medoptics.firma.de" --first-name Medoptics --last-name NAM --email-address "agent-nam@medoptics.firma.de" --password "otrs"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent-europe@medoptics.firma.de" --first-name Medoptics --last-name EUROPE --email-address "agent-europe@medoptics.firma.de" --password "otrs"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent-america@medoptics.firma.de" --first-name Medoptics --last-name AMERICA --email-address "agent-america@medoptics.firma.de" --password "otrs"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent-worldwide@medoptics.firma.de" --first-name Medoptics --last-name WORLDWIDE --email-address "agent-worldwide@medoptics.firma.de" --password "otrs"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent-dach@intellieyes.firma.de" --first-name intelliEyes --last-name DACH --email-address "agent-dach@intellieyes.firma.de" --password "otrs"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent-benelux@intellieyes.firma.de" --first-name intelliEyes --last-name BENELUX --email-address "agent-benelux@intellieyes.firma.de" --password "otrs"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent-latam@intellieyes.firma.de" --first-name intelliEyes --last-name LATAM --email-address "agent-latam@intellieyes.firma.de" --password "otrs"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent-nam@intellieyes.firma.de" --first-name intelliEyes --last-name NAM --email-address "agent-nam@intellieyes.firma.de" --password "otrs"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent-europe@intellieyes.firma.de" --first-name intelliEyes --last-name EUROPE --email-address "agent-europe@intellieyes.firma.de" --password "otrs"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent-america@intellieyes.firma.de" --first-name intelliEyes --last-name AMERICA --email-address "agent-america@intellieyes.firma.de" --password "otrs"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent-worldwide@intellieyes.firma.de" --first-name intelliEyes --last-name WORLDWIDE --email-address "agent-worldwide@intellieyes.firma.de" --password "otrs"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent-dach@digicam.firma.de" --first-name digicam --last-name DACH --email-address "agent-dach@digicam.firma.de" --password "otrs"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent-benelux@digicam.firma.de" --first-name digicam --last-name BENELUX --email-address "agent-benelux@digicam.firma.de" --password "otrs"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent-latam@digicam.firma.de" --first-name digicam --last-name LATAM --email-address "agent-latam@digicam.firma.de" --password "otrs"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent-nam@digicam.firma.de" --first-name digicam --last-name NAM --email-address "agent-nam@digicam.firma.de" --password "otrs"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent-europe@digicam.firma.de" --first-name digicam --last-name EUROPE --email-address "agent-europe@digicam.firma.de" --password "otrs"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent-america@digicam.firma.de" --first-name digicam --last-name AMERICA --email-address "agent-america@digicam.firma.de" --password "otrs"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent-worldwide@digicam.firma.de" --first-name digicam --last-name WORLDWIDE --email-address "agent-worldwide@digicam.firma.de" --password "otrs"'
 
 #Link agents-role
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent.digicamDACH@firma.de" --role-name "Digicam::1st-Lvl::DACH"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent.digicamBENELUX@firma.de" --role-name "Digicam::1st-Lvl::BENELUX"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent.digicamLATAM@firma.de" --role-name "Digicam::1st-Lvl::LATAM"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent.digicamNAM@firma.de" --role-name "Digicam::1st-Lvl::NAM"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent.digicamEUROPE@firma.de" --role-name "Digicam::2nd-Lvl::EUROPE"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent.digicamAMERICA@firma.de" --role-name "Digicam::1st-Lvl::AMERICA"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent.digicam@firma.de" --role-name "Digicam::3rd-Lvl::WORLDWIDE"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent.medopticsDACH@firma.de" --role-name "Medoptics::1st-Lvl::DACH"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent.medopticsBENELUX@firma.de" --role-name "Medoptics::1st-Lvl::BENELUX"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent.medopticsLATAM@firma.de" --role-name "Medoptics::1st-Lvl::LATAM"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent.medopticsNAM@firma.de" --role-name "Medoptics::1st-Lvl::NAM"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent.medopticsEUROPE@firma.de" --role-name "Medoptics::2nd-Lvl::EUROPE"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent.medopticsAMERICA@firma.de" --role-name "Medoptics::1st-Lvl::AMERICA"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent.medoptics@firma.de" --role-name "Medoptics::3rd-Lvl::WORLDWIDE"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent.intelliEyesDACH@firma.de" --role-name "IntelliEyes::1st-Lvl::DACH"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent.intelliEyesBENELUX@firma.de" --role-name "IntelliEyes::1st-Lvl::BENELUX"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent.intelliEyesLATAM@firma.de" --role-name "IntelliEyes::1st-Lvl::LATAM"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent.intelliEyesNAM@firma.de" --role-name "IntelliEyes::1st-Lvl::NAM"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent.intelliEyesEUROPE@firma.de" --role-name "IntelliEyes::2nd-Lvl::EUROPE"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent.intelliEyesAMERICA@firma.de" --role-name "IntelliEyes::1st-Lvl::AMERICA"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent.intelliEyes@firma.de" --role-name "IntelliEyes::3rd-Lvl::WORLDWIDE"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-dach@digicam.firma.de" --role-name "Digicam::1st-Lvl::DACH"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-benelux@digicam.firma.de" --role-name "Digicam::1st-Lvl::BENELUX"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-latam@digicam.firma.de" --role-name "Digicam::1st-Lvl::LATAM"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-nam@digicam.firma.de" --role-name "Digicam::1st-Lvl::NAM"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-europe@digicam.firma.de" --role-name "Digicam::2nd-Lvl::EUROPE"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-america@digicam.firma.de" --role-name "Digicam::1st-Lvl::AMERICA"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent@digicam.firma.de" --role-name "Digicam::3rd-Lvl::WORLDWIDE"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-dach@medoptics.firma.de" --role-name "Medoptics::1st-Lvl::DACH"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-benelux@medoptics.firma.de" --role-name "Medoptics::1st-Lvl::BENELUX"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-latam@medoptics.firma.de" --role-name "Medoptics::1st-Lvl::LATAM"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-nam@medoptics.firma.de" --role-name "Medoptics::1st-Lvl::NAM"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-europe@medoptics.firma.de" --role-name "Medoptics::2nd-Lvl::EUROPE"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-america@medoptics.firma.de" --role-name "Medoptics::1st-Lvl::AMERICA"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent@medoptics.firma.de" --role-name "Medoptics::3rd-Lvl::WORLDWIDE"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-dach@intellieyes.firma.de" --role-name "IntelliEyes::1st-Lvl::DACH"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-benelux@intellieyes.firma.de" --role-name "IntelliEyes::1st-Lvl::BENELUX"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-latam@intellieyes.firma.de" --role-name "IntelliEyes::1st-Lvl::LATAM"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-nam@intellieyes.firma.de" --role-name "IntelliEyes::1st-Lvl::NAM"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-europe@intellieyes.firma.de" --role-name "IntelliEyes::2nd-Lvl::EUROPE"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-america@intellieyes.firma.de" --role-name "IntelliEyes::1st-Lvl::AMERICA"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent@intellieyes.firma.de" --role-name "IntelliEyes::3rd-Lvl::WORLDWIDE"'
+
+
 
 #add customer
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerCompany::Add --name "Digicam Private Customers" --customer-id "110"'
@@ -306,35 +310,53 @@ sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerCompany::Add --name "IntelliEyes <Company>" --customer-id "133"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerCompany::Add --name "IntelliEyes <Companhia>" --customer-id "134"'
 #add customerusers
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "kunde.digi@privat.de" --first-name Privat --last-name DigiKunde --email-address "kunde.digi@privat.de" --password "otrs" --customer-id "110"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "client.digi@prive.be" --first-name Prive --last-name DigiClient --email-address "client.digi@prive.be" --password "otrs" --customer-id "110"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "customer.digi@private.com" --first-name Private --last-name DigiCustomer --email-address "customer.digi@private.com" --password "otrs" --customer-id "110"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "cliente.digi@privada.br" --first-name Privadamente --last-name DigiCliente --email-address "cliente.digi@privada.br" --password "otrs" --customer-id "110"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "kunde.med@privat.de" --first-name Privat --last-name MedKunde --email-address "kunde.med@privat.de" --password "otrs" --customer-id "120"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "client.med@prive.be" --first-name Prive --last-name MedClient --email-address "client.med@prive.be" --password "otrs" --customer-id "120"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "customer.med@private.com" --first-name Private --last-name MedCustomer --email-address "customer.med@private.com" --password "otrs" --customer-id "120"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "cliente.med@privada.br" --first-name Privadamente --last-name MedCliente --email-address "cliente.med@privada.br" --password "otrs" --customer-id "120"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "kunde.intelli@privat.de" --first-name Privat --last-name IntelliKunde --email-address "kunde.intelli@privat.de" --password "otrs" --customer-id "130"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "client.intelli@prive.be" --first-name Prive --last-name IntelliClient --email-address "client.intelli@prive.be" --password "otrs" --customer-id "130"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "customer.intelli@private.com" --first-name Private --last-name IntelliCustomer --email-address "customer.intelli@private.com" --password "otrs" --customer-id "130"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "cliente.intelli@privada.br" --first-name Privadamente --last-name IntelliCliente --email-address "cliente.intelli@privada.br" --password "otrs" --customer-id "130"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "digi-kunde@privat.de" --first-name Privat --last-name DigiKunde --email-address "digi-kunde@privat.de" --password "otrs" --customer-id "110"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "digi-client@prive.be" --first-name Prive --last-name DigiClient --email-address "digi-client@prive.be" --password "otrs" --customer-id "110"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "digi-customer@private.com" --first-name Private --last-name DigiCustomer --email-address "digi-customer@private.com" --password "otrs" --customer-id "110"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "digi-cliente@privada.br" --first-name Privadamente --last-name DigiCliente --email-address "digi-cliente@privada.br" --password "otrs" --customer-id "110"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "med-kunde@privat.de" --first-name Privat --last-name MedKunde --email-address "med-kunde@privat.de" --password "otrs" --customer-id "120"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "med-client@prive.be" --first-name Prive --last-name MedClient --email-address "med-client@prive.be" --password "otrs" --customer-id "120"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "med-customer@private.com" --first-name Private --last-name MedCustomer --email-address "med-customer@private.com" --password "otrs" --customer-id "120"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "med-cliente@privada.br" --first-name Privadamente --last-name MedCliente --email-address "med-cliente@privada.br" --password "otrs" --customer-id "120"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "intelli-kunde@privat.de" --first-name Privat --last-name IntelliKunde --email-address "intelli-kunde@privat.de" --password "otrs" --customer-id "130"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "intelli-client@prive.be" --first-name Prive --last-name IntelliClient --email-address "intelli-client@prive.be" --password "otrs" --customer-id "130"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "intelli-customer@private.com" --first-name Private --last-name IntelliCustomer --email-address "intelli-customer@private.com" --password "otrs" --customer-id "130"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "intelli-cliente@privada.br" --first-name Privadamente --last-name IntelliCliente --email-address "intelli-cliente@privada.br" --password "otrs" --customer-id "130"'
 
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "digi.dritt@unternehmen.de" --first-name Dritt --last-name DigiUnternehmen --email-address "digi.dritt@unternehmen.de" --password "otrs" --customer-id "111"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "digi.troisieme@enterprise.be" --first-name Troisieme --last-name DigiEnterprise --email-address "digi.troisieme@enterprise.be" --password "otrs" --customer-id "112"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "digi.thirdparty@company.com" --first-name Thirdparty --last-name DigiCompany --email-address "digi.thirdparty@company.com" --password "otrs" --customer-id "113"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "digi.terceiro@companhia.br" --first-name Terceiro --last-name DigiCompanhia --email-address "digi.terceiro@companhia.br" --password "otrs" --customer-id "114"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "med.dritt@unternehmen.de" --first-name Dritt --last-name MedUnternehmen --email-address "med.dritt@unternehmen.de" --password "otrs" --customer-id "121"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "med.troisieme@enterprise.be" --first-name Troisieme --last-name MedEnterprise --email-address "med.troisieme@enterprise.be" --password "otrs" --customer-id "122"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "med.thirdparty@company.com" --first-name Thirdparty --last-name MedCompany --email-address "med.thirdparty@company.com" --password "otrs" --customer-id "123"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "med.terceiro@companhia.br" --first-name Terceiro --last-name MedCompanhia --email-address "med.terceiro@companhia.br" --password "otrs" --customer-id "124"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "intelli.dritt@unternehmen.de" --first-name Dritt --last-name IntelliUnternehmen --email-address "intelli.dritt@unternehmen.de" --password "otrs" --customer-id "131"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "intelli.troisieme@enterprise.be" --first-name Troisieme --last-name IntelliEnterprise --email-address "intelli.troisieme@enterprise.be" --password "otrs" --customer-id "132"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "intelli.thirdparty@company.com" --first-name Thirdparty --last-name IntelliCompany --email-address "intelli.thirdparty@company.com" --password "otrs" --customer-id "133"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "intelli.terceiro@companhia.br" --first-name Terceiro --last-name IntelliCompanhia --email-address "intelli.terceiro@companhia.br" --password "otrs" --customer-id "134"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "digi-dritt@unternehmen.de" --first-name Dritt --last-name DigiUnternehmen --email-address "digi-dritt@unternehmen.de" --password "otrs" --customer-id "111"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "digi-troisieme@enterprise.be" --first-name Troisieme --last-name DigiEnterprise --email-address "digi-troisieme@enterprise.be" --password "otrs" --customer-id "112"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "digi-thirdparty@company.com" --first-name Thirdparty --last-name DigiCompany --email-address "digi-thirdparty@company.com" --password "otrs" --customer-id "113"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "digi-terceiro@companhia.br" --first-name Terceiro --last-name DigiCompanhia --email-address "digi-terceiro@companhia.br" --password "otrs" --customer-id "114"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "med-dritt@unternehmen.de" --first-name Dritt --last-name MedUnternehmen --email-address "med-dritt@unternehmen.de" --password "otrs" --customer-id "121"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "med-troisieme@enterprise.be" --first-name Troisieme --last-name MedEnterprise --email-address "med-troisieme@enterprise.be" --password "otrs" --customer-id "122"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "med-thirdparty@company.com" --first-name Thirdparty --last-name MedCompany --email-address "med-thirdparty@company.com" --password "otrs" --customer-id "123"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "med-terceiro@companhia.br" --first-name Terceiro --last-name MedCompanhia --email-address "med-terceiro@companhia.br" --password "otrs" --customer-id "124"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "intelli-dritt@unternehmen.de" --first-name Dritt --last-name IntelliUnternehmen --email-address "intelli-dritt@unternehmen.de" --password "otrs" --customer-id "131"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "intelli-troisieme@enterprise.be" --first-name Troisieme --last-name IntelliEnterprise --email-address "intelli-troisieme@enterprise.be" --password "otrs" --customer-id "132"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "intelli-thirdparty@company.com" --first-name Thirdparty --last-name IntelliCompany --email-address "intelli-thirdparty@company.com" --password "otrs" --customer-id "133"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "intelli-terceiro@companhia.br" --first-name Terceiro --last-name IntelliCompanhia --email-address "intelli-terceiro@companhia.br" --password "otrs" --customer-id "134"'
 
 
 #add dynamcfields
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name Market --label "Market" --type Text --file /DF_Text.yml'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Update --name Market --label "Market" --type Dropdown --file Market.yml --path "/opt/otrs/Kernel/scripts/s5/dynamicfield"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name Description --label "Description" --type "TextArea" --file /DF_Textarea.yml'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name Escalate --label "Escalate" --type Text --file /DF_Text.yml '
+
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIproduct --label "Product" --type Dropdown --file DIGIproduct.yml --path "/opt/otrs/Kernel/scripts/s5/dynamicfield"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIrequestApproval --label "Verification" --type Dropdown --file DIGIrequestApproval.yml --path "/opt/otrs/Kernel/scripts/s5/dynamicfield"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIorderNumber --label "Order Nr." --type Text --file /DF_Text.yml '
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIinvoiceNumber --label "Invoice Nr." --type Text --file /DF_Text.yml '
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIorderApproval --label "Verification" --type Dropdown --file DIGIorderApproval.yml --path "/opt/otrs/Kernel/scripts/s5/dynamicfield"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIdeliveryApproval --label "Verification" --type Dropdown --file DIGIdeliveryApproval.yml --path "/opt/otrs/Kernel/scripts/s5/dynamicfield"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIdeliveryAddress --label "Shipping Address" --type "TextArea" --file /DF_Textarea.yml'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIdeliveryTracking --label "Tracking Nr." --type Text --file /DF_Text.yml '
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIdeliveryDuration --label "Estimated processing time" --type Date --file /DF_Date.yml'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIdeliveryTime --label "Estimated shipping time" --type Date --file /DF_Date.yml'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIinprogress --label "Tracking Nr." --type Text --file /DF_Text.yml '
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIpacked --label "Tracking Nr." --type Text --file /DF_Text.yml '
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIsent --label "Tracking Nr." --type Text --file /DF_Text.yml '
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIdeliveryTracking --label "Tracking Nr." --type Text --file /DF_Text.yml '
+
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGImodelnr --label "Model Nr." --type Text --file /DF_Text.yml'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIserialnr --label "Serial Nr." --type Text --file /DF_Text.yml'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIwarranty --label "Still in warranty" --type Checkbox --file /DF_Checkbox.yml'
@@ -366,7 +388,44 @@ sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custo
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAM_intelli_LATAM.yml'
 
 
-#remove & add generic agent
- sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::GenericAgent::Delete --name "Move Incidents"'
-  sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::GenericAgent::Delete --name "Move Service Requests"'
+#add autoresponse
+docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Add --name "Digicam reply" --subject "Re: <OTRS_TICKET_Title> - Ticket received" --response "Dear &lt;OTRS_CUSTOMER_REALNAME&gt;,<br/><br/>thank you very much for your message.&nbsp;<br/>We have received your request. Your case number is <a href=&lt;OTRS_CONFIG_HttpType&gt;://&lt;OTRS_CONFIG_FQDN&gt;/&lt;OTRS_CONFIG_ScriptAlias&gt;customer.pl?Action=CustomerTicketZoom;TicketNumber=&lt;OTRS_TICKET_TicketNumber&gt;>&lt;OTRS_TICKET_TicketNumber&gt;</a>.<br />We will contact you when your request is complete or we need any more information.<br/><br/>Kind regards,<br/>Digicam Support - Mayer GmbH" --system-address-name  "support.digicam@firma.de" --type "1"'
+docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Add --name "Digicam reject/new ticket created" --subject "Re: <OTRS_TICKET_Title> - Ticket received" --response "Dear &lt;OTRS_CUSTOMER_REALNAME&gt;,<br/><br/>thank you very much for your message.&nbsp;<br/>Your previous ticket is closed.<br /><br/>--  A new ticket has been created for you. --<br/><br/>We have received your request. Your new case number is <a href=&lt;OTRS_CONFIG_HttpType&gt;://&lt;OTRS_CONFIG_FQDN&gt;/&lt;OTRS_CONFIG_ScriptAlias&gt;customer.pl?Action=CustomerTicketZoom;TicketNumber=&lt;OTRS_TICKET_TicketNumber&gt;>&lt;OTRS_TICKET_TicketNumber&gt;</a><br/><br/>Kind regards,<br/>Digicam Support - Mayer GmbH" --system-address-name  "support.digicam@firma.de" --type "4"'
+docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Add --name "Digicam reject" --subject "Re: <OTRS_TICKET_Title> - Ticket rejected" --response "Dear &lt;OTRS_CUSTOMER_REALNAME&gt;,<br/><br/>thank you very much for your message.&nbsp;<br/>Your previous ticket is closed.<br /><br/>-- Your follow-up has been rejected. --<br/><br/>Please create a new ticket.<br/><br/>Kind regards,<br/>Digicam Support - Mayer GmbH" --system-address-name  "support.digicam@firma.de" --type "2"'
+docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Add --name "Digicam follow-up" --subject "Re: <OTRS_TICKET_Title> - Ticket follow-up received" --response "Dear &lt;OTRS_CUSTOMER_REALNAME&gt;,<br/><br/>thank you very much for your follow-up message.&nbsp;<br/>We will contact you when your request is complete or we need any more information.<br/><br/>Kind regards,<br/>Digicam Support - Mayer GmbH" --system-address-name  "support.digicam@firma.de" --type "3"'
+docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Add --name "Medoptics reply" --subject "Re: <OTRS_TICKET_Title> - Ticket received" --response "Dear &lt;OTRS_CUSTOMER_REALNAME&gt;,<br/><br/>thank you very much for your message.&nbsp;<br/>We have received your request. Your case number is <a href=&lt;OTRS_CONFIG_HttpType&gt;://&lt;OTRS_CONFIG_FQDN&gt;/&lt;OTRS_CONFIG_ScriptAlias&gt;customer.pl?Action=CustomerTicketZoom;TicketNumber=&lt;OTRS_TICKET_TicketNumber&gt;>&lt;OTRS_TICKET_TicketNumber&gt;</a>.<br />We will contact you when your request is complete or we need any more information.<br/><br/>Kind regards,<br/>Medoptics Support - Mayer GmbH" --system-address-name  "support.medoptics@firma.de" --type "1"'
+docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Add --name "Medoptics reject/new ticket created" --subject "Re: <OTRS_TICKET_Title> - Ticket received" --response "Dear &lt;OTRS_CUSTOMER_REALNAME&gt;,<br/><br/>thank you very much for your message.&nbsp;<br/>Your previous ticket is closed.<br /><br/>--  A new ticket has been created for you. --<br/><br/>We have received your request. Your new case number is <a href=&lt;OTRS_CONFIG_HttpType&gt;://&lt;OTRS_CONFIG_FQDN&gt;/&lt;OTRS_CONFIG_ScriptAlias&gt;customer.pl?Action=CustomerTicketZoom;TicketNumber=&lt;OTRS_TICKET_TicketNumber&gt;>&lt;OTRS_TICKET_TicketNumber&gt;</a><br/><br/>Kind regards,<br/>Medoptics Support - Mayer GmbH" --system-address-name  "support.medoptics@firma.de" --type "4"'
+docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Add --name "Medoptics reject" --subject "Re: <OTRS_TICKET_Title> - Ticket rejected" --response "Dear &lt;OTRS_CUSTOMER_REALNAME&gt;,<br/><br/>thank you very much for your message.&nbsp;<br/>Your previous ticket is closed.<br /><br/>-- Your follow-up has been rejected. --<br/><br/>Please create a new ticket.<br/><br/>Kind regards,<br/>Medoptics Support - Mayer GmbH" --system-address-name  "support.medoptics@firma.de" --type "2"'
+docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Add --name "Medoptics follow-up" --subject "Re: <OTRS_TICKET_Title> - Ticket follow-up received" --response "Dear &lt;OTRS_CUSTOMER_REALNAME&gt;,<br/><br/>thank you very much for your follow-up message.&nbsp;<br/>We will contact you when your request is complete or we need any more information.<br/><br/>Kind regards,<br/>Medoptics Support - Mayer GmbH" --system-address-name  "support.medoptics@firma.de" --type "3"'
+docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Add --name "IntelliEyes reply" --subject "Re: <OTRS_TICKET_Title> - Ticket received" --response "Dear &lt;OTRS_CUSTOMER_REALNAME&gt;,<br/><br/>thank you very much for your message.&nbsp;<br/>We have received your request. Your case number is <a href=&lt;OTRS_CONFIG_HttpType&gt;://&lt;OTRS_CONFIG_FQDN&gt;/&lt;OTRS_CONFIG_ScriptAlias&gt;customer.pl?Action=CustomerTicketZoom;TicketNumber=&lt;OTRS_TICKET_TicketNumber&gt;>&lt;OTRS_TICKET_TicketNumber&gt;</a>.<br />We will contact you when your request is complete or we need any more information.<br/><br/>Kind regards,<br/>IntelliEyes Support - Mayer GmbH" --system-address-name  "support.intellieyes@firma.de" --type "1"'
+docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Add --name "IntelliEyes reject/new ticket created" --subject "Re: <OTRS_TICKET_Title> - Ticket received" --response "Dear &lt;OTRS_CUSTOMER_REALNAME&gt;,<br/><br/>thank you very much for your message.&nbsp;<br/>Your previous ticket is closed.<br /><br/>--  A new ticket has been created for you. --<br/><br/>We have received your request. Your new case number is <a href=&lt;OTRS_CONFIG_HttpType&gt;://&lt;OTRS_CONFIG_FQDN&gt;/&lt;OTRS_CONFIG_ScriptAlias&gt;customer.pl?Action=CustomerTicketZoom;TicketNumber=&lt;OTRS_TICKET_TicketNumber&gt;>&lt;OTRS_TICKET_TicketNumber&gt;</a><br/><br/>Kind regards,<br/>IntelliEyes Support - Mayer GmbH" --system-address-name  "support.intellieyes@firma.de" --type "4"'
+docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Add --name "IntelliEyes reject" --subject "Re: <OTRS_TICKET_Title> - Ticket rejected" --response "Dear &lt;OTRS_CUSTOMER_REALNAME&gt;,<br/><br/>thank you very much for your message.&nbsp;<br/>Your previous ticket is closed.<br /><br/>-- Your follow-up has been rejected. --<br/><br/>Please create a new ticket.<br/><br/>Kind regards,<br/>IntelliEyes Support - Mayer GmbH" --system-address-name  "support.intellieyes@firma.de" --type "2"'
+docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Add --name "IntelliEyes follow-up" --subject "Re: <OTRS_TICKET_Title> - Ticket follow-up received" --response "Dear &lt;OTRS_CUSTOMER_REALNAME&gt;,<br/><br/>thank you very much for your follow-up message.&nbsp;<br/>We will contact you when your request is complete or we need any more information.<br/><br/>Kind regards,<br/>IntelliEyes Support - Mayer GmbH" --system-address-name  "support.intellieyes@firma.de" --type "3"'
+
+#link autoresponses
+sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "1 2 3 4" --queue-name "Digicam DACH"'
+sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "1 2 3 4" --queue-name "Digicam BENELUX"'
+sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "1 2 3 4" --queue-name "Digicam NAM"'
+sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "1 2 3 4" --queue-name "Digicam LATAM"'
+sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "1 2 3 4" --queue-name "Medoptics DACH"'
+sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "1 2 3 4" --queue-name "Medoptics BENELUX"'
+sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "1 2 3 4" --queue-name "Medoptics NAM"'
+sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "1 2 3 4" --queue-name "Medoptics LATAM"'
+sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "1 2 3 4" --queue-name "IntelliEyes DACH"'
+sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "1 2 3 4" --queue-name "IntelliEyes BENELUX"'
+sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "1 2 3 4" --queue-name "IntelliEyes NAM"'
+sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "1 2 3 4" --queue-name "IntelliEyes LATAM"'
+sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "2" --queue-name "Digicam EUROPE"'
+sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "2" --queue-name "Digicam AMERICA"'
+sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "2" --queue-name "Digicam WORLDWIDE"'
+sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "2" --queue-name "Medoptics EUROPE"'
+sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "2" --queue-name "Medoptics AMERICA"'
+sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "2" --queue-name "Medoptics WORLDWIDE"'
+sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "2" --queue-name "IntelliEyes EUROPE"'
+sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "2" --queue-name "IntelliEyes AMERICA"'
+sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "2" --queue-name "IntelliEyes WORLDWIDE"'
+
+
+
+#add generic agent
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::GenericAgent::Add --name "load step 06" --file /s5.yml'

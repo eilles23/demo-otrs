@@ -107,6 +107,13 @@ sub Configure {
         HasValue    => 1,
         ValueRegex  => qr/.*/smx,
     );
+    $Self->AddOption(
+        Name        => 'follow',
+        Description => 'Follow up "possible", "reject" or "new ticket"',
+        Required    => 0,
+        HasValue    => 1,
+        ValueRegex  => qr/.*/smx,
+    );
 
     return;
 }
@@ -163,7 +170,7 @@ sub Run {
         ValidID           => $Self->GetOption('valid') || 1,
         SalutationID        => 1,
         SignatureID         => 1,
-        FollowUpID          => 1,
+        FollowUpID          => $Self->GetOption('follow') || 1,
         UserID            => 1,
     );
 

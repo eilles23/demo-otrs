@@ -52,9 +52,23 @@ sub Configure {
         ValueRegex  => qr/.*/smx,
     );
     $Self->AddOption(
-        Name        => 'addressID',
-        Description => "System Address ID",
-        Required    => 1,
+        Name        => 'system-address-id',
+        Description => 'ID of the system address which should be assigned to the new queue.',
+        Required    => 0,
+        HasValue    => 1,
+        ValueRegex  => qr/\d/smx,
+    );
+    $Self->AddOption(
+        Name        => 'system-address-name',
+        Description => 'Name of the system address which should be assigned to the new queue.',
+        Required    => 0,
+        HasValue    => 1,
+        ValueRegex  => qr/.*/smx,
+    );
+        $Self->AddOption(
+        Name        => 'type',
+        Description => 'TypeID of AutoResponse.',
+        Required    => 0,
         HasValue    => 1,
         ValueRegex  => qr/.*/smx,
     );
@@ -79,6 +93,30 @@ sub Run {
     my ( $Self, %Param ) = @_;
 
     $Self->Print("<yellow>Adding a new AutoResponse ...</yellow>\n");
+    
+    my $SystemAddressID   = $Self->GetOption('system-address-id');
+    my $SystemAddressName = $Self->GetOption('system-address-name');
+
+    # check System Address
+    if ($SystemAddressName) {
+        my %SystemAddressList = $Kernel::OM->Get('Kernel::System::SystemAddress')->SystemAddressList(
+            Valid => 1
+        );
+        ADDRESS:
+        for my $ID ( sort keys %SystemAddressList ) {
+            my %SystemAddressInfo = $Kernel::OM->Get('Kernel::System::SystemAddress')->SystemAddressGet(
+                ID => $ID
+            );
+            if ( $SystemAddressInfo{Name} eq $SystemAddressName ) {
+                $SystemAddressID = $ID;
+                last ADDRESS;
+            }
+        }
+        if ( !$SystemAddressID ) {
+            $Self->PrintError("Address $SystemAddressName not found\n");
+            return $Self->ExitCodeError();
+        }
+    }
 
     if (
         !$Kernel::OM->Get('Kernel::System::AutoResponse')->AutoResponseAdd(
@@ -86,10 +124,10 @@ sub Run {
         ValidID     => 1,
         Subject     => $Self->GetOption('subject'),
         Response    => $Self->GetOption('response'),
-        ContentType => 'text/plain',
-        TypeID      => 1,
+        ContentType => 'text/html',
+        TypeID      => $Self->GetOption('type') || 1,
         UserID      => 1,
-        AddressID   => $Self->GetOption('addressID'),
+        AddressID   => $SystemAddressID,
     )
     )
     {

@@ -1,0 +1,21 @@
+---
+DefaultValue: ''
+Link: ''
+LinkPreview: ''
+PossibleNone: '0'
+PossibleValues:  { 
+    Digicam::DACH: 'Digicam DACH', 
+    Digicam::BENELUX: 'Digicam Benelux', 
+    Digicam::NAM: 'Digicam North America', 
+    Digicam::LATAM: 'Digicam Latin America',
+    Medoptics::DACH: 'Medoptics DACH', 
+    Medoptics::BENELUX: 'Medoptics Benelux', 
+    Medoptics::NAM: 'Medoptics North America', 
+    Medoptics::LATAM: 'Medoptics Latin America',
+    IntelliEyes::DACH: 'IntelliEyes DACH', 
+    IntelliEyes::BENELUX: 'IntelliEyes Benelux', 
+    IntelliEyes::NAM: 'IntelliEyes North America', 
+    IntelliEyes::LATAM: 'IntelliEyes Latin America' 
+    }
+TranslatableValues: '0'
+TreeView: '0'

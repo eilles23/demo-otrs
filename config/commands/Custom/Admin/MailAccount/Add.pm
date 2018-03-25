@@ -7,6 +7,7 @@ package Kernel::System::Console::Command::Custom::Admin::MailAccount::Add;
 
 use strict;
 use warnings;
+use Data::Dumper;
 
 use base qw(Kernel::System::Console::BaseCommand);
 
@@ -102,8 +103,18 @@ sub Run {
     my ( $Self, %Param ) = @_;
 
     $Self->Print("<yellow>Adding new postmaster mail account...</yellow>\n");
-    # add system address
     my $MailAccount  = $Kernel::OM->Get('Kernel::System::MailAccount');
+    my %List = $MailAccount->MailAccountList(
+        Valid => 0, # just valid/all accounts
+    );
+    my $login = $Self->GetOption('login');
+    my $host = $Self->GetOption('host');
+    for my $user (values %List) { 
+        if ($user =~ m/${host}\s\(${login}\)/) { 
+             $Self->PrintError("A postmaster mail account with this host and login already exists. Can't add MailAccount Service.\n");
+             return $Self->ExitCodeError();}
+    }
+    # add mailaccount
     if (
         !$MailAccount->MailAccountAdd(
             Login   => $Self->GetOption('login'),
