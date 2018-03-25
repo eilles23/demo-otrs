@@ -73,11 +73,11 @@ Click on <input type="button" name="request" id="request" value="Reuqest Webserv
     <div class="col-lg-6 col-lg-offset-3 text-right">
       <form enctype="multipart/form-data" >
       <div class="box" id="contactbox" > 
-        <input type="text" name="name" class="form-control" placeholder="Subject, Name">
+        <input type="text" name="name" class="form-control" placeholder="Subject, Name" required>
         </br>
-        <input type="text" name="email" class="form-control" placeholder="E-Mail">
+        <input type="email" pattern="^[A-Za-z0-9-]+@.+$" name="email" class="form-control" placeholder="E-Mail" required>
         </br>
-        <textarea class="form-control" rows="3" placeholder="Message" name="body"></textarea>
+        <textarea class="form-control" rows="3" placeholder="Message" name="body" required></textarea>
       </div>
       <div class="boxbottom" id="contactboxbottom"><input type="button" id="sendd" class="btn btn-primary btn-lg active" value="Submit"></input></div> </form>   
     </div><!--  end of col  -->

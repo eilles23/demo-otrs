@@ -110,7 +110,13 @@ $Self->{'Frontend::Module'}->{'AdminGenericAgent'} =  {
   'Title' => 'GenericAgent'
 };
 
-delete $Self->{'Frontend::Module'}->{'AgentCustomerInformationCenter'};
+$Self->{'Frontend::Module'}->{'AgentCustomerInformationCenter'} =  {
+  'Description' => 'Customer Information Center.',
+  'Group' => ['admin'],
+  'GroupRo' => [],
+  'NavBarName' => 'Customers',
+  'Title' => ''
+};
 delete $Self->{'Frontend::NavigationModule'}->{'AdminOTRSBusiness'};
 delete $Self->{'Frontend::Module'}->{'AgentOTRSBusiness'};
 delete $Self->{'Loader::Module::AgentOTRSBusiness'}->{'001-Framework'};

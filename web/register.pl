@@ -24,7 +24,7 @@ my $lastname = $cgi->param('lastname');
 my $email = $cgi->param('email'); 
 my $password = $cgi->param('password');
 
-print $cgi -> header(
+print $cgi->header(
 -type => 'text/plain',
 -access_control_allow_origin => '*',
   );

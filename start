@@ -8,16 +8,18 @@ sudo docker exec demootrs_otrs cp /etc/hosts /tmp/tmp.hosts
 sudo docker exec demootrs_otrs sed -i '$ a 127.0.0.1 firma.de' /tmp/tmp.hosts 
 sudo docker exec demootrs_otrs sed -i '$ a 127.0.0.1 mail.firma.de' /tmp/tmp.hosts
 sudo docker exec demootrs_otrs cp -f /tmp/tmp.hosts /etc/hosts
-if grep -q mail.firma.de /etc/hosts; then 
+if grep -q otrs.firma.de /etc/hosts; then 
     sudo sed -i '$ a 127.0.0.1    firma.de' /etc/hosts
     sudo sed -i '$ a 127.0.0.1    mail.firma.de' /etc/hosts 
+    sudo sed -i '$ a 127.0.0.1    otrs.firma.de' /etc/hosts 
 fi
 sudo docker cp ./config/apache.conf demootrs_otrs:/etc/httpd/conf.d/firma.conf
 echo " ...ok!"
 #sudo docker exec demootrs_otrs yum install -y perl-REST-Client
 sudo docker exec demootrs_otrs yum install -y yum-utils   device-mapper-persistent-data   lvm2
-sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+sudo docker exec demootrs_otrs yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 sudo docker exec demootrs_otrs yum install -y docker-ce
+(firefox ./ffaddon/firefox_multi_account_containers-6.0.0-an+fx-linux.xpi `pwd`/web/addon.html &)
 
 
 #check mysqld config at /etc/my.cnf in demootrs_mariadb
@@ -35,7 +37,7 @@ echo "-> otrs-setup"
 cp -rf ./config/commands/Custom ./volumes/config/System/Console/Command/ #/Kernel/System/Console
 mkdir ./volumes/config/scripts/ 
 cp -rf ./config/s* ./volumes/config/scripts/
-cp -rf ./config/navbar.xml ./volumes/config/scripts/
+cp -rf ./config/navbar.xml ./volumes/config/Config/Files/DemoOTRS.xml
 find ./volumes/config/scripts/. -type f -name '*.sh' | xargs sed -i "s/sudo docker exec demootrs_otrs\s\+su - otrs -c .//g"
 find ./volumes/config/scripts/. -type f -name '*.sh' | xargs sed -i 's/'\''$//g'
 find ./volumes/config/scripts/. -type f -name '*.sh' | xargs sed -i "s/sudo docker exec demootrs_otrs//g"
