@@ -68,9 +68,9 @@ ActivityDialogs:
       - DynamicField_DIGIrequestApproval
       - DynamicField_DIGIproduct
       - DynamicField_DIGImodelnr
-      - DynamicField_DIGIdeliverAddress
+      - DynamicField_DIGIdeliveryAddress
       Fields:
-        DynamicField_DIGIdeliverAddress:
+        DynamicField_DIGIdeliveryAddress:
           DefaultValue: ''
           DescriptionLong: ''
           DescriptionShort: ''

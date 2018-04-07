@@ -2,6 +2,5 @@
 TypeIDs: '2'
 PriorityIDs: 
         - '4'
-        - '5'
-NewQueueID: '6'
+NewQueueID: '7'
 EventValues: 'TicketCreate'

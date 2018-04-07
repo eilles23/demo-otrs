@@ -1,9 +1,9 @@
 ---
 - ChangeBy: '2'
-  ChangeTime: 2018-03-21 21:31:45
+  ChangeTime: 2018-03-25 18:40:55
   Comment: default merged notification to customer
-  CreateBy: '2'
-  CreateTime: 2018-03-21 21:17:18
+  CreateBy: '1'
+  CreateTime: 2018-03-24 14:55:46
   Data:
     AgentEnabledByDefault:
     - Email
@@ -15,8 +15,6 @@
     - '1'
     LanguageID:
     - en
-    RecipientEmail:
-    - <OTRS_Ticket_DynamicField_FromName>
     Recipients:
     - Customer
     StateID:

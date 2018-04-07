@@ -13,6 +13,7 @@ use base qw(Kernel::System::Console::BaseCommand);
 
 our @ObjectDependencies = (
     'Kernel::System::ProcessManagement::DB::Process',
+    'Kernel::System::ProcessManagement::DB::Entity',
 );
 
 sub Configure {
@@ -78,15 +79,29 @@ sub Run {
     {
         $file = join "/", $Self->GetOption('path'), $Self->GetOption('file');
     }
-    my $ProcessObject = $Kernel::OM->Get('Kernel::System::ProcessManagement::DB::Process');
+
     my $yaml = loadyaml($file);
-    if (
-       !$ProcessObject->ProcessImport(
-        Content                   => $yaml, # mandatory, YAML format
-        OverwriteExistingEntities => $Self->GetOption('overwrite') || 1,            # 0 || 1
-        UserID                    => 1,            # mandatory
-        )
-      )
+    my $Location = '/opt/otrs/Kernel/Config/Files/ZZZProcessManagement.pm';
+    my $ProcessObject = $Kernel::OM->Get('Kernel::System::ProcessManagement::DB::Process');
+    my $EntityObject = $Kernel::OM->Get('Kernel::System::ProcessManagement::DB::Entity');
+    $ProcessObject->ProcessImport(
+    Content                   => $yaml, # mandatory, YAML format
+    OverwriteExistingEntities => $Self->GetOption('overwrite') || 1,            # 0 || 1
+    UserID                    => 1,            # mandatory
+    );
+    my $ProcessDump = $ProcessObject->ProcessDump(
+            ResultType => 'FILE',
+            Location   => $Location,
+            UserID     => 1,
+        );
+    my $success = 0;
+    if ($ProcessDump) {
+        $success = $EntityObject->EntitySyncStatePurge(
+            UserID => 1,
+        );
+    }
+  
+    if (!$success)
         {
             $Self->PrintError("Can't add Process.");
             return $Self->ExitCodeError();

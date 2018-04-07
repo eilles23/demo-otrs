@@ -1,4 +1,4 @@
 ---
-Market: 'WORLDWIDE'
+Region: 'WORLDWIDE'
 NewQueueID: '12'
 EventValues: 'TicketCreate'

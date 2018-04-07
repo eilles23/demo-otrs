@@ -80,7 +80,6 @@ $Self->{Home} = '/opt/otrs';
     $Self->{'Organization'} =  'Mayer GmbH';
     $Self->{'CheckMXRecord'} =  '0';
     $Self->{'Frontend::Customer::CustomerPanelLogoutURL'} =  'http://localhost/login.html';
-    $Self->{'CustomerGroupSupport'} =  1;
     $Self->{'Ticket::Frontend::AccountTime'} =  '0';
 
     $Self->{'Daemon::SchedulerCronTaskManager::Task'}->{'MailAccountFetch'} =  {

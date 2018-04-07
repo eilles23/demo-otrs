@@ -1,0 +1,24 @@
+---
+- ChangeBy: admin
+  ChangeTime: 2018-03-14 11:27:21
+  Comment: Market EUROPE
+  ConfigChange:
+    PossibleAdd:
+      Ticket:
+        DynamicField_Market:
+        - '106'
+        - 'EUROPE'
+  ConfigMatch:
+    Properties:
+      User:
+        Role:
+        - 'Agent::1stLvl::EUROPE'
+        - 'Agent::2ndLvl::EUROPE'
+        - 'Agent::3rdLvl::EUROPE'
+  CreateBy: admin
+  CreateTime: 2018-03-14 11:27:21
+  Description: Unrelated Markets will be hidden.
+  ID: 9
+  Name: AAM Agent EUROPE
+  StopAfterMatch: 0
+  ValidID: 1

@@ -30,7 +30,7 @@ sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl
 #rename queue
 sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Queue::Update --ID "4" --name "Support" --group "users" --system-address-name "support@firma.de"'
 #Add queue
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Queue::Add --name Registration --group "registration" --follow "2" --first-response-time "2" --update-time "4" --solution-time "6"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Queue::Add --name Registration --group "registration" --follow "2" '
 
 #add system address
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::SystemAddress::Add --name "firma.de Registration" --email-address registration@firma.de --queue-name Registration'
@@ -38,6 +38,8 @@ sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl
 #add notification
 sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Notification::Add --file "Export_Notification_Registration_Ticket_create.yml" --path "/opt/otrs/Kernel/scripts/s2/notification"'
 
+#add acl to hide ticket type unclassified
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAA_Hide_Unclassified.yml --path "/opt/otrs/Kernel/scripts/s2/acl"'
 
 #add generic agent
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::GenericAgent::Add --name "load step 03" --file /s2.yml'

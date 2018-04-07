@@ -3,15 +3,15 @@
   ChangeTime: 2018-03-14 11:27:21
   Comment: ''
   ConfigChange:
-    Possible:
+    PossibleNot:
       Ticket:
         DynamicField_Market:
-        - '[NotRegExp]^.'
+        - '[RegExp]^.'
   ConfigMatch: ''
   CreateBy: admin
   CreateTime: 2018-03-14 11:27:21
   Description: ''
   ID: 5
-  Name: AAA::Hide all Markets
+  Name: AAA Hide all Markets
   StopAfterMatch: 0
   ValidID: 1

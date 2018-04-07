@@ -1,13 +1,51 @@
 ---
+Activities:
+  Activity-f534bb6ec422603a0ff0fcf23870f9b5:
+    ActivityDialogs:
+    - ActivityDialog-ade02e17e410dd2bc87ba7d1f545c739
+    ChangeTime: 2018-03-26 10:03:58
+    Config:
+      ActivityDialog:
+        '1': ActivityDialog-ade02e17e410dd2bc87ba7d1f545c739
+    CreateTime: 2018-03-26 09:59:03
+    EntityID: Activity-f534bb6ec422603a0ff0fcf23870f9b5
+    ID: '7'
+    Name: 'IntelliEyes :: New Hardware'
+ActivityDialogs:
+  ActivityDialog-ade02e17e410dd2bc87ba7d1f545c739:
+    ChangeTime: 2018-03-26 09:59:13
+    Config:
+      DescriptionLong: ''
+      DescriptionShort: Please fill in the fields.
+      FieldOrder: []
+      Fields: {}
+      Interface:
+      - AgentInterface
+      Permission: ''
+      RequiredLock: 0
+      SubmitAdviceText: ''
+      SubmitButtonText: ''
+    CreateTime: 2018-03-26 09:59:13
+    EntityID: ActivityDialog-ade02e17e410dd2bc87ba7d1f545c739
+    ID: '7'
+    Name: 'IntelliEyes :: New Hardware'
 Process:
-  Activities: []
-  ChangeTime: 2018-03-22 21:26:57
+  Activities:
+  - Activity-f534bb6ec422603a0ff0fcf23870f9b5
+  ChangeTime: 2018-03-26 10:04:01
   Config:
     Description: Request new Hardware
-  CreateTime: 2018-03-22 21:26:57
+    Path:
+      Activity-f534bb6ec422603a0ff0fcf23870f9b5: {}
+    StartActivity: Activity-f534bb6ec422603a0ff0fcf23870f9b5
+    StartActivityDialog: ActivityDialog-ade02e17e410dd2bc87ba7d1f545c739
+  CreateTime: 2018-03-26 09:54:44
   EntityID: Process-125186c2678301eac1ff2407b31aa053
-  ID: '11'
-  Layout: {}
+  ID: '5'
+  Layout:
+    Activity-f534bb6ec422603a0ff0fcf23870f9b5:
+      left: '269'
+      top: '80.6166687011719'
   Name: 'IntelliEyes :: New Hardware'
   State: Active
   StateEntityID: S1

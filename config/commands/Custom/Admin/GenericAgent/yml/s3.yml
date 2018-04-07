@@ -1,5 +1,5 @@
 ---
 QueueIDs: 
-    - '4'
+    - '10'
 NewCMD: '/bin/bash /opt/otrs/Kernel/scripts/s4.sh'
 

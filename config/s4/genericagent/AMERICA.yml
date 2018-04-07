@@ -1,4 +1,4 @@
 ---
-Market: 'AMERICA'
+Region: 'AMERICA'
 NewQueueID: '11'
 EventValues: 'TicketCreate'

@@ -11,10 +11,15 @@ sudo docker exec demootrs_mail add-domain firma.de
 sudo docker exec demootrs_mail add-domain priv.at 
 sudo docker exec demootrs_mail add-account agent@firma.de otrs 
 sudo docker exec demootrs_mail add-account support@firma.de otrs
-sudo docker exec demootrs_mail add-account admin@firma.de otrs
+sudo docker exec demootrs_mail add-account kunde@firma.de otrs
 sudo rm -R ./volumes/mailbox/.sylpheed-2.0/
 sudo cp -Rfa ./config/s1/mailbox ./volumes/mailbox/.sylpheed-2.0
 sudo docker-compose restart mailclient
+
+#add customer
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerCompany::Add --name "My Customers" --customer-id "100"'
+#add customer user
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "kunde@firma.de" --first-name Test --last-name Kunde --email-address "kunde@firma.de" --password "otrs" --customer-id "100"'
 
 #create default agent
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent@firma.de" --first-name Mitar --last-name Beiter --email-address "agent@firma.de" --password "otrs"'
@@ -36,11 +41,16 @@ sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.
 #add postmaster filter
 #sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::PostMasterFilter::Add --name "FromName" --file "FromName.yml" --path "/opt/otrs/Kernel/scripts/s1/postmasterfilter"'
 
-
 #add notifications
 sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Notification::Add --file "Export_Notification_Ticket_closed.yml" --path "/opt/otrs/Kernel/scripts/s1/notification"'
 sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Notification::Add --file "Export_Notification_Ticket_merged.yml" --path "/opt/otrs/Kernel/scripts/s1/notification"'
 sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Notification::Add --file "Export_Notification_Ticket_pending_auto_close.yml" --path "/opt/otrs/Kernel/scripts/s1/notification"'
+
+#add acls
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file "Export_ACL_AAA_Hide_Close__Pending__Closed_Tickets_.yml" --path "/opt/otrs/Kernel/scripts/s1/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file "AAA_Default_New_Email-Ticket.yml" --path "/opt/otrs/Kernel/scripts/s1/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file "AAA_Default_New_Email-Ticket.yml" --path "/opt/otrs/Kernel/scripts/s1/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file "AAA_Default_New_Phone-Ticket.yml" --path "/opt/otrs/Kernel/scripts/s1/acl"'
 
 
 #add generic agent

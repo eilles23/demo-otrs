@@ -1,18 +1,59 @@
 ---
+Activities:
+  Activity-96ef2c1c634c9ae57aca4617b636d3a0:
+    ActivityDialogs:
+    - ActivityDialog-ecdf799f815895ab268e52778e70b87e
+    ChangeTime: 2018-03-26 10:04:30
+    Config:
+      ActivityDialog:
+        '1': ActivityDialog-ecdf799f815895ab268e52778e70b87e
+    CreateTime: 2018-03-26 09:47:00
+    EntityID: Activity-96ef2c1c634c9ae57aca4617b636d3a0
+    ID: '2'
+    Name: 'IntelliEyes :: Renewal of a Service'
+ActivityDialogs:
+  ActivityDialog-ecdf799f815895ab268e52778e70b87e:
+    ChangeTime: 2018-03-26 09:47:59
+    Config:
+      DescriptionLong: ''
+      DescriptionShort: Request the renewal of a service
+      FieldOrder:
+      - DynamicField_INTELLIDuration
+      Fields:
+        DynamicField_INTELLIDuration:
+          DefaultValue: ''
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '2'
+      Interface:
+      - AgentInterface
+      Permission: ''
+      RequiredLock: 0
+      SubmitAdviceText: ''
+      SubmitButtonText: ''
+    CreateTime: 2018-03-26 09:47:59
+    EntityID: ActivityDialog-ecdf799f815895ab268e52778e70b87e
+    ID: '2'
+    Name: 'IntelliEyes :: Renewal of a Service'
 Process:
-  Activities: []
-  ChangeTime: 2018-03-22 21:28:30
+  Activities:
+  - Activity-96ef2c1c634c9ae57aca4617b636d3a0
+  ChangeTime: 2018-03-26 10:06:25
   Config:
     Description: Extend the duration of a service
-    Path: {}
-    StartActivity: ''
-    StartActivityDialog: ''
-  CreateTime: 2018-03-22 21:28:06
+    Path:
+      Activity-96ef2c1c634c9ae57aca4617b636d3a0: {}
+    StartActivity: Activity-96ef2c1c634c9ae57aca4617b636d3a0
+    StartActivityDialog: ActivityDialog-ecdf799f815895ab268e52778e70b87e
+  CreateTime: 2018-03-26 09:46:11
   EntityID: Process-2ac7d5962f79cbc36b1f3777d2d3b80d
-  ID: '12'
-  Layout: {}
+  ID: '2'
+  Layout:
+    Activity-96ef2c1c634c9ae57aca4617b636d3a0:
+      left: '186'
+      top: '81.6166687011719'
   Name: 'IntelliEyes :: Renewal of a Service'
-  State: Inactive
-  StateEntityID: S2
+  State: Active
+  StateEntityID: S1
   TransitionActions: []
   Transitions: []

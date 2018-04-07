@@ -1,4 +1,4 @@
 ---
-Market: 'EUROPE'
+Region: 'EUROPE'
 NewQueueID: '10'
 EventValues: 'TicketCreate'

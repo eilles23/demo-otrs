@@ -4,18 +4,14 @@ Link: ''
 LinkPreview: ''
 PossibleNone: '0'
 PossibleValues:  { 
-    Digicam::DACH: 'Digicam DACH', 
-    Digicam::BENELUX: 'Digicam Benelux', 
-    Digicam::NAM: 'Digicam North America', 
-    Digicam::LATAM: 'Digicam Latin America',
-    Medoptics::DACH: 'Medoptics DACH', 
-    Medoptics::BENELUX: 'Medoptics Benelux', 
-    Medoptics::NAM: 'Medoptics North America', 
-    Medoptics::LATAM: 'Medoptics Latin America',
-    IntelliEyes::DACH: 'IntelliEyes DACH', 
-    IntelliEyes::BENELUX: 'IntelliEyes Benelux', 
-    IntelliEyes::NAM: 'IntelliEyes North America', 
-    IntelliEyes::LATAM: 'IntelliEyes Latin America' 
+    'Digicam Customer': 'Digicam Customer', 
+    'Medoptics Private': 'Medoptics Private', 
+    'Medoptics DACH': 'Medoptics DACH', 
+    'Medoptics BENELUX': 'Medoptics Benelux', 
+    'Medoptics NAM': 'Medoptics North America', 
+    'Medoptics LATAM': 'Medoptics Latin America',
+    'IntelliEyes DACH': 'IntelliEyes DACH', 
+    'IntelliEyes NAM': 'IntelliEyes NAM'
     }
 TranslatableValues: '0'
 TreeView: '0'

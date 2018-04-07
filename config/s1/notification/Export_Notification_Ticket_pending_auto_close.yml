@@ -1,9 +1,9 @@
 ---
 - ChangeBy: '2'
-  ChangeTime: 2018-03-21 21:32:20
+  ChangeTime: 2018-03-25 18:41:01
   Comment: default pending auto close notification to customer
-  CreateBy: '2'
-  CreateTime: 2018-03-21 21:15:24
+  CreateBy: '1'
+  CreateTime: 2018-03-24 14:55:47
   Data:
     AgentEnabledByDefault:
     - Email
@@ -15,8 +15,6 @@
     - '1'
     LanguageID:
     - en
-    RecipientEmail:
-    - <OTRS_Ticket_DynamicField_FromName>
     Recipients:
     - Customer
     StateID:
@@ -28,7 +26,7 @@
     - Email
     VisibleForAgent:
     - '0'
-  ID: '17'
+  ID: '19'
   Message:
     en:
       Body: 'Dear &lt;OTRS_CUSTOMER_REALNAME&gt;,<br />

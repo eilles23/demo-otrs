@@ -1,18 +1,53 @@
 ---
+Activities:
+  Activity-0d702419cf4285ac041f314d672dec49:
+    ActivityDialogs:
+    - ActivityDialog-589e9b65f7f28e38a2b3a324dc7a8db8
+    ChangeTime: 2018-03-26 10:04:11
+    Config:
+      ActivityDialog:
+        '1': ActivityDialog-589e9b65f7f28e38a2b3a324dc7a8db8
+    CreateTime: 2018-03-26 09:58:34
+    EntityID: Activity-0d702419cf4285ac041f314d672dec49
+    ID: '6'
+    Name: 'IntelliEyes :: New Service'
+ActivityDialogs:
+  ActivityDialog-589e9b65f7f28e38a2b3a324dc7a8db8:
+    ChangeTime: 2018-03-26 09:58:42
+    Config:
+      DescriptionLong: ''
+      DescriptionShort: Please fill in the fields.
+      FieldOrder: []
+      Fields: {}
+      Interface:
+      - AgentInterface
+      Permission: ''
+      RequiredLock: 0
+      SubmitAdviceText: ''
+      SubmitButtonText: ''
+    CreateTime: 2018-03-26 09:58:42
+    EntityID: ActivityDialog-589e9b65f7f28e38a2b3a324dc7a8db8
+    ID: '6'
+    Name: 'IntelliEyes :: New Service'
 Process:
-  Activities: []
-  ChangeTime: 2018-03-22 21:26:32
+  Activities:
+  - Activity-0d702419cf4285ac041f314d672dec49
+  ChangeTime: 2018-03-26 10:04:12
   Config:
     Description: Request a new service
-    Path: {}
-    StartActivity: ''
-    StartActivityDialog: ''
-  CreateTime: 2018-03-22 21:25:54
+    Path:
+      Activity-0d702419cf4285ac041f314d672dec49: {}
+    StartActivity: Activity-0d702419cf4285ac041f314d672dec49
+    StartActivityDialog: ActivityDialog-589e9b65f7f28e38a2b3a324dc7a8db8
+  CreateTime: 2018-03-26 09:52:49
   EntityID: Process-58ad44a52828e35ef1883e5d553094b7
-  ID: '10'
-  Layout: {}
+  ID: '3'
+  Layout:
+    Activity-0d702419cf4285ac041f314d672dec49:
+      left: '229'
+      top: '67.6166687011719'
   Name: 'IntelliEyes :: New Service'
-  State: Inactive
-  StateEntityID: S2
+  State: Active
+  StateEntityID: S1
   TransitionActions: []
   Transitions: []

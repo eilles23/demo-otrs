@@ -7,7 +7,10 @@ PossibleValues: {
     DACH: 'DACH', 
     BENELUX: 'Benelux', 
     NAM: 'North America', 
-    LATAM: 'Latin America'
+    LATAM: 'Latin America',
+    EUROPE: 'Europe',
+    AMERICA: 'America',
+    WORLDWIDE: 'Worldwide'
     }
 TranslatableValues: '0'
 TreeView: '0'

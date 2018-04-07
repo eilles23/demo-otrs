@@ -13,32 +13,34 @@ sudo docker exec demootrs_mail add-account agent-nam@firma.de otrs
 sudo docker exec demootrs_mail add-account agent-europe@firma.de otrs 
 sudo docker exec demootrs_mail add-account agent-america@firma.de otrs 
 sudo docker exec demootrs_mail add-account agent-worldwide@firma.de otrs 
-sudo docker exec demootrs_mail add-account kunde@privat.de otrs 
-sudo docker exec demootrs_mail add-account customer@private.com otrs 
-sudo docker exec demootrs_mail add-account client@prive.be otrs 
-sudo docker exec demootrs_mail add-account cliente@privada.br otrs 
-sudo docker exec demootrs_mail add-account dritt@unternehmen.de otrs 
-sudo docker exec demootrs_mail add-account troisieme@enterprise.be otrs 
-sudo docker exec demootrs_mail add-account thirdparty@company.com otrs 
-sudo docker exec demootrs_mail add-account terceiro@companhia.br otrs 
+sudo docker exec demootrs_mail add-account customer-dach@firma.de otrs 
+sudo docker exec demootrs_mail add-account customer-benelux@firma.de otrs 
+sudo docker exec demootrs_mail add-account customer-latam@firma.de otrs 
+sudo docker exec demootrs_mail add-account customer-nam@firma.de otrs 
+sudo docker exec demootrs_mail add-account customer-europe@firma.de otrs 
+sudo docker exec demootrs_mail add-account customer-america@firma.de otrs 
+sudo docker exec demootrs_mail add-account customer-worldwide@firma.de otrs 
+sudo rm -R ./volumes/mailbox/.sylpheed-2.0/
+sudo cp -Rfa ./config/s4/mailbox ./volumes/mailbox/.sylpheed-2.0
+sudo docker-compose restart mailclient
 
 #add customer
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerCompany::Add --name "Private Customers" --customer-id "101"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerCompany::Add --name "<Unternehmen>" --customer-id "102"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerCompany::Add --name "<Enterprise>" --customer-id "103"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerCompany::Add --name "<Company>" --customer-id "104"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerCompany::Add --name "<Companhia>" --customer-id "105"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerCompany::Add --name "DACH" --customer-id "102"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerCompany::Add --name "BENELUX" --customer-id "103"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerCompany::Add --name "NAM" --customer-id "104"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerCompany::Add --name "LATAM" --customer-id "105"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerCompany::Add --name "EUROPE" --customer-id "106"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerCompany::Add --name "AMERICA" --customer-id "107"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerCompany::Add --name "WORLDWIDE" --customer-id "108"'
 
 #add cutomeruser
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "kunde@privat.de" --first-name Privat --last-name Kunde --email-address "kunde@privat.de" --password "otrs" --customer-id "101"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "client@prive.be" --first-name Prive --last-name Client --email-address "client@prive.be" --password "otrs" --customer-id "101"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "customer@private.com" --first-name Private --last-name Customer --email-address "customer@private.com" --password "otrs" --customer-id "101"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "cliente@privada.br" --first-name Privadamente --last-name Cliente --email-address "cliente@privada.br" --password "otrs" --customer-id "101"'
-
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "dritt@unternehmen.de" --first-name Dritt --last-name Unternehmen --email-address "dritt@unternehmen.de" --password "otrs" --customer-id "102"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "troisieme@enterprise.be" --first-name Troisieme --last-name Enterprise --email-address "troisieme@enterprise.be" --password "otrs" --customer-id "103"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "thirdparty@company.com" --first-name Thirdparty --last-name Company --email-address "thirdparty@company.com" --password "otrs" --customer-id "104"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "terceiro@companhia.br" --first-name Terceiro --last-name Companhia --email-address "terceiro@companhia.br" --password "otrs" --customer-id "105"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "customer-dach@firma.de" --first-name Privat --last-name Kunde --email-address "customer-dach@firma.de" --password "otrs" --customer-id "102"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "customer-benelux@firma.de" --first-name Prive --last-name Client --email-address "customer-benelux@firma.de" --password "otrs" --customer-id "103"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "customer-nam@firma.de" --first-name Private --last-name Customer --email-address "customer-nam@firma.de" --password "otrs" --customer-id "104"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "customer-latam@firma.de" --first-name Privadamente --last-name Cliente --email-address "customer-latam@firma.de" --password "otrs" --customer-id "105"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "customer-europe@firma.de" --first-name Prive --last-name Client --email-address "customer-europe@firma.de" --password "otrs" --customer-id "106"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "customer-america@firma.de" --first-name Private --last-name Customer --email-address "customer-america@firma.de" --password "otrs" --customer-id "107"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "customer-worldwide@firma.de" --first-name Private --last-name Customer --email-address "customer-worldwide@firma.de" --password "otrs" --customer-id "108"'
 
 
 #add groups
@@ -99,7 +101,6 @@ sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl 
 sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Queue::Update --ID "8" --name "1st Level LATAM" --group "LATAM" --system-address-name "support@firma.de"'
 sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Queue::Update --ID "9" --name "1st Level NAM" --group "NAM" --system-address-name "support@firma.de"'
 sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Queue::Update --ID "4" --name "3rd Level WORLDWIDE" --group "WORLDWIDE" --system-address-name "support@firma.de"'
-
 #add queues
 sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "2nd Level EUROPE" --group "EUROPE" --system-address-name "support@firma.de"'
 sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "2nd Level AMERICA" --group "AMERICA" --system-address-name "support@firma.de"'
@@ -128,7 +129,7 @@ sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl
 #update autoresponse
 sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Update --name "default reply (after new ticket has been created)" --subject "Re: <OTRS_TICKET_Title> - Ticket received" --response "Dear &lt;OTRS_CUSTOMER_REALNAME&gt;,<br/><br/>thank you very much for your message.&nbsp;<br/>We have received your request. Your case number is <a href=&lt;OTRS_CONFIG_HttpType&gt;://&lt;OTRS_CONFIG_FQDN&gt;/&lt;OTRS_CONFIG_ScriptAlias&gt;customer.pl?Action=CustomerTicketZoom;TicketNumber=&lt;OTRS_TICKET_TicketNumber&gt;>&lt;OTRS_TICKET_TicketNumber&gt;</a>.<br />We will contact you when your request is complete or we need any more information.<br/><br/>Kind regards,<br/>Support &lt;OTRS_TICKET_DynamicField_Market&gt;<br/>Mayer GmbH" --system-address-name  "support@firma.de" --ID "1" --type "1"'
 #update autoresponse
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Add --name "default reply (after new ticket has been created)" --subject "Re: <OTRS_TICKET_Title> - Ticket received" --response "Dear &lt;OTRS_CUSTOMER_REALNAME&gt;,<br/><br/>thank you very much for your message.&nbsp;<br/>Unfortunately the mail address you have written to is invalid.<br />Please contact your regional customer support.<br/><br/>Kind regards,<br/>Support &lt;OTRS_TICKET_DynamicField_Market&gt;<br/>Mayer GmbH" --system-address-name  "support@firma.de" --type "2"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Update --name "default reject" --subject "Re: <OTRS_TICKET_Title> - Ticket received" --response "Dear &lt;OTRS_CUSTOMER_REALNAME&gt;,<br/><br/>thank you very much for your message.&nbsp;<br/>Unfortunately the mail address you have written to is invalid and so your email will not be answered.<br />Please contact your regional customer support.<br/><br/>Kind regards,<br/>Support &lt;OTRS_TICKET_DynamicField_Market&gt;<br/>Mayer GmbH" --system-address-name  "support@firma.de" --type "2" --ID "2"'
 #link autoresponses
 sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "1 2 3 4" --queue-name "1st Level DACH"'
 sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "1 2 3 4" --queue-name "1st Level BENELUX"'
@@ -139,7 +140,9 @@ sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.
 sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::AutoResponse::Link --responseID "2" --queue-name "3rd Level WORLDWIDE"'
 
 #add notifications
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Notification::Add --file "Export_Notification_Registration_Ticket_create.yml" --path "/opt/otrs/Kernel/scripts/s4/notification"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Notification::Add --file "Export_Notification_Ticket_closed.yml" --path "/opt/otrs/Kernel/scripts/s4/notification"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Notification::Add --file "Export_Notification_Ticket_merged.yml" --path "/opt/otrs/Kernel/scripts/s4/notification"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Notification::Add --file "Export_Notification_Ticket_pending_auto_close.yml" --path "/opt/otrs/Kernel/scripts/s4/notification"'
 
 #add genericagents
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::GenericAgent::Add --name "Market<->Queue DACH" --file DACH.yml --path "/opt/otrs/Kernel/scripts/s4/genericagent"'
@@ -155,10 +158,19 @@ sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custo
 #add Service
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Service::Add --name Standard'
 #Add queue
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::SLA::Add --name Premium --first-response-time "2" --update-time "4" --solution-time "6" --services "1"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::SLA::Add --name Basic --services "1" --first-response-time "2" --update-time "4" --solution-time "6" --services "1"'
 #Link customeruser<->service
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Service::Link --customeruser "admin@firma.de" --service "1"'
 
+#add acls
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAM_Customer_DACH.yml --path "/opt/otrs/Kernel/scripts/s4/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAM_Customer_BENELUX.yml --path "/opt/otrs/Kernel/scripts/s4/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAM_Customer_NAM.yml --path "/opt/otrs/Kernel/scripts/s4/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAM_Customer_LATAM.yml --path "/opt/otrs/Kernel/scripts/s4/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAM_Agent_DACH.yml --path "/opt/otrs/Kernel/scripts/s4/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAM_Agent_BENELUX.yml --path "/opt/otrs/Kernel/scripts/s4/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAM_Agent_NAM.yml --path "/opt/otrs/Kernel/scripts/s4/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAM_Agent_LATAM.yml --path "/opt/otrs/Kernel/scripts/s4/acl"'
 
 #add generic agent
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::GenericAgent::Add --name "load step 05" --file /s4.yml'

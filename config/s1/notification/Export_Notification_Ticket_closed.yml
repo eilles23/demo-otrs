@@ -1,9 +1,9 @@
 ---
 - ChangeBy: '2'
-  ChangeTime: 2018-03-21 21:22:27
+  ChangeTime: 2018-03-25 18:40:42
   Comment: default closed notification to customer
   CreateBy: '1'
-  CreateTime: 2018-03-21 16:23:17
+  CreateTime: 2018-03-23 16:16:04
   Data:
     AgentEnabledByDefault:
     - Email
@@ -15,8 +15,6 @@
     - '1'
     LanguageID:
     - en
-    RecipientEmail:
-    - <OTRS_Ticket_DynamicField_FromName>
     Recipients:
     - Customer
     StateID:
