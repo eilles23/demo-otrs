@@ -95,16 +95,14 @@ sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "AMERICA" --role-name "Agent::3rd-Lvl::WORLDWIDE" --permission "ro" --permission "move_into" --permission "create"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "EUROPE" --role-name "Agent::3rd-Lvl::WORLDWIDE" --permission "ro" --permission "move_into" --permission "create"'
 
-#update queues
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Queue::Update --ID "6" --name "1st Level DACH" --group "DACH" --system-address-name "support@firma.de"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Queue::Update --ID "7" --name "1st Level BENELUX" --group "BENELUX" --system-address-name "support@firma.de"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Queue::Update --ID "8" --name "1st Level LATAM" --group "LATAM" --system-address-name "support@firma.de"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Queue::Update --ID "9" --name "1st Level NAM" --group "NAM" --system-address-name "support@firma.de"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Queue::Update --ID "4" --name "3rd Level WORLDWIDE" --group "WORLDWIDE" --system-address-name "support@firma.de"'
 #add queues
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add  --name "1st Level DACH" --group "DACH" --system-address-name "support@firma.de"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add  --name "1st Level BENELUX" --group "BENELUX" --system-address-name "support@firma.de"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add  --name "1st Level LATAM" --group "LATAM" --system-address-name "support@firma.de"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add  --name "1st Level NAM" --group "NAM" --system-address-name "support@firma.de"'
 sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "2nd Level EUROPE" --group "EUROPE" --system-address-name "support@firma.de"'
 sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "2nd Level AMERICA" --group "AMERICA" --system-address-name "support@firma.de"'
-
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add  --name "3rd Level WORLDWIDE" --group "WORLDWIDE" --system-address-name "support@firma.de"'
 
 #add agents
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent-dach@firma.de" --first-name Agent --last-name DACH --email-address "agent-dach@firma.de" --password "otrs"'
@@ -122,6 +120,14 @@ sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-europe@firma.de" --role-name "Agent::2nd-Lvl::EUROPE"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-america@firma.de" --role-name "Agent::2nd-Lvl::AMERICA"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent@firma.de" --role-name "Agent::3rd-Lvl::WORLDWIDE"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "admin@firma.de" --role-name "Agent::3rd-Lvl::WORLDWIDE"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "admin@firma.de" --role-name "Agent::1st-Lvl::DACH"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "admin@firma.de" --role-name "Agent::1st-Lvl::BENELUX"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "admin@firma.de" --role-name "Agent::1st-Lvl::LATAM"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "admin@firma.de" --role-name "Agent::1st-Lvl::NAM"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "admin@firma.de" --role-name "Agent::2nd-Lvl::EUROPE"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "admin@firma.de" --role-name "Agent::2nd-Lvl::AMERICA"'
+
 
 #add dynamic fields
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name Market --label "Market" --type Dropdown --file Market.yml --path "/opt/otrs/Kernel/scripts/s4/dynamicfield"'

@@ -1,9 +1,9 @@
 ---
 - ChangeBy: '2'
-  ChangeTime: 2018-03-25 18:40:42
+  ChangeTime: 2018-04-08 17:06:16
   Comment: default closed notification to customer
-  CreateBy: '1'
-  CreateTime: 2018-03-23 16:16:04
+  CreateBy: '2'
+  CreateTime: 2018-04-08 16:59:53
   Data:
     AgentEnabledByDefault:
     - Email
@@ -16,18 +16,10 @@
     LanguageID:
     - en
     QueueID:
-    - '1'
-    - '2'
-    - '4'
-    - '5'
-    - '11'
-    - '12'
-    - '13'
-    - '14'
-    - '15'
-    - '16'
-    - '17'
+    - '8'
+    - '9'
     Recipients:
+    - AgentCreateBy
     - Customer
     StateID:
     - '2'
@@ -38,15 +30,21 @@
     - Email
     VisibleForAgent:
     - '0'
-  ID: '16'
+  ID: '21'
   Message:
     en:
       Body: 'Dear &lt;OTRS_CUSTOMER_REALNAME&gt;,<br />
 
         <br />
 
-        finally your ticket with the case number &lt;OTRS_TICKET_TicketNumber&gt;
-        has been &lt;OTRS_TICKET_State&gt;.<br />
+        thank you for contacting our support team, your service request with case
+        number &lt;OTRS_TICKET_TicketNumber&gt; has been processed.<br />
+
+        <br />
+
+        Please take a look at the original ticket in our system to see the additional
+        information provided. (<a href="http://&lt;OTRS_CONFIG_HttpType&gt;://&lt;OTRS_CONFIG_FQDN&gt;/&lt;OTRS_CONFIG_ScriptAlias&gt;customer.pl?Action=CustomerTicketZoom;TicketID=&lt;OTRS_TICKET_TicketID&gt;">�
+        Link</a>)<br />
 
         <br />
 
@@ -59,6 +57,6 @@
 
         Support - Mayer GmbH'
       ContentType: text/html
-      Subject: Ticket closed '<OTRS_TICKET_Title>'
-  Name: Ticket closed
+      Subject: Service Request processed '<OTRS_TICKET_Title>'
+  Name: Ticket closed (Servicerequest)
   ValidID: '1'

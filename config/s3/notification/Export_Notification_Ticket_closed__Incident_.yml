@@ -1,9 +1,9 @@
 ---
 - ChangeBy: '2'
-  ChangeTime: 2018-03-25 18:40:42
+  ChangeTime: 2018-04-08 16:59:50
   Comment: default closed notification to customer
-  CreateBy: '1'
-  CreateTime: 2018-03-23 16:16:04
+  CreateBy: '2'
+  CreateTime: 2018-04-08 16:55:42
   Data:
     AgentEnabledByDefault:
     - Email
@@ -16,18 +16,13 @@
     LanguageID:
     - en
     QueueID:
-    - '1'
-    - '2'
-    - '4'
-    - '5'
-    - '11'
-    - '12'
-    - '13'
-    - '14'
-    - '15'
-    - '16'
-    - '17'
+    - '6'
+    - '7'
+    - '10'
     Recipients:
+    - AgentCreateBy
+    - AgentResponsible
+    - AgentWatcher
     - Customer
     StateID:
     - '2'
@@ -38,15 +33,15 @@
     - Email
     VisibleForAgent:
     - '0'
-  ID: '16'
+  ID: '20'
   Message:
     en:
       Body: 'Dear &lt;OTRS_CUSTOMER_REALNAME&gt;,<br />
 
         <br />
 
-        finally your ticket with the case number &lt;OTRS_TICKET_TicketNumber&gt;
-        has been &lt;OTRS_TICKET_State&gt;.<br />
+        your incident with case number &lt;OTRS_TICKET_TicketNumber&gt; has been &lt;OTRS_TICKET_State&gt;.<br
+        />
 
         <br />
 
@@ -59,6 +54,6 @@
 
         Support - Mayer GmbH'
       ContentType: text/html
-      Subject: Ticket closed '<OTRS_TICKET_Title>'
-  Name: Ticket closed
+      Subject: Incident <OTRS_TICKET_State> '<OTRS_TICKET_Title>'
+  Name: Ticket closed (Incident)
   ValidID: '1'

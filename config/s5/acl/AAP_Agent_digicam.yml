@@ -5,7 +5,7 @@
   ConfigChange:
     PossibleAdd:
       Process:
-      - '[RegExp]^.'
+      - 'Process-3e624fc75145d4696569f0d54c07cb67'
   ConfigMatch:
     Properties:
       User:

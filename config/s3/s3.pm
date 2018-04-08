@@ -90,6 +90,7 @@ $Self->{Home} = '/opt/otrs';
       'Schedule' => '*/1 * * * *',
       'TaskName' => 'MailAccountFetch'
     };
+    delete $Self->{'Frontend::Module'}->{'AgentTicketService'};
 $Self->{'Daemon::SchedulerCronTaskManager::Task'}->{'OTRSBusinessAvailabilityCheck'} =  {
   'Function' => '',
   'MaximumParallelInstances' => '1',
@@ -336,8 +337,17 @@ $Self->{'Ticket::Frontend::AgentTicketZoom'}->{'DynamicField'} =  {
   'email' => '1'
 };
 
+$Self->{'Frontend::ToolBarModule'}->{'130-Ticket::AgentTicketEscalation'} =  {
+  'AccessKey' => 'w',
+  'Action' => 'AgentTicketEscalationView',
+  'CssClass' => 'EscalationView',
+  'Icon' => 'fa fa-exclamation',
+  'Link' => 'Action=AgentTicketEscalationView',
+  'Module' => 'Kernel::Output::HTML::ToolBar::Link',
+  'Name' => 'Escalation view',
+  'Priority' => '1010030'
+};
 
-delete $Self->{'Frontend::Module'}->{'AgentTicketEscalationView'};
 $Self->{'Frontend::Module'}->{'AgentTicketWatchView'} =  {
   'Description' => 'Watched Tickets.',
   'Loader' => {
@@ -421,8 +431,6 @@ $Self->{'Frontend::Module'}->{'AgentTicketLockedView'} =  {
   'NavBarName' => 'Ticket',
   'Title' => 'Locked Tickets'
 };
-
-delete $Self->{'Frontend::Module'}->{'AgentTicketService'};
 
 $Self->{'DashboardBackend'}->{'0260-TicketCalendar'} =  {
   'Block' => 'ContentSmall',

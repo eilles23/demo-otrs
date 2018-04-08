@@ -182,6 +182,7 @@ $Self->{'Ticket::Frontend::AgentTicketPhone'}->{'DynamicField'} =  {
 $Self->{'Ticket::Frontend::CustomerTicketMessage'}->{'DynamicField'} =  {
     'Market' => '2',
 };
+
 $Self->{'Frontend::ToolBarModule'}->{'130-Ticket::AgentTicketEscalation'} =  {
   'AccessKey' => 'w',
   'Action' => 'AgentTicketEscalationView',
@@ -192,6 +193,7 @@ $Self->{'Frontend::ToolBarModule'}->{'130-Ticket::AgentTicketEscalation'} =  {
   'Name' => 'Escalation view',
   'Priority' => '1010030'
 };
+
 $Self->{'Frontend::ToolBarModule'}->{'110-Ticket::AgentTicketQueue'} =  {
   'AccessKey' => 'q',
   'Action' => 'AgentTicketQueue',
@@ -443,7 +445,7 @@ $Self->{'Frontend::Module'}->{'AgentTicketLockedView'} =  {
   'Title' => 'Locked Tickets'
 };
 
-delete $Self->{'Frontend::Module'}->{'AgentTicketService'};
+
 
 $Self->{'DashboardBackend'}->{'0260-TicketCalendar'} =  {
   'Block' => 'ContentSmall',

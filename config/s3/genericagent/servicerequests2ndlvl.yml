@@ -1,5 +1,6 @@
 ---
 TypeIDs: '3'
+QueueIDs: '4'
 PriorityIDs: 
         - '4'
         - '5'

@@ -16,11 +16,36 @@ sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "incident::2ndlvl"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "servicerequest::2ndlvl"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "incident::3rdlvl"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "servicerequest::3rdlvl"'
+
 
 #link agent
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Group::UserLink --group-name "incident::1stlvl" --user-name "agent@firma.de" --permission "ro create move_into"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Group::UserLink --group-name "servicerequest::1stlvl" --user-name "agent@firma.de" --permission "ro create move_into"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Group::UserLink --group-name "incident::1stlvl" --user-name "admin@firma.de" --permission "rw"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Group::UserLink --group-name "incident::2ndlvl" --user-name "admin@firma.de" --permission "rw"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Group::UserLink --group-name "incident::3rdlvl" --user-name "admin@firma.de" --permission "rw"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Group::UserLink --group-name "servicerequest::1stlvl" --user-name "admin@firma.de" --permission "rw"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Group::UserLink --group-name "servicerequest::2ndlvl" --user-name "admin@firma.de" --permission "rw"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Group::UserLink --group-name "incident::1stlvl" --user-name "agent@firma.de" --permission "rw"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Group::UserLink --group-name "incident::2ndlvl" --user-name "agent@firma.de" --permission "rw"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Group::UserLink --group-name "incident::3rdlvl" --user-name "agent@firma.de" --permission "rw"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Group::UserLink --group-name "servicerequest::1stlvl" --user-name "agent@firma.de" --permission "rw"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Group::UserLink --group-name "servicerequest::2ndlvl" --user-name "agent@firma.de" --permission "rw"'
+
+
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Group::UserLink --group-name "incident::1stlvl" --user-name "agent-1stlvl@firma.de" --permission "rw"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Group::UserLink --group-name "servicerequest::1stlvl" --user-name "agent-1stlvl@firma.de" --permission "rw"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Group::UserLink --group-name "incident::2ndlvl" --user-name "agent-1stlvl@firma.de" --permission "ro create move_into"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Group::UserLink --group-name "servicerequest::2ndlvl" --user-name "agent-1stlvl@firma.de" --permission "ro create move_into"'
+
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Group::UserLink --group-name "incident::1stlvl" --user-name "agent-2ndlvl@firma.de" --permission "ro create move_into"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Group::UserLink --group-name "servicerequest::1stlvl" --user-name "agent-2ndlvl@firma.de" --permission "ro create move_into"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Group::UserLink --group-name "incident::2ndlvl" --user-name "agent-2ndlvl@firma.de" --permission "rw"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Group::UserLink --group-name "servicerequest::2ndlvl" --user-name "agent-2ndlvl@firma.de" --permission "rw"'
+
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Group::UserLink --group-name "incident::1stlvl" --user-name "agent-3rdlvl@firma.de" --permission "ro create move_into"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Group::UserLink --group-name "incident::2ndlvl" --user-name "agent-3rdlvl@firma.de" --permission "ro create move_into"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Group::UserLink --group-name "incident::3rdlvl" --user-name "agent-3rdlvl@firma.de" --permission "rw"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Group::UserLink --group-name "servicerequest::1stlvl" --user-name "agent-3rdlvl@firma.de" --permission "ro create move_into"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Group::UserLink --group-name "servicerequest::2ndlvl" --user-name "agent-3rdlvl@firma.de" --permission "rw"'
 
 #add queues
 sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Queue::Add --name "Incidents 1st Level" --group "incident::1stlvl" --system-address-name "support@firma.de" --first-response-time "2" --update-time "4" --solution-time "6"'
@@ -60,10 +85,15 @@ sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name "incident::3rdlvl" --user-name "agent-3rdlvl@firma.de --permission "rw"'
 
 #add customer
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerCompany::Add --name "KUSTOMA GmbH & Co. KG" --customer-id "101"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerCompany::Add --name "KUSTOMA GmbH \& Co. KG" --customer-id "101"'
 #add cutomeruser
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "mitarbeiter@kustoma.de" --first-name Privat --last-name Kunde --email-address "mitarbeiter@kustoma.de" --password "otrs" --customer-id "101"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "kunde@priv.at" --first-name Privat --last-name Kunde --email-address "kunde@priv.at" --password "otrs" --customer-id "100"'
+
+#add notifications
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Notification::Add --file "Export_Notification_Ticket_closed.yml" --path "/opt/otrs/Kernel/scripts/s3/notification"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Notification::Add --file "Export_Notification_Ticket_closed__Incident_.yml" --path "/opt/otrs/Kernel/scripts/s3/notification"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Notification::Add --file "Export_Notification_Ticket_closed__Servicerequest_.yml" --path "/opt/otrs/Kernel/scripts/s3/notification"'
 
 
 #add generic agent
