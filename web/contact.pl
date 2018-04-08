@@ -32,7 +32,7 @@ $smtp->to('support@firma.de');
 $smtp->data();
 $smtp->datasend("X-OTRS-Queue: Raw\n");
 $smtp->datasend("To: support\@firma.de\n");
-$smtp->datasend("From: \"$name\" <$email>\n");
+$smtp->datasend("From: \"$subject\" <$email>\n");
 $smtp->datasend("Date: $now\n");
 $smtp->datasend("Subject: $subject\n");
 $smtp->datasend("$body\n");

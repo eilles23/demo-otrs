@@ -71,7 +71,7 @@ Click on <input type="button" name="request" id="request" value="Reuqest Webserv
 </div>-->
 <div class="row">
     <div class="col-lg-6 col-lg-offset-3 text-right">
-      <form enctype="multipart/form-data" >
+      <form id="contactform" enctype="multipart/form-data" >
       <div class="box" id="contactbox" > 
         <input type="text" name="name" class="form-control" placeholder="Subject, Name" required>
         </br>
@@ -89,6 +89,11 @@ Click on <input type="button" name="request" id="request" value="Reuqest Webserv
 <script type="text/javascript">
 $(document).ready(function () {
     $("#sendd").click(function () {
+        var $myForm = $('#contactform');
+        if(! $myForm[0].checkValidity()) {
+           $myForm[0].reportValidity();
+            return;
+        }
         var formData = {
             'name' : $('input[name=name]').val(),
             'email' : $('input[name=email]').val(),

@@ -98,7 +98,7 @@
                         </div>
                         <div class="form-group">
                         <label>Password</label>
-                        <input type="text" value="" name="password" class="input-xlarge form-control" required>
+                        <input type="password" value="" name="password" class="input-xlarge form-control" required>
                         </div>
                           <input id="register" type="button" value="Create Account" class="btn btn-primary"/>
                       </form>
@@ -113,13 +113,11 @@
 <script type="text/javascript">
 $(document).ready(function () {
     $("#register").click(function () {
-var $myForm = $('#tab');
-if(! $myForm[0].checkValidity()) {
-  // If the form is invalid, submit it. The form won't actually submit;
-  // this will just cause the browser to display the native HTML5 error messages.
-   $myForm[0].reportValidity();
-    return;
-}
+        var $myForm = $('#tab');
+        if(! $myForm[0].checkValidity()) {
+           $myForm[0].reportValidity();
+            return;
+        }
         var formData = {
             'username' : $('input[name=username]').val(),
             'firstname' : $('input[name=firstname]').val(),

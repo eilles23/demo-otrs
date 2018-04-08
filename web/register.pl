@@ -29,8 +29,8 @@ print $cgi->header(
 -access_control_allow_origin => '*',
   );
 
-my $cmd ="su - otrs -c \'docker exec demootrs_mail add-account "  . $email . " otrs\'";
-exec $cmd;
+my $cmd ="sudo docker exec demootrs_mail add-account $email otrs";
+system( $cmd );
 
 my $ua = LWP::UserAgent->new;
 my $server_endpoint = "http://localhost/otrs/nph-genericinterface.pl/Webservice/GenericTicketConnectorREST/Ticket ";
