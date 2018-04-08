@@ -15,15 +15,15 @@ if ! grep -q otrs.firma.de /etc/hosts; then
   sudo sed -i '$ a 127.0.0.1    mail.firma.de' /etc/hosts 
   sudo sed -i '$ a 127.0.0.1    otrs.firma.de' /etc/hosts 
 fi
-if ! sudo docker exec demootrs_otrs grep -q apache /etc/sudoers; then 
-  sudo docker exec demootrs_otrs sed -i '$ a apache  ALL=(ALL)  NOPASSWD: ALL'  /etc/sudoers
-fi
 sudo docker cp ./config/apache.conf demootrs_otrs:/etc/httpd/conf.d/firma.conf
 echo " ...ok!"
 sudo docker exec demootrs_otrs yum install -y yum-utils   device-mapper-persistent-data   lvm2 sudo
 sudo docker exec demootrs_otrs yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 sudo docker exec demootrs_otrs yum install -y docker-ce
 (firefox ./ffaddon/firefox_multi_account_containers-6.0.0-an+fx-linux.xpi `pwd`/web/addon.html &> /dev/null &)
+if ! sudo docker exec demootrs_otrs grep -q apache /etc/sudoers; then 
+  sudo docker exec demootrs_otrs sed -i '$ a apache  ALL=(ALL)  NOPASSWD: ALL'  /etc/sudoers
+fi
 
 #check mysqld config at /etc/my.cnf in demootrs_mariadb
 if sudo docker exec demootrs_mariadb grep -q max_allowed_packet=20M /etc/my.cnf; then
