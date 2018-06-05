@@ -1,8 +1,0 @@
----
-QueueIDs: 
-    - '14'
-    - '15'
-    - '16'
-    - '17'
-NewCMD: '/bin/bash /opt/otrs/Kernel/scripts/s5.sh'
-

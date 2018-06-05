@@ -1,27 +1,27 @@
 #!/bin/bash
 ###add: queues, groups, escalation
 #copy Config.pm
-sudo docker exec demootrs_otrs cp /opt/otrs/Kernel/scripts/s5/s5.pm /opt/otrs/Kernel/Config.pm
+sudo docker exec demootrs_otrs cp /opt/otrs/Kernel/demo_otrs/s5/s5.pm /opt/otrs/Kernel/Config.pm
 #add faq article
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::FAQ::Import "/opt/otrs/Kernel/System/Console/Command/Custom/Admin/FAQ/s5.csv"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::FAQ::Import "/opt/otrs/Kernel/demo_otrs/s5/s5.csv"'
 
 #add groups
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "digicam"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "digicam::1stLvl"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "digicam::2ndLvl"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "digicam::3rdLvl"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "digicam::1stlvl"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "digicam::2ndlvl"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "digicam::3rdlvl"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "digicam::PRIVATE"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "digicam::BUSINESS"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "medoptics"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "medoptics::PRIVATE"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "medoptics::BUSINESS"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "medoptics::1stLvl"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "medoptics::2ndLvl"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "medoptics::3rdLvl"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "medoptics::1stlvl"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "medoptics::2ndlvl"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "medoptics::3rdlvl"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "intelliEyes"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "intelliEyes::DACH"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "intelliEyes::CHINA"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "intelliEyes::1stLvl"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "intelliEyes::2ndLvl"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "intelliEyes::3rdLvl"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "intelliEyes::1stlvl"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "intelliEyes::2ndlvl"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::Add --name "intelliEyes::3rdlvl"'
 
 #add roles
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Role::Add --name "IntelliEyes::General"'
@@ -34,20 +34,21 @@ sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Role::Add --name "IntelliEyes::3rd-Lvl::WORLDWIDE"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Role::Add --name "IntelliEyes::3rd-Lvl::DACH"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Role::Add --name "IntelliEyes::3rd-Lvl::CHINA"'
-
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Role::Add --name "Digicam::General"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Role::Add --name "Digicam::1st-Lvl"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Role::Add --name "Digicam::2nd-Lvl"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Role::Add --name "Digicam::3rd-Lvl"'
-
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Role::Add --name "Digicam::1st-Lvl::PRIVATE"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Role::Add --name "Digicam::2nd-Lvl::PRIVATE"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Role::Add --name "Digicam::3rd-Lvl::PRIVATE"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Role::Add --name "Digicam::1st-Lvl::BUSINESS"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Role::Add --name "Digicam::2nd-Lvl::BUSINESS"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Role::Add --name "Digicam::3rd-Lvl::BUSINESS"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Role::Add --name "Medoptics::General"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Role::Add --name "Medoptics::1st-Lvl"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Role::Add --name "Medoptics::2nd-Lvl"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Role::Add --name "Medoptics::3rd-Lvl"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Role::Add --name "Medoptics::1st-Lvl::PRIVATE"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Role::Add --name "Medoptics::2nd-Lvl::PRIVATE"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Role::Add --name "Medoptics::1st-Lvl::BUSINESS"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Role::Add --name "Medoptics::2nd-Lvl::BUSINESS"'
+
 
 #link group-role
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam" --role-name "Digicam::1st-Lvl" --permission "rw"'
@@ -65,30 +66,34 @@ sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin
 
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics" --role-name "Medoptics::1st-Lvl" --permission "rw"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::1stlvl" --role-name "Medoptics::1st-Lvl" --permission "rw"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::1stlvl::PRIVATE" --role-name "Medoptics::1st-Lvl" --permission "rw"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::1stlvl::BUSINESS" --role-name "Medoptics::1st-Lvl" --permission "rw"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::PRIVATE" --role-name "Medoptics::1st-Lvl" --permission "rw"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::BUSINESS" --role-name "Medoptics::1st-Lvl" --permission "rw"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::2ndlvl" --role-name "Medoptics::1st-Lvl" --permission "move_into"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::3rdlvl" --role-name "Medoptics::1st-Lvl" --permission "move_into"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::3rdlvl" --role-name "Medoptics::1st-Lvl" --permission "ro"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics" --role-name "Medoptics::1st-Lvl::PRIVATE" --permission "rw"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::1stlvl" --role-name "Medoptics::1st-Lvl::PRIVATE" --permission "rw"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::1stlvl::PRIVATE" --role-name "Medoptics::1st-Lvl::PRIVATE" --permission "rw"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::1stlvl::BUSINESS" --role-name "Medoptics::1st-Lvl::PRIVATE" --permission "rw"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::PRIVATE" --role-name "Medoptics::1st-Lvl::PRIVATE" --permission "rw"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::2ndlvl" --role-name "Medoptics::1st-Lvl::PRIVATE" --permission "move_into"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::3rdlvl" --role-name "Medoptics::1st-Lvl::PRIVATE" --permission "move_into"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::3rdlvl" --role-name "Medoptics::1st-Lvl::PRIVATE" --permission "ro"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics" --role-name "Medoptics::1st-Lvl::BUSINESS" --permission "rw"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::1stlvl" --role-name "Medoptics::1st-Lvl::BUSINESS" --permission "rw"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::1stlvl::PRIVATE" --role-name "Medoptics::1st-Lvl::BUSINESS" --permission "rw"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::1stlvl::BUSINESS" --role-name "Medoptics::1st-Lvl::BUSINESS" --permission "rw"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::BUSINESS" --role-name "Medoptics::1st-Lvl::BUSINESS" --permission "rw"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::2ndlvl" --role-name "Medoptics::1st-Lvl::BUSINESS" --permission "move_into"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::3rdlvl" --role-name "Medoptics::1st-Lvl::BUSINESS" --permission "move_into"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::3rdlvl" --role-name "Medoptics::1st-Lvl::BUSINESS" --permission "ro"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics" --role-name "Medoptics::2nd-Lvl" --permission "rw"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::1stlvl" --role-name "Medoptics::2nd-Lvl" --permission "move_into"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::1stlvl::PRIVATE" --role-name "Medoptics::1st-Lvl" --permission "rw"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::1stlvl::BUSINESS" --role-name "Medoptics::1st-Lvl" --permission "rw"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::PRIVATE" --role-name "Medoptics::2nd-Lvl" --permission "rw"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::BUSINESS" --role-name "Medoptics::2nd-Lvl" --permission "rw"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::2ndlvl" --role-name "Medoptics::2nd-Lvl" --permission "rw"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::2ndlvl::PRIVATE" --role-name "Medoptics::1st-Lvl" --permission "rw"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::2ndlvl::BUSINESS" --role-name "Medoptics::1st-Lvl" --permission "rw"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::3rdlvl" --role-name "Medoptics::2nd-Lvl" --permission "move_into"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics" --role-name "Medoptics::3rd-Lvl" --permission "rw"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::1stlvl" --role-name "Medoptics::3rd-Lvl" --permission "move_into"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::PRIVATE" --role-name "Medoptics::3rd-Lvl" --permission "rw"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::BUSINESS" --role-name "Medoptics::3rd-Lvl" --permission "rw"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::2ndlvl" --role-name "Medoptics::3rd-Lvl" --permission "rw"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::3rdlvl" --role-name "Medoptics::3rd-Lvl" --permission "rw"'
+
+
 
 
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "intelliEyes::DACH" --role-name "IntelliEyes::1st-Lvl::DACH" --permission "rw"'
@@ -187,9 +192,9 @@ sudo docker exec demootrs_mail add-account med-dritt@unternehmen.de otrs
 sudo docker exec demootrs_mail add-account med-thirdparty@company.com otrs 
 
 
-sudo rm -R ./volumes/mailbox/.sylpheed-2.0/
-sudo cp -Rfa ./config/s5/mailbox ./volumes/mailbox/.sylpheed-2.0
-sudo docker-compose restart mailclient
+sudo docker exec demootrs_otrs sudo docker exec demootrs_mailclient rm -rf /home/developer/.sylpheed-2.0/
+sudo docker exec demootrs_otrs sudo docker cp /opt/otrs/Kernel/demo_otrs/s5/mailbox demootrs_mailclient:/home/developer/.sylpheed-2.0
+sudo docker exec demootrs_otrs sudo docker restart demootrs_mailclient
 
 #add agents 
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent@medoptics.firma.de" --first-name Medoptics --last-name Agent --email-address "agent@medoptics.firma.de" --password "otrs"'
@@ -212,17 +217,21 @@ sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl
 
 
 #Link agents-role
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent@digicam.firma.de" --role-name "Digicam::1st-Lvl::DACH"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent@digicam.firma.de" --role-name "Digicam::1st-Lvl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent@digicam.firma.de" --role-name "Digicam::2nd-Lvl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent@digicam.firma.de" --role-name "Digicam::3rd-Lvl"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-1stlvl@digicam.firma.de" --role-name "Digicam::1st-Lvl"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-2ndlvl@digicam.firma.de" --role-name "Digicam::2nd-Lvl"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-3rdlvl@digicam.firma.de" --role-name "Digicam::3rd-Lvl"'
 
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent@medoptics.firma.de" --role-name "Medoptics::"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent@medoptics.firma.de" --role-name "Medoptics::2nd-Lvl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent@medoptics.firma.de" --role-name "Medoptics::3rd-Lvl"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-1stlvl@medoptics.firma.de" --role-name "Medoptics::1st-Lvl"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-2ndlvl@medoptics.firma.de" --role-name "Medoptics::2nd-Lvl"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-3rdlvl@medoptics.firma.de" --role-name "Medoptics::3rd-Lvl"'
 
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent@intellieyes.firma.de" --role-name "IntelliEyes::1st-Lvl::DACH"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent@intellieyes.firma.de" --role-name "IntelliEyes::3rd-Lvl::DACH"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent@intellieyes.firma.de" --role-name "IntelliEyes::3rd-Lvl::CHINA"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-dach-1stlvl@intellieyes.firma.de" --role-name "IntelliEyes::1st-Lvl::DACH"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-dach-2ndlvl@intellieyes.firma.de" --role-name "IntelliEyes::2nd-Lvl::DACH"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Role::UserLink --user-name "agent-dach-3rdlvl@intellieyes.firma.de" --role-name "IntelliEyes::3rd-Lvl::DACH"'
@@ -256,7 +265,7 @@ sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "intelli-customer-china@firma.de" --first-name Prive --last-name IntelliClient --email-address "intelli-customer-china@firma.de" --password "otrs" --customer-id "130"'
 #link customeruser<->group
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::CustomerLink --customer-user-login "digi-kunde@privat.de" --group-name "digicam::PRIVATE" --permission "ro"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::CustomerLink --customer-user-login "digi-dritt@unternehmen.de" --group-name "digicam::BUSINESS" --permission "ro"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::CustomerLink --customer-user-login "digi-kunde@unternehmen.de" --group-name "digicam::BUSINESS" --permission "ro"'
 
 
 
@@ -266,17 +275,19 @@ sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl
 
 
 #add dynamcfields
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Update --name Market --label "Market" --type Dropdown --file Market.yml --path "/opt/otrs/Kernel/scripts/s5/dynamicfield"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name Solution --label "Solution" --type Dropdown --file Solution.yml --path "/opt/otrs/Kernel/scripts/s5/dynamicfield"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Update --name Market --label "Market" --type Dropdown --file Market.yml --path "/opt/otrs/Kernel/demo_otrs/s5/dynamicfield"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name Solution --label "Solution" --type Dropdown --file Solution.yml --path "/opt/otrs/Kernel/demo_otrs/s5/dynamicfield"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name Description --label "Description" --type "TextArea" --file /DF_Textarea.yml'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name Quantity --label "Quantity" --type Text --file Quantity.yml --path "/opt/otrs/Kernel/demo_otrs/s5/dynamicfield"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name Escalate --label "Escalate" --type Text --file /DF_Text.yml '
 
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIproduct --label "Product" --type Dropdown --file DIGIproduct.yml --path "/opt/otrs/Kernel/scripts/s5/dynamicfield"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIrequestApproval --label "Verification" --type Dropdown --file DIGIrequestApproval.yml --path "/opt/otrs/Kernel/scripts/s5/dynamicfield"'
+
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIproduct --label "Product" --type Dropdown --file DIGIproduct.yml --path "/opt/otrs/Kernel/demo_otrs/s5/dynamicfield"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIrequestApproval --label "Verification" --type Dropdown --file DIGIrequestApproval.yml --path "/opt/otrs/Kernel/demo_otrs/s5/dynamicfield"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIorderNumber --label "Order Nr." --type Text --file /DF_Text.yml '
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIinvoiceNumber --label "Invoice Nr." --type Text --file /DF_Text.yml '
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIorderApproval --label "Verification" --type Dropdown --file DIGIorderApproval.yml --path "/opt/otrs/Kernel/scripts/s5/dynamicfield"'
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIdeliveryApproval --label "Verification" --type Dropdown --file DIGIdeliveryApproval.yml --path "/opt/otrs/Kernel/scripts/s5/dynamicfield"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIorderApproval --label "Verification" --type Dropdown --file DIGIorderApproval.yml --path "/opt/otrs/Kernel/demo_otrs/s5/dynamicfield"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIdeliveryApproval --label "Verification" --type Dropdown --file DIGIdeliveryApproval.yml --path "/opt/otrs/Kernel/demo_otrs/s5/dynamicfield"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIdeliveryAddress --label "Shipping Address" --type "TextArea" --file /DF_Textarea.yml'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIdeliveryTracking --label "Tracking Nr." --type Text --file /DF_Text.yml '
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name DIGIdeliveryDuration --label "Estimated processing time" --type Date --file /DF_Date.yml'
@@ -299,26 +310,26 @@ sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name INTELLIDuration --label "Contract Duration" --type DateTime --file /DF_DateTime.yml'
 
 #add acls
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAM_Agent_digicam.yml --path "/opt/otrs/Kernel/scripts/s5/acl"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAM_Agent_medoptics.yml --path "/opt/otrs/Kernel/scripts/s5/acl"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAM_Agent_intellieyes_DACH.yml --path "/opt/otrs/Kernel/scripts/s5/acl"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAM_Agent_intellieyes_CHINA --path "/opt/otrs/Kernel/scripts/s5/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAM_Agent_digicam.yml --path "/opt/otrs/Kernel/demo_otrs/s5/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAM_Agent_medoptics.yml --path "/opt/otrs/Kernel/demo_otrs/s5/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAM_Agent_intellieyes_DACH.yml --path "/opt/otrs/Kernel/demo_otrs/s5/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAM_Agent_intellieyes_CHINA.yml --path "/opt/otrs/Kernel/demo_otrs/s5/acl"'
 
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAP_Agent_digicam_BUSINESS.yml --path "/opt/otrs/Kernel/scripts/s5/acl"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAP_Agent_digicam_PRIVATE.yml --path "/opt/otrs/Kernel/scripts/s5/acl"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAP_Agent_medoptics.yml --path "/opt/otrs/Kernel/scripts/s5/acl"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAP_Agent_intellieyes_DACH.yml --path "/opt/otrs/Kernel/scripts/s5/acl"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAP_Agent_intellieyes_CHINA --path "/opt/otrs/Kernel/scripts/s5/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAP_Agent_digicam_BUSINESS.yml --path "/opt/otrs/Kernel/demo_otrs/s5/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAP_Agent_digicam_PRIVATE.yml --path "/opt/otrs/Kernel/demo_otrs/s5/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAP_Agent_medoptics.yml --path "/opt/otrs/Kernel/demo_otrs/s5/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAP_Agent_intellieyes_DACH.yml --path "/opt/otrs/Kernel/demo_otrs/s5/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAP_Agent_intellieyes_CHINA --path "/opt/otrs/Kernel/demo_otrs/s5/acl"'
 
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAP_Customer_digicam_BUSINESS.yml --path "/opt/otrs/Kernel/scripts/s5/acl"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAP_Customer_digicam_PRIVATE.yml --path "/opt/otrs/Kernel/scripts/s5/acl"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAP_Customer_medoptics.yml --path "/opt/otrs/Kernel/scripts/s5/acl"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAP_Customer_intellieyes_DACH.yml --path "/opt/otrs/Kernel/scripts/s5/acl"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAP_Customer_intellieyes_CHINA --path "/opt/otrs/Kernel/scripts/s5/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAP_Customer_digicam_BUSINESS.yml --path "/opt/otrs/Kernel/demo_otrs/s5/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAP_Customer_digicam_PRIVATE.yml --path "/opt/otrs/Kernel/demo_otrs/s5/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAP_Customer_medoptics.yml --path "/opt/otrs/Kernel/demo_otrs/s5/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAP_Customer_intellieyes_DACH.yml --path "/opt/otrs/Kernel/demo_otrs/s5/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAP_Customer_intellieyes_CHINA --path "/opt/otrs/Kernel/demo_otrs/s5/acl"'
 
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAA_Hide_all_processes.yml --path "/opt/otrs/Kernel/scripts/s5/acl"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAP_Admin_Processes.yml --path "/opt/otrs/Kernel/scripts/s5/acl"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAP_General_Processes.yml --path "/opt/otrs/Kernel/scripts/s5/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAA_Hide_all_processes.yml --path "/opt/otrs/Kernel/demo_otrs/s5/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAP_Admin_Processes.yml --path "/opt/otrs/Kernel/demo_otrs/s5/acl"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::ACL::Add --file AAP_General_Processes.yml --path "/opt/otrs/Kernel/demo_otrs/s5/acl"'
 
 
 #add autoresponse
@@ -347,25 +358,25 @@ sudo docker exec   demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.
 
 
 #add notifications
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Notification::Add --file "Export_Notification_Ticket_create__Auto_reply_for_process_tickets_.yml" --path "/opt/otrs/Kernel/scripts/s5/notification"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Notification::Add --file "Export_Notification_Ticket_create__Auto_reply_for_process_tickets_.yml" --path "/opt/otrs/Kernel/demo_otrs/s5/notification"'
 
 #add processes
 #medoptics
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-0a713cc388c4410806049e4c87975add.yml" --path "/opt/otrs/Kernel/scripts/s5/process"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-a00f457ce85c119e75b5edf2b37fdf6b.yml" --path "/opt/otrs/Kernel/scripts/s5/process"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-a7217d2c38a7737f65255d0e152e3e2b.yml" --path "/opt/otrs/Kernel/scripts/s5/process"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-0a713cc388c4410806049e4c87975add.yml" --path "/opt/otrs/Kernel/demo_otrs/s5/process"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-a00f457ce85c119e75b5edf2b37fdf6b.yml" --path "/opt/otrs/Kernel/demo_otrs/s5/process"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-a7217d2c38a7737f65255d0e152e3e2b.yml" --path "/opt/otrs/Kernel/demo_otrs/s5/process"'
 #intelli
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-2ac7d5962f79cbc36b1f3777d2d3b80d.yml" --path "/opt/otrs/Kernel/scripts/s5/process"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-58ad44a52828e35ef1883e5d553094b7.yml" --path "/opt/otrs/Kernel/scripts/s5/process"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-71ae297e4933ab772f5e1eafa421c0f5.yml" --path "/opt/otrs/Kernel/scripts/s5/process"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-125186c2678301eac1ff2407b31aa053.yml" --path "/opt/otrs/Kernel/scripts/s5/process"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-017c5c15fd14835979e1fb206e840796.yml" --path "/opt/otrs/Kernel/scripts/s5/process"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-4fa625b40b7f7c7a52ed4f40b9b56dc8.yml" --path "/opt/otrs/Kernel/scripts/s5/process"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-2ac7d5962f79cbc36b1f3777d2d3b80d.yml" --path "/opt/otrs/Kernel/demo_otrs/s5/process"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-58ad44a52828e35ef1883e5d553094b7.yml" --path "/opt/otrs/Kernel/demo_otrs/s5/process"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-71ae297e4933ab772f5e1eafa421c0f5.yml" --path "/opt/otrs/Kernel/demo_otrs/s5/process"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-125186c2678301eac1ff2407b31aa053.yml" --path "/opt/otrs/Kernel/demo_otrs/s5/process"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-017c5c15fd14835979e1fb206e840796.yml" --path "/opt/otrs/Kernel/demo_otrs/s5/process"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-4fa625b40b7f7c7a52ed4f40b9b56dc8.yml" --path "/opt/otrs/Kernel/demo_otrs/s5/process"'
 #digi
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-05ec0f6b57648e4d6e93ae9ee91b78f9.yml" --path "/opt/otrs/Kernel/scripts/s5/process"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-dd22d29815efb5c33315c7433049ebdc.yml" --path "/opt/otrs/Kernel/scripts/s5/process"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-f728bbb6b15ea140b77319ee7962c6db.yml" --path "/opt/otrs/Kernel/scripts/s5/process"'
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-3e624fc75145d4696569f0d54c07cb67.yml" --path "/opt/otrs/Kernel/scripts/s5/process"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-05ec0f6b57648e4d6e93ae9ee91b78f9.yml" --path "/opt/otrs/Kernel/demo_otrs/s5/process"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-dd22d29815efb5c33315c7433049ebdc.yml" --path "/opt/otrs/Kernel/demo_otrs/s5/process"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-f728bbb6b15ea140b77319ee7962c6db.yml" --path "/opt/otrs/Kernel/demo_otrs/s5/process"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::Process::Add --file "Export_ProcessEntityID_Process-3e624fc75145d4696569f0d54c07cb67.yml" --path "/opt/otrs/Kernel/demo_otrs/s5/process"'
 
 
 

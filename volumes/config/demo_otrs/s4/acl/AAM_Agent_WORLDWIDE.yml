@@ -1,0 +1,24 @@
+---
+- ChangeBy: admin
+  ChangeTime: 2018-03-14 11:27:21
+  Comment: Market WORLDWIDE
+  ConfigChange:
+    PossibleAdd:
+      Ticket:
+        DynamicField_Market:
+        - '108'
+        - 'WORLDWIDE'
+  ConfigMatch:
+    Properties:
+      User:
+        Role:
+        - 'Agent::1stLvl::WORLDWIDE'
+        - 'Agent::2ndLvl::WORLDWIDE'
+        - 'Agent::3rdLvl::WORLDWIDE'
+  CreateBy: admin
+  CreateTime: 2018-03-14 11:27:21
+  Description: Unrelated Markets will be hidden.
+  ID: 9
+  Name: AAM Agent WORLDWIDE
+  StopAfterMatch: 0
+  ValidID: 1

@@ -1,6 +1,0 @@
----
-QueueIDs: 
-    - '1'
-    - '2'
-NewCMD: /bin/bash /opt/otrs/Kernel/scripts/s2.sh
-

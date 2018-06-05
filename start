@@ -16,10 +16,15 @@ if ! grep -q otrs.firma.de /etc/hosts; then
   sudo sed -i '$ a 127.0.0.1    otrs.firma.de' /etc/hosts 
 fi
 sudo docker cp ./config/apache.conf demootrs_otrs:/etc/httpd/conf.d/firma.conf
+#restart webserver inside container
+sudo docker exec demootrs_otrs  supervisorctl restart httpd
 echo " ...ok!"
+
+#install docker-ce
 sudo docker exec demootrs_otrs yum install -y yum-utils   device-mapper-persistent-data   lvm2 sudo
 sudo docker exec demootrs_otrs yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 sudo docker exec demootrs_otrs yum install -y docker-ce
+#add ffaddon
 (firefox ./ffaddon/firefox_multi_account_containers-6.0.0-an+fx-linux.xpi `pwd`/web/addon.html &> /dev/null &)
 if ! sudo docker exec demootrs_otrs grep -q apache /etc/sudoers; then 
   sudo docker exec demootrs_otrs sed -i '$ a apache  ALL=(ALL)  NOPASSWD: ALL'  /etc/sudoers
@@ -32,18 +37,18 @@ if sudo docker exec demootrs_mariadb grep -q max_allowed_packet=20M /etc/my.cnf;
   echo "set global variable 'max_allowed_packet'"
   sudo docker exec demootrs_mariadb mysql -u otrs --password="changeme" -e "SHOW VARIABLES LIKE 'max_allowed_packet';"
 fi
-#restart webserver inside container
-sudo docker exec demootrs_otrs  supervisorctl restart httpd
+
 
 echo "-> otrs-setup" 
 #copy custom commands, config & scripts
 cp -rf ./config/commands/Custom ./volumes/config/System/Console/Command/ #/Kernel/System/Console
-mkdir ./volumes/config/scripts/ 
-cp -rf ./config/s* ./volumes/config/scripts/
+mkdir ./volumes/config/demo_otrs/ 
+cp -rf ./config/s* ./volumes/config/demo_otrs/
+cp -rf ./config/FAQ* ./volumes/config/demo_otrs/
 cp -rf ./config/navbar.xml ./volumes/config/Config/Files/XML/DemoOTRS.xml
-find ./volumes/config/scripts/. -type f -name '*.sh' | xargs sed -i "s/sudo docker exec demootrs_otrs\s\+su - otrs -c .//g"
-find ./volumes/config/scripts/. -type f -name '*.sh' | xargs sed -i 's/'\''$//g'
-find ./volumes/config/scripts/. -type f -name '*.sh' | xargs sed -i "s/sudo docker exec demootrs_otrs//g"
+find ./volumes/config/demo_otrs/. -type f -name '*.sh' | xargs sed -i "s/sudo docker exec demootrs_otrs\s\+su - otrs -c .//g"
+find ./volumes/config/demo_otrs/. -type f -name '*.sh' | xargs sed -i 's/'\''$//g'
+find ./volumes/config/demo_otrs/. -type f -name '*.sh' | xargs sed -i "s/sudo docker exec demootrs_otrs//g"
 if  (grep -q OTRSBusinessRequired ./volumes/config/Output/HTML/Templates/Standard/Header.tt); then
   sudo docker exec demootrs_otrs sed -i '35,38d' /opt/otrs/Kernel/Output/HTML/Templates/Standard/Header.tt
 fi
@@ -56,13 +61,13 @@ fi
 #else 
 #echo "File $LATEST.opm already existing."
 #fi
-sudo cp ./config/FAQ-* ./volumes/backup/
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Package::Install /var/otrs/backups/FAQ-*'
+sudo cp ./config/FAQ-* ./volumes/demo_otrs/
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Package::Install /opt/otrs/Kernel/demo_otrs/FAQ-*'
 
 #update faq category & add sub categories
 sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::FAQ::UpdateCategory --name "Readme" --ID "1" --parent "0" --comment "demo-otrs guide" --groups "1,2"'
 #add faq articles
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::FAQ::Import "/opt/otrs/Kernel/System/Console/Command/Custom/Admin/FAQ/intro.csv"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::FAQ::Import "/opt/otrs/Kernel/demo_otrs/start.csv"'
 
 #Add PostMaster-MailAccount
 sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::MailAccount::Add --login support@firma.de --password otrs --host mail --type IMAP --valid 1 --IMAPFolder INBOX --trusted "1" --dispatchingby Queue --queueID "1" '

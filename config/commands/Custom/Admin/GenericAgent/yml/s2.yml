@@ -1,4 +1,0 @@
----
-QueueIDs: '5'
-NewCMD: /bin/bash /opt/otrs/Kernel/scripts/s3.sh
-
