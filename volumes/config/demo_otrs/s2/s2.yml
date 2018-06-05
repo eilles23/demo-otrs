@@ -1,4 +1,0 @@
----
-QueueIDs: '5'
-NewCMD: /bin/bash /opt/otrs/Kernel/demo_otrs/s3.sh
-
