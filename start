@@ -61,7 +61,6 @@ fi
 #else 
 #echo "File $LATEST.opm already existing."
 #fi
-sudo cp ./config/FAQ-* ./volumes/demo_otrs/
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Package::Install /opt/otrs/Kernel/demo_otrs/FAQ-*'
 
 #update faq category & add sub categories

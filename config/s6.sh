@@ -33,13 +33,21 @@ sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name "itsm-change-builder" --user-name "admin@firma.de" --permission "rw"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Group::UserLink --group-name "itsm-change-manager" --user-name "admin@firma.de" --permission "rw"'
 
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl agent::Group::UserLink --group-name "itsm-configitem" --user-name "agent@firma.de" --permission "rw"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl agent::Group::UserLink --group-name "itsm-service" --user-name "agent@firma.de" --permission "rw"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl agent::Group::UserLink --group-name "itsm-change" --user-name "agent@firma.de" --permission "rw"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl agent::Group::UserLink --group-name "itsm-change-builder" --user-name "agent@firma.de" --permission "rw"'
+sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl agent::Group::UserLink --group-name "itsm-change-manager" --user-name "agent@firma.de" --permission "rw"'
 
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name HardwareItem --label "Config Item" --type ITSMConfigItemReference --file HardwareItem.yml --path "/opt/otrs/Kernel/demo_otrs/s6/dynamicfield"'
+
+#add dynamicfields
+#sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::DynamicField::Add --name HardwareItem --label "Config Item" --type ITSMConfigItemReference --file HardwareItem.yml --path "/opt/otrs/Kernel/demo_otrs/s6/dynamicfield"'
+
 #add general catalog entries
 #add config item configurations
 #create CIs ?!
 
 #update processes
 
-#add dynamicfields
+
 

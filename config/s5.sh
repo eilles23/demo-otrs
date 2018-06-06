@@ -48,53 +48,50 @@ sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Role::Add --name "Medoptics::1st-Lvl"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Role::Add --name "Medoptics::2nd-Lvl"'
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Role::Add --name "Medoptics::3rd-Lvl"'
-
+  
 
 #link group-role
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam" --role-name "Digicam::1st-Lvl" --permission "rw"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam::1stlvl" --role-name "Digicam::1st-Lvl" --permission "rw"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam::PRIVATE" --role-name "Digicam::1st-Lvl" --permission "rw"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam::BUSINESS" --role-name "Digicam::1st-Lvl" --permission "rw"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam::2ndlvl" --role-name "Digicam::1st-Lvl" --permission "move_into"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam::3rdlvl" --role-name "Digicam::1st-Lvl" --permission "move_into"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam::3rdlvl" --role-name "Digicam::1st-Lvl" --permission "ro"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam" --role-name "Digicam::1st-Lvl::PRIVATE" --permission "rw"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam::1stlvl" --role-name "Digicam::1st-Lvl::PRIVATE" --permission "rw"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam::PRIVATE" --role-name "Digicam::1st-Lvl::PRIVATE" --permission "rw"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam::2ndlvl" --role-name "Digicam::1st-Lvl::PRIVATE" --permission "move_into"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam::3rdlvl" --role-name "Digicam::1st-Lvl::PRIVATE" --permission "ro"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam" --role-name "Digicam::1st-Lvl::BUSINESS" --permission "rw"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam::1stlvl" --role-name "Digicam::1st-Lvl::BUSINESS" --permission "rw"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam::BUSINESS" --role-name "Digicam::1st-Lvl::BUSINESS" --permission "rw"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam::2ndlvl" --role-name "Digicam::1st-Lvl::BUSINESS" --permission "move_into"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam::3rdlvl" --role-name "Digicam::1st-Lvl::BUSINESS" --permission "ro"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam" --role-name "Digicam::2nd-Lvl" --permission "rw"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam::1stlvl" --role-name "Digicam::2nd-Lvl" --permission "move_into"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam::PRIVATE" --role-name "Digicam::2nd-Lvl" --permission "rw"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam::BUSINESS" --role-name "Digicam::2nd-Lvl" --permission "rw"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam::2ndlvl" --role-name "Digicam::2nd-Lvl" --permission "rw"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam::3rdlvl" --role-name "Digicam::2nd-Lvl" --permission "move_into"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam" --role-name "Digicam::3rd-Lvl" --permission "rw"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam::1stlvl" --role-name "Digicam::3rd-Lvl" --permission "move_into"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam::2ndlvl" --role-name "Digicam::3rd-Lvl" --permission "move_into"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam::PRIVATE" --role-name "Digicam::3rd-Lvl" --permission "rw"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam::BUSINESS" --role-name "Digicam::3rd-Lvl" --permission "rw"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam::2ndlvl" --role-name "Digicam::3rd-Lvl" --permission "rw"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "digicam::3rdlvl" --role-name "Digicam::3rd-Lvl" --permission "rw"'
 
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics" --role-name "Medoptics::1st-Lvl" --permission "rw"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::1stlvl" --role-name "Medoptics::1st-Lvl" --permission "rw"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::PRIVATE" --role-name "Medoptics::1st-Lvl" --permission "rw"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::BUSINESS" --role-name "Medoptics::1st-Lvl" --permission "rw"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::2ndlvl" --role-name "Medoptics::1st-Lvl" --permission "move_into"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::3rdlvl" --role-name "Medoptics::1st-Lvl" --permission "ro"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics" --role-name "Medoptics::1st-Lvl::PRIVATE" --permission "rw"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::1stlvl" --role-name "Medoptics::1st-Lvl::PRIVATE" --permission "rw"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::PRIVATE" --role-name "Medoptics::1st-Lvl::PRIVATE" --permission "rw"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::2ndlvl" --role-name "Medoptics::1st-Lvl::PRIVATE" --permission "move_into"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::3rdlvl" --role-name "Medoptics::1st-Lvl::PRIVATE" --permission "ro"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics" --role-name "Medoptics::1st-Lvl::BUSINESS" --permission "rw"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::1stlvl" --role-name "Medoptics::1st-Lvl::BUSINESS" --permission "rw"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::BUSINESS" --role-name "Medoptics::1st-Lvl::BUSINESS" --permission "rw"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::2ndlvl" --role-name "Medoptics::1st-Lvl::BUSINESS" --permission "move_into"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::3rdlvl" --role-name "Medoptics::1st-Lvl::BUSINESS" --permission "ro"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::3rdlvl" --role-name "Medoptics::1st-Lvl" --permission "move_into"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics" --role-name "Medoptics::2nd-Lvl" --permission "rw"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::1stlvl" --role-name "Medoptics::2nd-Lvl" --permission "move_into"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::PRIVATE" --role-name "Medoptics::2nd-Lvl" --permission "rw"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::BUSINESS" --role-name "Medoptics::2nd-Lvl" --permission "rw"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::2ndlvl" --role-name "Medoptics::2nd-Lvl" --permission "rw"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::3rdlvl" --role-name "Medoptics::2nd-Lvl" --permission "move_into"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics" --role-name "Medoptics::3rd-Lvl" --permission "rw"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::1stlvl" --role-name "Medoptics::3rd-Lvl" --permission "move_into"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::PRIVATE" --role-name "Medoptics::3rd-Lvl" --permission "rw"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::BUSINESS" --role-name "Medoptics::3rd-Lvl" --permission "rw"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::2ndlvl" --role-name "Medoptics::3rd-Lvl" --permission "rw"'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::2ndlvl" --role-name "Medoptics::3rd-Lvl" --permission "move_into"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "medoptics::3rdlvl" --role-name "Medoptics::3rd-Lvl" --permission "rw"'
-
-
-
 
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "intelliEyes::DACH" --role-name "IntelliEyes::1st-Lvl::DACH" --permission "rw"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Admin::Group::RoleLink --group-name "intelliEyes::1stlvl" --role-name "IntelliEyes::1st-Lvl::DACH" --permission "rw"'
@@ -193,8 +190,8 @@ sudo docker exec demootrs_mail add-account med-thirdparty@company.com otrs
 
 
 sudo docker exec demootrs_otrs sudo docker exec demootrs_mailclient rm -rf /home/developer/.sylpheed-2.0/
-sudo docker exec demootrs_otrs sudo docker cp /opt/otrs/Kernel/demo_otrs/s5/mailbox demootrs_mailclient:/home/developer/.sylpheed-2.0
-sudo docker exec demootrs_otrs sudo docker restart demootrs_mailclient
+sudo docker exec demootrs_otrs sudo docker cp /opt/otrs/Kernel/demo_otrs/s5/mailbox/ demootrs_mailclient:/home/developer/.sylpheed-2.0/
+sudo docker-compose restart mailclient
 
 #add agents 
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "agent@medoptics.firma.de" --first-name Medoptics --last-name Agent --email-address "agent@medoptics.firma.de" --password "otrs"'
@@ -382,4 +379,4 @@ sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl 
 
 
 #add generic agent
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::GenericAgent::Add --name "load step 06" --file /s5.yml'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::GenericAgent::Add --name "load step 06" --file /s5.yml --path "/opt/otrs/Kernel/demo_otrs/s5/"'

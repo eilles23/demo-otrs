@@ -26,6 +26,7 @@ services:
     volumes:
     - /tmp/.X11-unix:/tmp/.X11-unix
     - ./volumes/mailbox:/home/developer
+    restart: always
 
   otrs:
     container_name: demootrs_otrs

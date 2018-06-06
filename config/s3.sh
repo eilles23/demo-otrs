@@ -29,9 +29,8 @@ sudo docker exec demootrs_mail add-account agent-incident-3rdlvl@firma.de otrs
 sudo docker exec demootrs_mail add-account mitarbeiter@kustoma.de otrs 
 sudo docker exec demootrs_mail add-account kunde@priv.at otrs 
 sudo docker exec demootrs_otrs sudo docker exec demootrs_mailclient rm -rf /home/developer/.sylpheed-2.0/
-sudo docker exec demootrs_otrs sudo docker cp /opt/otrs/Kernel/demo_otrs/s3/mailbox demootrs_mailclient:/home/developer/.sylpheed-2.0
-sudo docker exec demootrs_mailclient pkill -INT sylpheed
-trap 'sudo docker restart demootrs_mailclient' 0
+sudo docker exec demootrs_otrs sudo docker cp /opt/otrs/Kernel/demo_otrs/s3/mailbox/ demootrs_mailclient:/home/developer/.sylpheed-2.0
+sudo docker-compose restart mailclient
 
 #add customer
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerCompany::Add --name "KUSTOMA GmbH" --customer-id "101"'
@@ -123,4 +122,4 @@ sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custo
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::GenericAgent::Add --name "Move Incidents 2nd Level" --file incidents2ndlvl.yml --path "/opt/otrs/Kernel/demo_otrs/s3/genericagent"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::GenericAgent::Add --name "Move Service Requests 2nd Level" --file servicerequests2ndlvl.yml --path "/opt/otrs/Kernel/demo_otrs/s3/genericagent"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::GenericAgent::Add --name "Move Incidents 3rd Level" --file incidents3rdlvl.yml --path "/opt/otrs/Kernel/demo_otrs/s3/genericagent"'
-sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::GenericAgent::Add --name "load step 04" --file /s3.yml'
+sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::GenericAgent::Add --name "load step 04" --file /s3.yml --path "/opt/otrs/Kernel/demo_otrs/s3/" '
