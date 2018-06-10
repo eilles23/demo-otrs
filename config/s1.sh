@@ -1,20 +1,10 @@
 #!/bin/bash
-####add: user
+START_TIME=$SECONDS
 #copy Config.pm
 sudo docker exec demootrs_otrs cp /opt/otrs/Kernel/demo_otrs/s1/s1.pm /opt/otrs/Kernel/Config.pm
 
 #add faq article
 sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::FAQ::Import "/opt/otrs/Kernel/demo_otrs/s1/s1.csv"'
-
-#add default mail accounts 
-sudo docker exec demootrs_mail add-domain firma.de
-sudo docker exec demootrs_mail add-domain priv.at 
-sudo docker exec demootrs_mail add-account agent@firma.de otrs 
-sudo docker exec demootrs_mail add-account support@firma.de otrs
-sudo docker exec demootrs_mail add-account kunde@firma.de otrs
-sudo docker exec demootrs_otrs sudo docker exec demootrs_mailclient rm -rf /home/developer/.sylpheed-2.0/
-sudo docker exec demootrs_otrs sudo docker cp /opt/otrs/Kernel/demo_otrs/s1/mailbox/ demootrs_mailclient:/home/developer/.sylpheed-2.0
-sudo docker-compose restart mailclient
 
 #Add PostMaster-MailAccount
 sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::MailAccount::Add --login support@firma.de --password otrs --host mail --type IMAP --valid 1 --IMAPFolder INBOX --trusted "1" --dispatchingby Queue --queueID "1" '
@@ -57,3 +47,17 @@ sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custo
 
 #add generic agent
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::GenericAgent::Add --name "load step 02" --file "s1.yml" --path "/opt/otrs/Kernel/demo_otrs/s1/"'
+
+#add default mail accounts 
+sudo docker exec demootrs_mail add-domain firma.de
+sudo docker exec demootrs_mail add-domain priv.at 
+sudo docker exec demootrs_mail add-account agent@firma.de otrs 
+sudo docker exec demootrs_mail add-account support@firma.de otrs
+sudo docker exec demootrs_mail add-account kunde@firma.de otrs
+
+ELAPSED_TIME=$(($SECONDS - $START_TIME))
+WAIT_TIME=$((59 - $ELAPSED_TIME + $1))
+sleep $WAIT_TIME
+sudo docker exec demootrs_otrs sudo docker exec demootrs_mailclient rm -rf /home/developer/.sylpheed-2.0/
+sudo docker exec demootrs_otrs sudo docker cp /opt/otrs/Kernel/demo_otrs/s1/mailbox/ demootrs_mailclient:/home/developer/.sylpheed-2.0
+#if ! [ -f /.dockerenv ]; then sudo docker-compose restart mailclient; fi

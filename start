@@ -1,4 +1,9 @@
 #!/bin/bash
+export DEMOOTRS=`pwd`
+echo "* * * * *  $DEMOOTRS/restart_mailclient $DEMOOTRS > $DEMOOTRS/cronlog 2>&1" > ./cronjob
+sudo apt install inotify-tools
+sudo crontab ./cronjob #&& rm ./cronjob
+START_TIME=$SECONDS
 echo -n "-> web-setup" 
 #sudo docker exec demootrs_otrs  sed -i 's/index.pl//' /etc/httpd/conf/httpd.conf
 sudo docker cp ./web/. demootrs_otrs:/var/www/html/ && sudo docker cp ./web/fonts/. demootrs_otrs:/var/www/html/fonts
@@ -16,6 +21,7 @@ if ! grep -q otrs.firma.de /etc/hosts; then
   sudo sed -i '$ a 127.0.0.1    otrs.firma.de' /etc/hosts 
 fi
 sudo docker cp ./config/apache.conf demootrs_otrs:/etc/httpd/conf.d/firma.conf
+sudo docker exec demootrs_otrs sed -i 's/#ServerName.*/ServerName firma.de/' /etc/httpd/conf/httpd.conf
 #restart webserver inside container
 sudo docker exec demootrs_otrs  supervisorctl restart httpd
 echo " ...ok!"
@@ -24,8 +30,11 @@ echo " ...ok!"
 sudo docker exec demootrs_otrs yum install -y yum-utils   device-mapper-persistent-data   lvm2 sudo
 sudo docker exec demootrs_otrs yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 sudo docker exec demootrs_otrs yum install -y docker-ce
-#add ffaddon
-(firefox ./ffaddon/firefox_multi_account_containers-6.0.0-an+fx-linux.xpi `pwd`/web/addon.html &> /dev/null &)
+#update firefox and add ffaddon
+sudo apt-get install -y firefox
+(firefox ./ffaddon/firefox_multi_account_containers-6.0.0-an+fx-linux.xpi `pwd`/ffaddon/addon.html &> /dev/null &)
+
+#add apache user to sudo 
 if ! sudo docker exec demootrs_otrs grep -q apache /etc/sudoers; then 
   sudo docker exec demootrs_otrs sed -i '$ a apache  ALL=(ALL)  NOPASSWD: ALL'  /etc/sudoers
 fi
@@ -100,9 +109,9 @@ sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custo
 sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Maint::Ticket::Delete --ticket-id "1"'
 
 
-
+ELAPSED_TIME=$(($SECONDS - $START_TIME))
 #load s1
-./config/s1.sh
+./config/s1.sh $ELAPSED_TIME
 
 
 

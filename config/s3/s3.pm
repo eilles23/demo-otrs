@@ -81,7 +81,15 @@ $Self->{Home} = '/opt/otrs';
     $Self->{'CheckMXRecord'} =  '0';
     $Self->{'Frontend::Customer::CustomerPanelLogoutURL'} =  'http://localhost/login.html';
     $Self->{'Ticket::Frontend::AccountTime'} =  '0';
-    
+    $Self->{'Daemon::SchedulerCronTaskManager::Task'}->{'EscalationCheck'} =  {
+  'Function' => 'Execute',
+  'MaximumParallelInstances' => '1',
+  'Module' => 'Kernel::System::Console::Command::Maint::Ticket::EscalationCheck',
+  'Params' => [],
+  'Schedule' => '* * * * *',
+  'TaskName' => 'EscalationCheck'
+};
+
     $Self->{'Daemon::SchedulerCronTaskManager::Task'}->{'MailAccountFetch'} =  {
       'Function' => 'Execute',
       'MaximumParallelInstances' => '1',

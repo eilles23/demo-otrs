@@ -22,7 +22,7 @@ sudo docker exec demootrs_mail add-account customer-america@firma.de otrs
 sudo docker exec demootrs_mail add-account customer-worldwide@firma.de otrs 
 sudo docker exec demootrs_otrs sudo docker exec demootrs_mailclient rm -rf /home/developer/.sylpheed-2.0/
 sudo docker exec demootrs_otrs sudo docker cp /opt/otrs/Kernel/demo_otrs/s4/mailbox/ demootrs_mailclient:/home/developer/.sylpheed-2.0/
-sudo docker-compose restart mailclient
+#if ! [ -f /.dockerenv ]; then sudo docker-compose restart mailclient; fi
 
 #add customer
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerCompany::Add --name "DACH" --customer-id "102"'
