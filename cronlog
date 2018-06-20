@@ -1,4 +1,0 @@
-Couldn't initialize inotify.  Are you running Linux 2.6.13 or later, and was the
-CONFIG_INOTIFY option enabled when your kernel was compiled?  If so, 
-something mysterious has gone wrong.  Please e-mail radu.voicilas@gmail.com
- and mention that you saw this message.
