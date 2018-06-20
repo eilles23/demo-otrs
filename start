@@ -1,6 +1,9 @@
 #!/bin/bash
 export DEMOOTRS=`pwd`
-echo "* * * * *  $DEMOOTRS/restart_mailclient $DEMOOTRS > $DEMOOTRS/cronlog 2>&1" > ./cronjob
+#echo "* * * * *  $DEMOOTRS/restart_mailclient $DEMOOTRS > $DEMOOTRS/cronlog 2>&1" > ./cronjob
+CRONJOB= 
+echo "* * * * * /bin/bash -c 'inotifywait -e delete_self $DEMOOTRS/volumes/mailbox/.sylpheed-2.0/folderlist.xml && sleep 1 && /usr/local/bin/docker-compose -f $DEMOOTRS/docker-compose.yml restart mailclient' > $DEMOOTRS/cronlog 2>&1" > ./cronjob
+#echo "* * * * * /bin/bash -c 'if inotifywait -e delete_self $DEMOOTRS/volumes/mailbox/.sylpheed-2.0/folderlist.xml; then sleep 1 && /usr/local/bin/docker-compose -f $DEMOOTRS/docker-compose.yml restart mailclient; fi'" > ./cronjob
 sudo apt install inotify-tools
 sudo crontab ./cronjob #&& rm ./cronjob
 START_TIME=$SECONDS

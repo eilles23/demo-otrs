@@ -5,7 +5,9 @@
   ConfigChange:
     PossibleAdd:
       Process:
-      - '[RegExp]^.'
+      - 'Process-3e624fc75145d4696569f0d54c07cb67'
+      - 'Process-f728bbb6b15ea140b77319ee7962c6db'
+      - 'Process-dd22d29815efb5c33315c7433049ebdc'
   ConfigMatch:
     Properties:
       CustomerUser:
@@ -15,6 +17,6 @@
   CreateTime: 2018-03-14 11:27:21
   Description: Unrelated processes will be hidden.
   ID: 7
-  Name: AAP Admin Processes
+  Name: AAP Digicam Customer PRIVATE Processes
   StopAfterMatch: 0
   ValidID: 1
