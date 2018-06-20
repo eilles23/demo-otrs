@@ -1,0 +1,174 @@
+---
+Activities:
+  Activity-66bf74a0c0015efe542f2bece71fe2a1:
+    ActivityDialogs:
+    - ActivityDialog-6ecba786773ac6fa6c5886f90e4e9930
+    ChangeTime: 2018-03-26 09:49:50
+    Config:
+      ActivityDialog:
+        '1': ActivityDialog-6ecba786773ac6fa6c5886f90e4e9930
+    CreateTime: 2018-03-26 09:49:18
+    EntityID: Activity-66bf74a0c0015efe542f2bece71fe2a1
+    ID: '4'
+    Name: 'IntelliEyes :: Service Activation'
+  Activity-7f9becb231d6423ff413fde0850fe400:
+    ActivityDialogs: []
+    ChangeTime: 2018-03-26 19:09:43
+    Config: {}
+    CreateTime: 2018-03-26 19:09:43
+    EntityID: Activity-7f9becb231d6423ff413fde0850fe400
+    ID: '11'
+    Name: Completed
+  Activity-96ef2c1c634c9ae57aca4617b636d3a0:
+    ActivityDialogs:
+    - ActivityDialog-ecdf799f815895ab268e52778e70b87e
+    ChangeTime: 2018-03-26 10:04:30
+    Config:
+      ActivityDialog:
+        '1': ActivityDialog-ecdf799f815895ab268e52778e70b87e
+    CreateTime: 2018-03-26 09:47:00
+    EntityID: Activity-96ef2c1c634c9ae57aca4617b636d3a0
+    ID: '2'
+    Name: 'IntelliEyes :: Renewal of a Service'
+ActivityDialogs:
+  ActivityDialog-6ecba786773ac6fa6c5886f90e4e9930:
+    ChangeTime: 2018-04-09 02:31:16
+    Config:
+      DescriptionLong: ''
+      DescriptionShort: Please activate the requested service for the customer.
+      FieldOrder:
+      - DynamicField_Solution
+      - DynamicField_INTELLIDuration
+      Fields:
+        DynamicField_INTELLIDuration:
+          DefaultValue: ''
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '1'
+        DynamicField_Solution:
+          DefaultValue: approved
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '0'
+      Interface:
+      - AgentInterface
+      Permission: rw
+      RequiredLock: '1'
+      SubmitAdviceText: ''
+      SubmitButtonText: Activate Service
+    CreateTime: 2018-03-26 09:49:45
+    EntityID: ActivityDialog-6ecba786773ac6fa6c5886f90e4e9930
+    ID: '4'
+    Name: 'IntelliEyes :: Service Activation'
+  ActivityDialog-ecdf799f815895ab268e52778e70b87e:
+    ChangeTime: 2018-04-09 02:27:32
+    Config:
+      DescriptionLong: ''
+      DescriptionShort: Request the renewal of a service
+      FieldOrder:
+      - DynamicField_Market
+      - DynamicField_INTELLIDuration
+      Fields:
+        DynamicField_INTELLIDuration:
+          DefaultValue: ''
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '2'
+        DynamicField_Market:
+          DefaultValue: ''
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '2'
+      Interface:
+      - AgentInterface
+      Permission: ''
+      RequiredLock: 0
+      SubmitAdviceText: ''
+      SubmitButtonText: ''
+    CreateTime: 2018-03-26 09:47:59
+    EntityID: ActivityDialog-ecdf799f815895ab268e52778e70b87e
+    ID: '2'
+    Name: 'IntelliEyes :: Renewal of a Service'
+Process:
+  Activities:
+  - Activity-66bf74a0c0015efe542f2bece71fe2a1
+  - Activity-7f9becb231d6423ff413fde0850fe400
+  - Activity-96ef2c1c634c9ae57aca4617b636d3a0
+  ChangeTime: 2018-04-09 02:32:38
+  Config:
+    Description: Extend the duration of a service
+    Path:
+      Activity-66bf74a0c0015efe542f2bece71fe2a1:
+        Transition-efce41201952c0c0b5778d1ab13ea1f1:
+          ActivityEntityID: Activity-7f9becb231d6423ff413fde0850fe400
+          TransitionAction:
+          - TransitionAction-6eae0ba8fd49ce0ef14f06e4c7ec1193
+      Activity-7f9becb231d6423ff413fde0850fe400: {}
+      Activity-96ef2c1c634c9ae57aca4617b636d3a0:
+        Transition-2b1089ad532ca8712045640ce30749ec:
+          ActivityEntityID: Activity-66bf74a0c0015efe542f2bece71fe2a1
+    StartActivity: Activity-96ef2c1c634c9ae57aca4617b636d3a0
+    StartActivityDialog: ActivityDialog-ecdf799f815895ab268e52778e70b87e
+  CreateTime: 2018-03-26 09:46:11
+  EntityID: Process-2ac7d5962f79cbc36b1f3777d2d3b80d
+  ID: '2'
+  Layout:
+    Activity-66bf74a0c0015efe542f2bece71fe2a1:
+      left: '424'
+      top: '111'
+    Activity-7f9becb231d6423ff413fde0850fe400:
+      left: '893'
+      top: '108'
+    Activity-96ef2c1c634c9ae57aca4617b636d3a0:
+      left: '186'
+      top: '81.6166687011719'
+  Name: 'IntelliEyes :: Renewal of a Service'
+  State: Active
+  StateEntityID: S1
+  TransitionActions:
+  - TransitionAction-6eae0ba8fd49ce0ef14f06e4c7ec1193
+  Transitions:
+  - Transition-efce41201952c0c0b5778d1ab13ea1f1
+  - Transition-2b1089ad532ca8712045640ce30749ec
+TransitionActions:
+  TransitionAction-6eae0ba8fd49ce0ef14f06e4c7ec1193:
+    ChangeTime: 2018-03-26 19:15:51
+    Config:
+      Config:
+        State: close successful
+      Module: Kernel::System::ProcessManagement::TransitionAction::TicketStateSet
+    CreateTime: 2018-03-26 19:15:51
+    EntityID: TransitionAction-6eae0ba8fd49ce0ef14f06e4c7ec1193
+    ID: '4'
+    Name: State::Close successful
+Transitions:
+  Transition-2b1089ad532ca8712045640ce30749ec:
+    ChangeTime: 2018-03-26 19:09:43
+    Config:
+      Condition:
+        '1':
+          Fields:
+            DynamicField_ProcessManagementProcessID:
+              Match: ^.
+              Type: Regexp
+          Type: and
+      ConditionLinking: and
+    CreateTime: 2018-03-26 19:09:43
+    EntityID: Transition-2b1089ad532ca8712045640ce30749ec
+    ID: '1'
+    Name: Always Move
+  Transition-efce41201952c0c0b5778d1ab13ea1f1:
+    ChangeTime: 2018-03-26 19:09:43
+    Config:
+      Condition:
+        '1':
+          Fields:
+            DynamicField_Solution:
+              Match: '1'
+              Type: Regexp
+          Type: and
+      ConditionLinking: and
+    CreateTime: 2018-03-26 19:09:43
+    EntityID: Transition-efce41201952c0c0b5778d1ab13ea1f1
+    ID: '3'
+    Name: Solution
