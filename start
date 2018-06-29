@@ -1,12 +1,11 @@
 #!/bin/bash
 export DEMOOTRS=`pwd`
 #echo "* * * * *  $DEMOOTRS/restart_mailclient $DEMOOTRS > $DEMOOTRS/cronlog 2>&1" > ./cronjob
-CRONJOB= 
-echo "* * * * * /bin/bash -c 'inotifywait -e delete_self $DEMOOTRS/volumes/mailbox/.sylpheed-2.0/folderlist.xml && sleep 1 && /usr/local/bin/docker-compose -f $DEMOOTRS/docker-compose.yml restart mailclient' > $DEMOOTRS/cronlog 2>&1" > ./cronjob
-#echo "* * * * * /bin/bash -c 'if inotifywait -e delete_self $DEMOOTRS/volumes/mailbox/.sylpheed-2.0/folderlist.xml; then sleep 1 && /usr/local/bin/docker-compose -f $DEMOOTRS/docker-compose.yml restart mailclient; fi'" > ./cronjob
+echo "* * * * * /bin/bash -c 'inotifywait -e delete_self $DEMOOTRS/volumes/mailbox/.sylpheed-2.0/folderlist.xml && sleep 1 && /usr/local/bin/docker-compose -f $DEMOOTRS/docker-compose.yml restart mailclient && if [ -e $DEMOOTRS/volumes/config/demo_otrs/stopcronjob ];then sudo crontab -r;fi' > $DEMOOTRS/cronlog 2>&1" > ./cronjob
 sudo apt install -y inotify-tools
 sudo crontab ./cronjob #&& rm ./cronjob
-START_TIME=$SECONDS
+STARTTIME=$SECONDS
+
 echo -n "-> web-setup" 
 #sudo docker exec demootrs_otrs  sed -i 's/index.pl//' /etc/httpd/conf/httpd.conf
 sudo docker cp ./web/. demootrs_otrs:/var/www/html/ && sudo docker cp ./web/fonts/. demootrs_otrs:/var/www/html/fonts
@@ -76,15 +75,9 @@ fi
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::Package::Install /opt/otrs/Kernel/demo_otrs/FAQ-*'
 
 #update faq category & add sub categories
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::FAQ::UpdateCategory --name "Readme" --ID "1" --parent "0" --comment "demo-otrs guide" --groups "1,2"'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::FAQ::UpdateCategory --name "Demo-OTRS" --ID "1" --parent "0" --comment "demo-otrs guide" --groups "1,2"'
 #add faq articles
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::FAQ::Import "/opt/otrs/Kernel/demo_otrs/start.csv"'
-
-#Add PostMaster-MailAccount
-sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::MailAccount::Add --login support@firma.de --password otrs --host mail --type IMAP --valid 1 --IMAPFolder INBOX --trusted "1" --dispatchingby Queue --queueID "1" '
-
-#update systemaddress
-sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::SystemAddress::Update --valid 1 --ID 1 --name "Mayer GmbH Support" --email-address support@firma.de --queue-name Postmaster'
+sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Custom::Admin::FAQ::Import "/opt/otrs/Kernel/demo_otrs/start.csv"'
 
 ## add admin
 sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::User::Add --user-name "admin" --first-name OTRS --last-name Admin --email-address "admin@localhost" --password "otrs"'
@@ -103,18 +96,8 @@ sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::Webservice::Add --file "GenericTicketConnectorREST.yml" --name "GenericTicketConnectorREST"'
 sudo docker exec demootrs_otrs su - otrs -c '/opt/otrs/bin/otrs.Console.pl Custom::Admin::Webservice::Add --file "GenericTicketConnectorSOAP.yml" --name "GenericTicketConnectorSAOP"'
 
-
-#sudo docker exec demootrs_otrs  su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Admin::CustomerUser::Add --user-name "webservice" --first-name webservice --last-name customeruser --email-address "root@localhost" --password "otrs" --customer-id "100"'
-#connect customer user to group
-#sudo -u otrs perl /opt/otrs/bin/otrs.Console.pl Admin::Group::CustomerLink --customer-user-login 'kunde1' --group-name 'groupane' --permission 'ro'
-
 #delete  default ticket
 sudo docker exec demootrs_otrs su - otrs -c 'perl /opt/otrs/bin/otrs.Console.pl Maint::Ticket::Delete --ticket-id "1"'
 
-
-ELAPSED_TIME=$(($SECONDS - $START_TIME))
 #load s1
-./config/s1.sh $ELAPSED_TIME
-
-
-
+./config/s1.sh $(($SECONDS - $STARTTIME))
